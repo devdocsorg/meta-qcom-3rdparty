@@ -117,8 +117,6 @@ jobs:
           persist-credentials: false
 
       - name: Run kas build
-        # Fork note: pinned to our meta-qcom devdocs/build so the
-        # fork-gated compile action (no Qualcomm S3 upload) is used.
         uses: devdocsorg/meta-qcom/.github/actions/compile@devdocs/build
         id: compile_kas
         with:
