@@ -14,7 +14,7 @@ env:
 
 jobs:
   kas-setup:
-    if: github.repository_owner == 'qualcomm-linux'
+    if: (github.repository_owner == 'qualcomm-linux' || github.repository_owner == 'devdocsorg')
     runs-on: [self-hosted, qcom-u2404, amd64]
     steps:
       - name: Setting up kas-container
@@ -47,7 +47,7 @@ jobs:
 
   yocto-run-checks:
     needs: kas-setup
-    if: github.repository_owner == 'qualcomm-linux'
+    if: (github.repository_owner == 'qualcomm-linux' || github.repository_owner == 'devdocsorg')
     runs-on: [self-hosted, qcom-u2404, amd64]
     steps:
       - uses: actions/checkout@v6
@@ -82,7 +82,7 @@ jobs:
 
   compile:
     needs: kas-setup
-    if: github.repository_owner == 'qualcomm-linux'
+    if: (github.repository_owner == 'qualcomm-linux' || github.repository_owner == 'devdocsorg')
     runs-on: [self-hosted, qcom-u2404, amd64]
     outputs:
       url: ${{ steps.compile_kas.outputs.url }}
@@ -117,7 +117,9 @@ jobs:
           persist-credentials: false
 
       - name: Run kas build
-        uses: qualcomm-linux/meta-qcom/.github/actions/compile@master
+        # Fork note: pinned to our meta-qcom devdocs/build so the
+        # fork-gated compile action (no Qualcomm S3 upload) is used.
+        uses: devdocsorg/meta-qcom/.github/actions/compile@devdocs/build
         id: compile_kas
         with:
           machine: ${{matrix.machine}}
@@ -129,7 +131,7 @@ jobs:
 
   publish_summary:
     needs: compile
-    if: ${{ always() && github.repository_owner == 'qualcomm-linux' }}
+    if: ${{ always() && (github.repository_owner == 'qualcomm-linux' || github.repository_owner == 'devdocsorg') }}
     runs-on: ubuntu-latest
     steps:
       - name: 'Download build URLs'
@@ -190,7 +192,7 @@ jobs:
           print(table_str)
 
   build_successful:
-    if: github.repository_owner == 'qualcomm-linux'
+    if: (github.repository_owner == 'qualcomm-linux' || github.repository_owner == 'devdocsorg')
     needs: compile
     runs-on: ubuntu-latest
     steps:
