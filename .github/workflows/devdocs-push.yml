@@ -11,6 +11,7 @@ permissions:
   pull-requests: write
   contents: read
   packages: read
+  id-token: write
 
 # One shared AWS runner: serialize builds, queue instead of cancel.
 concurrency:
@@ -40,6 +41,7 @@ jobs:
   build:
     needs: start-runner
     uses: ./.github/workflows/build-yocto.yml
+    secrets: inherit
 
   stop-runner:
     name: Stop AWS runner

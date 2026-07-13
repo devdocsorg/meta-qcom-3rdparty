@@ -127,6 +127,35 @@ jobs:
           kernel_dirname: ${{matrix.kernel.dirname}}
           cache_dir: ${{env.CACHE_DIR}}
 
+      - name: Configure AWS credentials
+        if: github.repository_owner == 'devdocsorg'
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Upload artifacts to S3
+        if: github.repository_owner == 'devdocsorg'
+        shell: bash
+        run: |
+          set -eu
+          BUCKET="${{ secrets.AWS_S3_BUCKET }}"
+          if [ -z "$BUCKET" ]; then
+            echo "::error::AWS_S3_BUCKET secret is not set for this repository"
+            exit 1
+          fi
+          DEST="${{ github.repository_owner }}/${{ github.event.repository.name }}/${{ github.run_id }}-${{ github.run_attempt }}"
+          if command -v aws >/dev/null 2>&1; then
+            aws s3 sync ./uploads "s3://${BUCKET}/${DEST}/" --no-progress
+          else
+            # No host aws CLI on the runner: fall back to the official image.
+            docker run --rm -v "${PWD}/uploads:/uploads" \
+              -e AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY -e AWS_SESSION_TOKEN \
+              -e AWS_REGION -e AWS_DEFAULT_REGION \
+              amazon/aws-cli s3 sync /uploads "s3://${BUCKET}/${DEST}/" --no-progress
+          fi
+          echo "Uploaded artifacts to s3://${BUCKET}/${DEST}/"
+
   publish_summary:
     needs: compile
     if: ${{ always() && (github.repository_owner == 'qualcomm-linux' || github.repository_owner == 'devdocsorg') }}
