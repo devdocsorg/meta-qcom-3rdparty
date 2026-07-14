@@ -26,8 +26,9 @@ jobs:
     name: Start AWS runner
     # Skip fork PRs: untrusted code must not reach the self-hosted runner.
     if: >-
-      github.event_name != 'pull_request' ||
-      github.event.pull_request.head.repo.full_name == github.repository
+      github.repository_owner == 'devdocsorg' &&
+      (github.event_name != 'pull_request' ||
+       github.event.pull_request.head.repo.full_name == github.repository)
     runs-on: ubuntu-latest
     permissions:
       id-token: write
@@ -47,8 +48,9 @@ jobs:
   build:
     needs: start-runner
     if: >-
-      github.event_name != 'pull_request' ||
-      github.event.pull_request.head.repo.full_name == github.repository
+      github.repository_owner == 'devdocsorg' &&
+      (github.event_name != 'pull_request' ||
+       github.event.pull_request.head.repo.full_name == github.repository)
     uses: ./.github/workflows/build-yocto.yml
     secrets: inherit
 
@@ -57,6 +59,7 @@ jobs:
     needs: [build]
     if: >-
       always() &&
+      github.repository_owner == 'devdocsorg' &&
       (github.event_name != 'pull_request' ||
        github.event.pull_request.head.repo.full_name == github.repository)
     runs-on: ubuntu-latest
