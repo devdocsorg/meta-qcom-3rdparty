@@ -117,7 +117,7 @@ jobs:
           persist-credentials: false
 
       - name: Run kas build
-        uses: devdocsorg/meta-qcom/.github/actions/compile@devdocs/main
+        uses: devdocsorg/meta-qcom/.github/actions/compile@devdocs/master
         id: compile_kas
         with:
           machine: ${{matrix.machine}}

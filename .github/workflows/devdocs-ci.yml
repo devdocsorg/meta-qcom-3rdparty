@@ -4,10 +4,10 @@ name: DevDocs CI
 on:
   pull_request:
     branches:
-      - devdocs/master
+      - devdocs/main
   push:
     branches:
-      - devdocs/master
+      - devdocs/main
       - devdocs/build-*   # manual escape hatch for long-lived experiments
 
 permissions:
