@@ -24,6 +24,7 @@ concurrency:
 jobs:
   start-runner:
     name: Start AWS runner
+    # Skip fork PRs: untrusted code must not reach the self-hosted runner.
     if: >-
       github.event_name != 'pull_request' ||
       github.event.pull_request.head.repo.full_name == github.repository
@@ -50,3 +51,25 @@ jobs:
       github.event.pull_request.head.repo.full_name == github.repository
     uses: ./.github/workflows/build-yocto.yml
     secrets: inherit
+
+  stop-runner:
+    name: Stop AWS runner
+    needs: [build]
+    if: >-
+      always() &&
+      (github.event_name != 'pull_request' ||
+       github.event.pull_request.head.repo.full_name == github.repository)
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+    steps:
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Stop runner instance
+        run: aws ec2 stop-instances --instance-ids "$AWS_RUNNER_ID"
+        env:
+          AWS_RUNNER_ID: ${{ secrets.AWS_RUNNER_ID }}
