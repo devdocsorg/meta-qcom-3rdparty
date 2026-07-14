@@ -9,12 +9,12 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  CACHE_DIR: /efs/qli/meta-qcom
+  CACHE_DIR: /home/ubuntu/cache/yocto/meta-qcom-3rdparty
   KAS_CLONE_DEPTH: 1
 
 jobs:
   kas-setup:
-    if: github.repository_owner == 'qualcomm-linux'
+    if: (github.repository_owner == 'qualcomm-linux' || github.repository_owner == 'devdocsorg')
     runs-on: [self-hosted, qcom-u2404, amd64]
     steps:
       - name: Setting up kas-container
@@ -47,7 +47,7 @@ jobs:
 
   yocto-run-checks:
     needs: kas-setup
-    if: github.repository_owner == 'qualcomm-linux'
+    if: (github.repository_owner == 'qualcomm-linux' || github.repository_owner == 'devdocsorg')
     runs-on: [self-hosted, qcom-u2404, amd64]
     steps:
       - uses: actions/checkout@v6
@@ -82,7 +82,7 @@ jobs:
 
   compile:
     needs: kas-setup
-    if: github.repository_owner == 'qualcomm-linux'
+    if: (github.repository_owner == 'qualcomm-linux' || github.repository_owner == 'devdocsorg')
     runs-on: [self-hosted, qcom-u2404, amd64]
     outputs:
       url: ${{ steps.compile_kas.outputs.url }}
@@ -117,7 +117,7 @@ jobs:
           persist-credentials: false
 
       - name: Run kas build
-        uses: qualcomm-linux/meta-qcom/.github/actions/compile@master
+        uses: devdocsorg/meta-qcom/.github/actions/compile@devdocs/main
         id: compile_kas
         with:
           machine: ${{matrix.machine}}
@@ -127,9 +127,38 @@ jobs:
           kernel_dirname: ${{matrix.kernel.dirname}}
           cache_dir: ${{env.CACHE_DIR}}
 
+      - name: Configure AWS credentials
+        if: github.repository_owner == 'devdocsorg'
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Upload artifacts to S3
+        if: github.repository_owner == 'devdocsorg'
+        shell: bash
+        run: |
+          set -eu
+          BUCKET="${{ secrets.AWS_S3_BUCKET }}"
+          if [ -z "$BUCKET" ]; then
+            echo "::error::AWS_S3_BUCKET secret is not set for this repository"
+            exit 1
+          fi
+          DEST="${{ github.repository_owner }}/${{ github.event.repository.name }}/${{ github.run_id }}-${{ github.run_attempt }}"
+          if command -v aws >/dev/null 2>&1; then
+            aws s3 sync ./uploads "s3://${BUCKET}/${DEST}/" --no-progress
+          else
+            # No host aws CLI on the runner: fall back to the official image.
+            docker run --rm -v "${PWD}/uploads:/uploads" \
+              -e AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY -e AWS_SESSION_TOKEN \
+              -e AWS_REGION -e AWS_DEFAULT_REGION \
+              amazon/aws-cli s3 sync /uploads "s3://${BUCKET}/${DEST}/" --no-progress
+          fi
+          echo "Uploaded artifacts to s3://${BUCKET}/${DEST}/"
+
   publish_summary:
     needs: compile
-    if: ${{ always() && github.repository_owner == 'qualcomm-linux' }}
+    if: ${{ always() && (github.repository_owner == 'qualcomm-linux' || github.repository_owner == 'devdocsorg') }}
     runs-on: ubuntu-latest
     steps:
       - name: 'Download build URLs'
@@ -190,7 +219,7 @@ jobs:
           print(table_str)
 
   build_successful:
-    if: github.repository_owner == 'qualcomm-linux'
+    if: (github.repository_owner == 'qualcomm-linux' || github.repository_owner == 'devdocsorg')
     needs: compile
     runs-on: ubuntu-latest
     steps:
