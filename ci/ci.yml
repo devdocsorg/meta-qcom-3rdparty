@@ -6,3 +6,9 @@ header:
     - ci/meta-qcom.yml
     - repo: meta-qcom
       file: ci/ci.yml
+
+local_conf_header:
+  resource-limits: |
+    BB_PRESSURE_MAX_CPU = "500000"
+    BB_PRESSURE_MAX_IO = "500000"
+    BB_PRESSURE_MAX_MEMORY = "100000"
