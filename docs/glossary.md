@@ -1,4 +1,4 @@
-<!-- Generated from the curated term list at wrynose @ 7649ae51 (2026-08-31) by docsgen on 2026-09-07. Manual edits will be overwritten on regeneration; change the source, not this page. -->
+<!-- Generated from the curated term list at wrynose @ e804c5eb (2026-09-08) by docsgen on 2026-09-08. Manual edits will be overwritten on regeneration; change the source, not this page. -->
 
 # Glossary
 

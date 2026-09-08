@@ -1,4 +1,4 @@
-<!-- Generated from conf/ at wrynose @ 7649ae51 (2026-08-31) by docsgen on 2026-09-07. Manual edits will be overwritten on regeneration; change the source, not this page. -->
+<!-- Generated from conf/ at wrynose @ e804c5eb (2026-09-08) by docsgen on 2026-09-08. Manual edits will be overwritten on regeneration; change the source, not this page. -->
 
 # conf/
 
@@ -8,7 +8,7 @@ This folder holds `layer.conf`, which registers the layer with BitBake and decla
 
 | File | Description | Reference |
 | --- | --- | --- |
-| [conf/layer.conf](layer.conf) | Collection name, file pattern, priority, layer dependencies, Yocto release compatibility and the dynamic-layer gate. Used by BitBake layer loading, through the kas fragment [ci/base.yml](../ci/base.yml). Derived from meta-qcom's `conf/layer.conf` and kept in step by hand. | Configuration variables |
+| [conf/layer.conf](layer.conf) | Collection name, file pattern, priority, layer dependencies, Yocto release compatibility and the dynamic-layer gate. Used by BitBake layer loading, through the kas fragment [ci/base.yml](../ci/base.yml). Derived from meta-qcom's `conf/layer.conf` and kept in step by hand. Carries priority 5, below the 6 meta-qcom's [`layer.conf`](https://github.com/qualcomm-linux/meta-qcom/blob/wrynose/conf/layer.conf#L14) sets and level with OE-Core's 5, so a meta-qcom recipe wins over a same-name recipe here while bbappends apply regardless of priority. | Configuration variables |
 | `conf/machine/` | Machine configurations for the boards this layer supports. | [conf/machine/](machine/README.md) |
 
 ## Description

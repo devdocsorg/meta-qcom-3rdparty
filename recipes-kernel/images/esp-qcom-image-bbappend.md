@@ -1,8 +1,8 @@
-<!-- Generated from recipes-kernel/images/esp-qcom-image.bbappend at wrynose @ 7649ae51 (2026-08-31) by docsgen on 2026-09-07. Manual edits will be overwritten on regeneration; change the source, not this page. -->
+<!-- Generated from recipes-kernel/images/esp-qcom-image.bbappend at wrynose @ e804c5eb (2026-09-08) by docsgen on 2026-09-08. Manual edits will be overwritten on regeneration; change the source, not this page. -->
 
 # esp-qcom-image
 
-Modifies the `esp-qcom-image` recipe. That recipe is not defined in this layer; another layer in the build provides it, and this repository pins no revision of it. This layer declares `LAYERDEPENDS_qcom-3rdparty = "core qcom"` in [conf/layer.conf](../../conf/layer.conf). Used by the `esp-qcom-image` recipe in meta-qcom, which this file extends.
+Modifies the `esp-qcom-image` recipe. That recipe is not defined in this layer; another layer in the build provides it, and this repository pins no revision of it. This layer declares `LAYERDEPENDS_qcom-3rdparty = "core qcom"` in [conf/layer.conf](../../conf/layer.conf). Used by the [`esp-qcom-image`](https://github.com/qualcomm-linux/meta-qcom/blob/wrynose/recipes-kernel/images/esp-qcom-image.bb) recipe in meta-qcom, which this file extends.
 
 Bbappend file: [recipes-kernel/images/esp-qcom-image.bbappend](esp-qcom-image.bbappend).
 

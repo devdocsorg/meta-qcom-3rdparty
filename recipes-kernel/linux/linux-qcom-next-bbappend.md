@@ -1,8 +1,8 @@
-<!-- Generated from recipes-kernel/linux/linux-qcom-next_git.bbappend at wrynose @ 7649ae51 (2026-08-31) by docsgen on 2026-09-07. Manual edits will be overwritten on regeneration; change the source, not this page. -->
+<!-- Generated from recipes-kernel/linux/linux-qcom-next_git.bbappend at wrynose @ e804c5eb (2026-09-08) by docsgen on 2026-09-08. Manual edits will be overwritten on regeneration; change the source, not this page. -->
 
 # linux-qcom-next
 
-Modifies the `linux-qcom-next` recipe. That recipe is not defined in this layer; another layer in the build provides it, and this repository pins no revision of it. This layer declares `LAYERDEPENDS_qcom-3rdparty = "core qcom"` in [conf/layer.conf](../../conf/layer.conf). Used by the `linux-qcom-next` recipe in meta-qcom, which this file extends.
+Modifies the `linux-qcom-next` recipe. That recipe is not defined in this layer; another layer in the build provides it, and this repository pins no revision of it. This layer declares `LAYERDEPENDS_qcom-3rdparty = "core qcom"` in [conf/layer.conf](../../conf/layer.conf). Used by the [`linux-qcom-next`](https://github.com/qualcomm-linux/meta-qcom/blob/wrynose/recipes-kernel/linux/linux-qcom-next_git.bb) recipe in meta-qcom, which this file extends.
 
 Bbappend file: [recipes-kernel/linux/linux-qcom-next_git.bbappend](linux-qcom-next_git.bbappend).
 

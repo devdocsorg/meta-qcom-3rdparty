@@ -1,8 +1,8 @@
-<!-- Generated from recipes-bsp/u-boot/u-boot-arduino_git.bb at wrynose @ 7649ae51 (2026-08-31) by docsgen on 2026-09-07. Manual edits will be overwritten on regeneration; change the source, not this page. -->
+<!-- Generated from recipes-bsp/u-boot/u-boot-arduino_git.bb at wrynose @ e804c5eb (2026-09-08) by docsgen on 2026-09-08. Manual edits will be overwritten on regeneration; change the source, not this page. -->
 
 # u-boot-arduino
 
-Used by [conf/machine/uno-q.conf](../../conf/machine/uno-q.conf), which names `u-boot-arduino`.
+Used by [conf/machine/uno-q.conf](../../conf/machine/uno-q.conf), which names `u-boot-arduino`. Pulls in OE-Core's [`u-boot-common.inc`](https://github.com/openembedded/openembedded-core/blob/wrynose/meta/recipes-bsp/u-boot/u-boot-common.inc) and [`u-boot.inc`](https://github.com/openembedded/openembedded-core/blob/wrynose/meta/recipes-bsp/u-boot/u-boot.inc).
 
 | Field | Detail |
 | --- | --- |
@@ -14,10 +14,10 @@ Used by [conf/machine/uno-q.conf](../../conf/machine/uno-q.conf), which names `u
 
 | Variable | Effect |
 | --- | --- |
-| [`DEPENDS`](https://docs.yoctoproject.org/ref-manual/variables.html#term-DEPENDS) `+=` | Build-time dependencies: recipes that must be staged before this one builds. This file adds `bc-native`, `dtc-native`, `gnutls-native`, `python3-pyelftools-native`, `skales-native` and `xxd-native`. |
-| [`SRC_URI`](https://docs.yoctoproject.org/ref-manual/variables.html#term-SRC_URI) `=` | Source locations the recipe fetches and unpacks. |
+| [`DEPENDS`](https://docs.yoctoproject.org/ref-manual/variables.html#term-DEPENDS) `+=` | Build-time dependencies: recipes that must be staged before this one builds. This file adds `bc-native`, `dtc-native`, `gnutls-native`, `python3-pyelftools-native`, `skales-native` and `xxd-native`. Extends the value set by OE-Core's [`u-boot-common.inc`](https://github.com/openembedded/openembedded-core/blob/wrynose/meta/recipes-bsp/u-boot/u-boot-common.inc#L7) and [`u-boot.inc`](https://github.com/openembedded/openembedded-core/blob/wrynose/meta/recipes-bsp/u-boot/u-boot.inc#L6). |
+| [`SRC_URI`](https://docs.yoctoproject.org/ref-manual/variables.html#term-SRC_URI) `=` | Source locations the recipe fetches and unpacks. Reassigns the value OE-Core's [`u-boot-common.inc`](https://github.com/openembedded/openembedded-core/blob/wrynose/meta/recipes-bsp/u-boot/u-boot-common.inc#L17) sets. |
 | `SRCBRANCH =` | Recipe-local variable substituted into the SCM parameters of `SRC_URI`. This file sets it to `qcom-mainline`. |
-| [`SRCREV`](https://docs.yoctoproject.org/ref-manual/variables.html#term-SRCREV) `=` | Source revision fetched for the SCM entry in `SRC_URI`. This file sets it to `8008ca96a4dc53ddb3e51b96ea7e86d881ab7969`. |
+| [`SRCREV`](https://docs.yoctoproject.org/ref-manual/variables.html#term-SRCREV) `=` | Source revision fetched for the SCM entry in `SRC_URI`. This file sets it to `8008ca96a4dc53ddb3e51b96ea7e86d881ab7969`. Reassigns the value OE-Core's [`u-boot-common.inc`](https://github.com/openembedded/openembedded-core/blob/wrynose/meta/recipes-bsp/u-boot/u-boot-common.inc#L15) sets. |
 | [`PV`](https://docs.yoctoproject.org/ref-manual/variables.html#term-PV) `=` | Package version. Left unset, the version is taken from the recipe filename. This file sets it to `2025.10+2026.01-rc3+git`. |
 | [`COMPATIBLE_MACHINE`](https://docs.yoctoproject.org/ref-manual/variables.html#term-COMPATIBLE_MACHINE) `=` | Regular expression limiting the machines this recipe will build for. This file sets the pattern `(uno-q)`, which matches [`uno-q`](../../conf/machine/uno-q.md) in this layer. |
 | [`do_compile[depends]`](https://docs.yoctoproject.org/bitbake/bitbake-user-manual/bitbake-user-manual-metadata.html#variable-flags) `+=` | Task-level dependency: the named task of another recipe must complete before this task runs. |
@@ -26,7 +26,7 @@ Used by [conf/machine/uno-q.conf](../../conf/machine/uno-q.conf), which names `u
 
 | Variable | Effect |
 | --- | --- |
-| [`PROVIDES`](https://docs.yoctoproject.org/ref-manual/variables.html#term-PROVIDES) `+=` | Additional names this recipe satisfies, so other recipes can depend on it by those names. Adds the `u-boot` provided names. |
+| [`PROVIDES`](https://docs.yoctoproject.org/ref-manual/variables.html#term-PROVIDES) `+=` | Additional names this recipe satisfies, so other recipes can depend on it by those names. Adds the `u-boot` provided names. Extends the `virtual/bootloader` set from OE-Core's [`u-boot.inc`](https://github.com/openembedded/openembedded-core/blob/wrynose/meta/recipes-bsp/u-boot/u-boot.inc#L2). |
 
 ## Tasks
 

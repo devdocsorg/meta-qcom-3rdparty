@@ -1,8 +1,8 @@
-<!-- Generated from recipes-bsp/firmware-boot/firmware-qcom-boot-qrb2210-arduino-imola_251020.bb at wrynose @ 7649ae51 (2026-08-31) by docsgen on 2026-09-07. Manual edits will be overwritten on regeneration; change the source, not this page. -->
+<!-- Generated from recipes-bsp/firmware-boot/firmware-qcom-boot-qrb2210-arduino-imola_251020.bb at wrynose @ e804c5eb (2026-09-08) by docsgen on 2026-09-08. Manual edits will be overwritten on regeneration; change the source, not this page. -->
 
 # firmware-qcom-boot-qrb2210-arduino-imola
 
-Prebuilt bootloader images for Arduino UNO Q. Used by [conf/machine/uno-q.conf](../../conf/machine/uno-q.conf) and [dynamic-layers/qcom-distro/recipes-products/images/qcom-multimedia-image.bbappend](../../dynamic-layers/qcom-distro/recipes-products/images/qcom-multimedia-image.bbappend), which name `firmware-qcom-boot-qrb2210-arduino-imola`.
+Prebuilt bootloader images for Arduino UNO Q. Used by [conf/machine/uno-q.conf](../../conf/machine/uno-q.conf) and [dynamic-layers/qcom-distro/recipes-products/images/qcom-multimedia-image.bbappend](../../dynamic-layers/qcom-distro/recipes-products/images/qcom-multimedia-image.bbappend), which name `firmware-qcom-boot-qrb2210-arduino-imola`. Pulls in meta-qcom's [`firmware-qcom-boot-common.inc`](https://github.com/qualcomm-linux/meta-qcom/blob/wrynose/recipes-bsp/firmware-boot/firmware-qcom-boot-common.inc).
 
 | Field | Detail |
 | --- | --- |

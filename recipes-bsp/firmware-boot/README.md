@@ -1,4 +1,4 @@
-<!-- Generated from recipes-bsp/firmware-boot/ at wrynose @ 7649ae51 (2026-08-31) by docsgen on 2026-09-07. Manual edits will be overwritten on regeneration; change the source, not this page. -->
+<!-- Generated from recipes-bsp/firmware-boot/ at wrynose @ e804c5eb (2026-09-08) by docsgen on 2026-09-08. Manual edits will be overwritten on regeneration; change the source, not this page. -->
 
 # recipes-bsp/firmware-boot/
 

@@ -1,8 +1,8 @@
-<!-- Generated from dynamic-layers/qcom-distro/recipes-products/images/qcom-multimedia-image.bbappend at wrynose @ 7649ae51 (2026-08-31) by docsgen on 2026-09-07. Manual edits will be overwritten on regeneration; change the source, not this page. -->
+<!-- Generated from dynamic-layers/qcom-distro/recipes-products/images/qcom-multimedia-image.bbappend at wrynose @ e804c5eb (2026-09-08) by docsgen on 2026-09-08. Manual edits will be overwritten on regeneration; change the source, not this page. -->
 
 # qcom-multimedia-image
 
-Modifies the `qcom-multimedia-image` recipe. That recipe is not defined in this layer; another layer in the build provides it, and this repository pins no revision of it. This layer declares `LAYERDEPENDS_qcom-3rdparty = "core qcom"` in [conf/layer.conf](../../../../conf/layer.conf). Used by the `qcom-multimedia-image` recipe in meta-qcom-distro, which this file extends.
+Modifies the `qcom-multimedia-image` recipe. That recipe is not defined in this layer; another layer in the build provides it, and this repository pins no revision of it. This layer declares `LAYERDEPENDS_qcom-3rdparty = "core qcom"` in [conf/layer.conf](../../../../conf/layer.conf). Used by the [`qcom-multimedia-image`](https://github.com/qualcomm-linux/meta-qcom-distro/blob/wrynose/recipes-products/images/qcom-multimedia-image.bb) recipe in meta-qcom-distro, which this file extends.
 
 Bbappend file: [dynamic-layers/qcom-distro/recipes-products/images/qcom-multimedia-image.bbappend](qcom-multimedia-image.bbappend).
 
