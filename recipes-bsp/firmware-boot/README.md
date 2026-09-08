@@ -12,7 +12,7 @@ A recipe that installs prebuilt, vendor-supplied boot firmware for the Arduino U
 
 ## Description
 
-The recipe fetches a signed archive of NHLOS (Non-Hyp Loaded Operating System) boot binaries (bootloader stages, partition tables and related images) from a vendor download URL, verifies it against a pinned SHA-256, and copies the recognized artifact types into a machine-specific subdirectory of `DEPLOY_DIR_IMAGE`. `do_configure[noexec]` and `do_compile[noexec]` switch the build steps off: the recipe unpacks and deploys firmware compiled elsewhere.
+The recipe fetches a signed archive of NHLOS boot binaries (bootloader stages, partition tables and related images) from a vendor download URL, verifies it against a pinned SHA-256, and copies the recognized artifact types into a machine-specific subdirectory of `DEPLOY_DIR_IMAGE`. `do_configure[noexec]` and `do_compile[noexec]` switch the build steps off: the recipe unpacks and deploys firmware compiled elsewhere.
 
 The shared mechanics (`do_deploy`, the `deploy` and `allarch` inheritance, and the binary-copy logic) live in `firmware-qcom-boot-common.inc`, which each machine-specific recipe includes. That include is not defined in this layer; another layer in the build provides it, and BitBake resolves it through `BBPATH` at parse time. A recipe here sets the three things that vary per board: `SRC_URI` and its checksum, `BOOTBINARIES`, and `QCOM_BOOT_IMG_SUBDIR`.
 

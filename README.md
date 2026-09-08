@@ -60,6 +60,7 @@ revision: HEAD
 | [recipes-kernel/linux/](recipes-kernel/linux/README.md) | kernel recipes, bbappends and configuration fragments |
 | [docs/index.md](docs/index.md) | hand-written documentation home and kas quick start |
 | [docs/contributing.md](docs/contributing.md) | contribution rules for this layer |
+| [docs/glossary.md](docs/glossary.md) | glossary of the Yocto and Qualcomm terms this layer's documentation uses |
 | [BACKPORTING.md](BACKPORTING.md) | backport workflow for the stable branches. Derived from meta-qcom's `BACKPORTING.md` and kept in step by hand. |
 | [AGENTS.md](AGENTS.md) | automated-agent instructions for this repository. Derived from meta-qcom's `AGENTS.md` and kept in step by hand. |
 

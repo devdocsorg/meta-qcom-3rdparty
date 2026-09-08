@@ -25,6 +25,7 @@ References:
 
 - [Yocto Project Overview](https://docs.yoctoproject.org/overview-manual/yp-intro.html)
 - [OpenEmbedded Layer Index](https://layers.openembedded.org/layerindex/)
+- [Glossary](glossary.md) of the Yocto and Qualcomm terms this documentation uses
 
 ---
 
