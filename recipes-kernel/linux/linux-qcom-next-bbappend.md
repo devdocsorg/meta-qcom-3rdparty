@@ -4,6 +4,8 @@
 
 Modifies the `linux-qcom-next` recipe. That recipe is not defined in this layer; another layer in the build provides it, and this repository pins no revision of it. This layer declares `LAYERDEPENDS_qcom-3rdparty = "core qcom"` in [conf/layer.conf](../../conf/layer.conf). Used by the [`linux-qcom-next`](https://github.com/qualcomm-linux/meta-qcom/blob/wrynose/recipes-kernel/linux/linux-qcom-next_git.bb) recipe in meta-qcom, which this file extends.
 
+A bbappend extends a recipe that lives in another layer, adding settings and files to it while the recipe itself stays where it is ([bbappend](../../docs/glossary.md), [appending to another layer's metadata](https://docs.yoctoproject.org/dev-manual/layers.html#appending-other-layers-metadata-with-your-layer)). This one adds a Realtek Ethernet configuration fragment to the Radxa Dragon Q6A's kernel build.
+
 Bbappend file: [recipes-kernel/linux/linux-qcom-next_git.bbappend](linux-qcom-next_git.bbappend).
 
 ## Configuration variables

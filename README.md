@@ -11,6 +11,8 @@ OpenEmbedded/Yocto Project BSP layer for Third-Party Maintained Qualcomm based p
 
 This layer provides additional recipes and machine configuration files for Third-Party Maintained Qualcomm platforms. Reference boards that are officially supported by Qualcomm are available via `meta-qcom` instead.
 
+This repository is one [layer](docs/glossary.md): a directory of BitBake metadata that a build loads beside OpenEmbedded-Core and meta-qcom. A build selects one of the two boards it supports, the Arduino UNO Q and the Radxa Dragon Q6A, by setting `MACHINE` to that board's name. [docs/index.md](docs/index.md) is the documentation home for the layer.
+
 ## Dependencies
 
 This layer depends on:
@@ -48,6 +50,9 @@ revision: HEAD
 
 | Path | Contents |
 | --- | --- |
+| [docs/index.md](docs/index.md) | hand-written documentation home and kas quick start |
+| [docs/contributing.md](docs/contributing.md) | contribution rules for this layer |
+| [docs/glossary.md](docs/glossary.md) | glossary of the Yocto and Qualcomm terms this layer's documentation uses |
 | [.github/workflows/](.github/workflows/README.md) | build, lint, preflight and test-reporting workflows |
 | [ci/](ci/README.md) | kas build fragments and CI scripts |
 | [conf/](conf/README.md) | layer collection, priority, dependencies and the dynamic-layer gate |
@@ -58,9 +63,6 @@ revision: HEAD
 | [recipes-bsp/u-boot/](recipes-bsp/u-boot/README.md) | bootloader recipe built from source |
 | [recipes-kernel/images/](recipes-kernel/images/README.md) | machine-scoped image recipe bbappends |
 | [recipes-kernel/linux/](recipes-kernel/linux/README.md) | kernel recipes, bbappends and configuration fragments |
-| [docs/index.md](docs/index.md) | hand-written documentation home and kas quick start |
-| [docs/contributing.md](docs/contributing.md) | contribution rules for this layer |
-| [docs/glossary.md](docs/glossary.md) | glossary of the Yocto and Qualcomm terms this layer's documentation uses |
 | [BACKPORTING.md](BACKPORTING.md) | backport workflow for the stable branches. Derived from meta-qcom's `BACKPORTING.md` and kept in step by hand. |
 | [AGENTS.md](AGENTS.md) | automated-agent instructions for this repository. Derived from meta-qcom's `AGENTS.md` and kept in step by hand. |
 

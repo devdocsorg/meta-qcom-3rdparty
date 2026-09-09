@@ -2,7 +2,7 @@
 
 # conf/
 
-This folder holds `layer.conf`, which registers the layer with BitBake and declares what it depends on, together with the [conf/machine/](machine/README.md) directory of machine configurations the layer ships. Used by [ci/base.yml](../ci/base.yml).
+A layer configuration registers a directory of metadata as a [layer](../docs/glossary.md) in a build ([creating layers](https://docs.yoctoproject.org/dev-manual/layers.html#understanding-and-creating-layers)). This folder holds `layer.conf` and the machine configurations under [conf/machine/](machine/README.md). Used by [ci/base.yml](../ci/base.yml).
 
 ## Contents
 

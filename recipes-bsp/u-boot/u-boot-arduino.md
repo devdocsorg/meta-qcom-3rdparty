@@ -4,6 +4,8 @@
 
 Used by [conf/machine/uno-q.conf](../../conf/machine/uno-q.conf), which names `u-boot-arduino`. Pulls in OE-Core's [`u-boot-common.inc`](https://github.com/openembedded/openembedded-core/blob/wrynose/meta/recipes-bsp/u-boot/u-boot-common.inc) and [`u-boot.inc`](https://github.com/openembedded/openembedded-core/blob/wrynose/meta/recipes-bsp/u-boot/u-boot.inc).
 
+A bootloader recipe builds the program that runs before the kernel and hands control to it, and a board's machine configuration names the one that board uses ([recipe](../../docs/glossary.md), [writing a new recipe](https://docs.yoctoproject.org/dev-manual/new-recipe.html)). This one builds U-Boot for the Arduino UNO Q from a pinned Arduino git revision, then wraps the result as an Android-style boot image the Qualcomm flash machinery accepts.
+
 | Field | Detail |
 | --- | --- |
 | Recipe | [recipes-bsp/u-boot/u-boot-arduino_git.bb](u-boot-arduino_git.bb) |

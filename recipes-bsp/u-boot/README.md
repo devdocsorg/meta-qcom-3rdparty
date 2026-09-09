@@ -2,7 +2,7 @@
 
 # recipes-bsp/u-boot/
 
-The U-Boot recipe for the Arduino UNO Q, built from source and repackaged as an Android-style boot image the Qualcomm image machinery can flash. Used by [conf/machine/uno-q.conf](../../conf/machine/uno-q.conf).
+A [recipe](../../docs/glossary.md) tells BitBake how to fetch, build and package one piece of software ([writing a new recipe](https://docs.yoctoproject.org/dev-manual/new-recipe.html)). This folder holds the U-Boot recipe for the Arduino UNO Q, built from source and repackaged as an Android-style boot image. Used by [conf/machine/uno-q.conf](../../conf/machine/uno-q.conf).
 
 ## Contents
 

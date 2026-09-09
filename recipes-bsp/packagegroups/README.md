@@ -2,7 +2,7 @@
 
 # recipes-bsp/packagegroups/
 
-One packagegroup recipe per board, each pulling that board's firmware and Hexagon DSP binary packages into an image under a single installable name. Used by [conf/machine/radxa-dragon-q6a.conf](../../conf/machine/radxa-dragon-q6a.conf) and [conf/machine/uno-q.conf](../../conf/machine/uno-q.conf).
+A [package group](../../docs/glossary.md) is a recipe naming a list of runtime packages an image installs together ([custom package groups](https://docs.yoctoproject.org/dev-manual/customizing-images.html#customizing-images-using-custom-package-groups)). This folder holds one package group recipe for each board. Used by [conf/machine/radxa-dragon-q6a.conf](../../conf/machine/radxa-dragon-q6a.conf) and [conf/machine/uno-q.conf](../../conf/machine/uno-q.conf).
 
 ## Contents
 

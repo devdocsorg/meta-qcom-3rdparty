@@ -4,6 +4,8 @@
 
 Linux ${PV} kernel for QCOM-based Arduino devices. Used by [conf/machine/uno-q.conf](../../conf/machine/uno-q.conf), which names `linux-arduino`.
 
+A kernel recipe builds the Linux kernel a board runs, from the source tree it names, along with the configuration fragments a build merges into it ([recipe](../../docs/glossary.md), [writing a new recipe](https://docs.yoctoproject.org/dev-manual/new-recipe.html), [the kernel development manual](https://docs.yoctoproject.org/kernel-dev/intro.html)). This one takes the Arduino UNO Q's kernel from a fork Arduino maintains, separate from the kernel tree meta-qcom builds for its own boards.
+
 | Field | Detail |
 | --- | --- |
 | Recipe | [recipes-kernel/linux/linux-arduino_7.0.bb](linux-arduino_7.0.bb) |

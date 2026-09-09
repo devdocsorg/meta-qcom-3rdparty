@@ -2,7 +2,7 @@
 
 # recipes-kernel/linux/
 
-The layer's kernel recipes and kernel bbappends, with the `.cfg` configuration fragments they merge into each board's kernel configuration. Used by [conf/machine/uno-q.conf](../../conf/machine/uno-q.conf) and the `linux-qcom-next` recipe in meta-qcom.
+A kernel [recipe](../../docs/glossary.md) builds a board's Linux kernel from the source tree it names ([kernel development manual](https://docs.yoctoproject.org/kernel-dev/intro.html)). This folder holds the kernel recipe for the Arduino UNO Q, the bbappend for the Radxa Dragon Q6A, and their `.cfg` fragments. Used by [conf/machine/uno-q.conf](../../conf/machine/uno-q.conf) and the `linux-qcom-next` recipe in meta-qcom.
 
 ## Contents
 

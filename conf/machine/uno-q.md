@@ -4,6 +4,8 @@
 
 Machine configuration for Arduino UNO Q. Source: [conf/machine/uno-q.conf](uno-q.conf).
 
+A machine configuration is the file BitBake reads when `MACHINE` names a board: it chooses the kernel, the bootloader, the device tree and the firmware packages that board needs ([machine](../../docs/glossary.md), [hardware configuration options](https://docs.yoctoproject.org/bsp-guide/bsp.html#hardware-configuration-options)). This one describes the Arduino UNO Q, a QRB2210 board: it builds its own U-Boot from source, boots through an Android-style boot image, and takes its boot firmware from a prebuilt vendor bundle the flash image packages.
+
 ## Selection
 
 ```text

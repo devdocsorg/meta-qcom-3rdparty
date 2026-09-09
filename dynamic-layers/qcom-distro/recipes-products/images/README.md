@@ -2,7 +2,7 @@
 
 # dynamic-layers/qcom-distro/recipes-products/images/
 
-A bbappend that BitBake parses when a layer providing the `qcom-distro` collection is part of the build, adding a license exception the Arduino UNO Q image needs. Used by the `qcom-multimedia-image` recipe in meta-qcom-distro.
+A [bbappend](../../../../docs/glossary.md) extends a recipe another layer provides ([appending layer metadata](https://docs.yoctoproject.org/dev-manual/layers.html#appending-other-layers-metadata-with-your-layer)). This folder holds one for the Arduino UNO Q, parsed when the `qcom-distro` collection is in the build. Used by the `qcom-multimedia-image` recipe in meta-qcom-distro.
 
 ## Contents
 

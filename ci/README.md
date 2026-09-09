@@ -2,7 +2,7 @@
 
 # ci/
 
-The kas build-environment fragments a build composes, and the shell scripts CI runs inside that environment to build and validate the layer on top of `meta-qcom`. Used by [.github/workflows/build-yocto.yml](../.github/workflows/build-yocto.yml) and meta-qcom's compile action.
+A [kas fragment](../docs/glossary.md) names the repositories, layers and machine a build uses ([kas project configuration](https://kas.readthedocs.io/en/latest/userguide/project-configuration.html)). This folder holds base and per-machine fragments for both boards, with the shell scripts CI runs to build the layer. Used by [.github/workflows/build-yocto.yml](../.github/workflows/build-yocto.yml) and meta-qcom's compile action.
 
 ## Contents
 

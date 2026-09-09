@@ -2,7 +2,7 @@
 
 # recipes-bsp/firmware-boot/
 
-A recipe that installs prebuilt, vendor-supplied boot firmware for the Arduino UNO Q into the build's deploy directory, ready for the flash image to pick up. Used by [conf/machine/uno-q.conf](../../conf/machine/uno-q.conf) and [dynamic-layers/qcom-distro/recipes-products/images/qcom-multimedia-image.bbappend](../../dynamic-layers/qcom-distro/recipes-products/images/qcom-multimedia-image.bbappend).
+A [recipe](../../docs/glossary.md) tells BitBake how to fetch, build and package one piece of software ([writing a new recipe](https://docs.yoctoproject.org/dev-manual/new-recipe.html)). This folder holds one such recipe, which deploys prebuilt vendor boot firmware for the Arduino UNO Q. Used by [conf/machine/uno-q.conf](../../conf/machine/uno-q.conf) and [dynamic-layers/qcom-distro/recipes-products/images/qcom-multimedia-image.bbappend](../../dynamic-layers/qcom-distro/recipes-products/images/qcom-multimedia-image.bbappend).
 
 ## Contents
 

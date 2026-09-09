@@ -4,6 +4,8 @@
 
 Prebuilt bootloader images for Arduino UNO Q. Used by [conf/machine/uno-q.conf](../../conf/machine/uno-q.conf) and [dynamic-layers/qcom-distro/recipes-products/images/qcom-multimedia-image.bbappend](../../dynamic-layers/qcom-distro/recipes-products/images/qcom-multimedia-image.bbappend), which name `firmware-qcom-boot-qrb2210-arduino-imola`. Pulls in meta-qcom's [`firmware-qcom-boot-common.inc`](https://github.com/qualcomm-linux/meta-qcom/blob/wrynose/recipes-bsp/firmware-boot/firmware-qcom-boot-common.inc).
 
+A firmware recipe carries prebuilt vendor binaries into a build: it fetches the bundle, unpacks it and deploys the files the image machinery picks up ([recipe](../../docs/glossary.md), [writing a new recipe](https://docs.yoctoproject.org/dev-manual/new-recipe.html)). This one supplies the Arduino UNO Q's vendor boot firmware, a signed bundle published by Arduino and separate from the U-Boot this layer builds for the same board. The bundle comes under a Qualcomm vendor license.
+
 | Field | Detail |
 | --- | --- |
 | Recipe | [recipes-bsp/firmware-boot/firmware-qcom-boot-qrb2210-arduino-imola_251020.bb](firmware-qcom-boot-qrb2210-arduino-imola_251020.bb) |

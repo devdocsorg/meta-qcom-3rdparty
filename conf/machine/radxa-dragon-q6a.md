@@ -4,6 +4,8 @@
 
 Machine configuration for Radxa Dragon Q6A, with QCS6490. Source: [conf/machine/radxa-dragon-q6a.conf](radxa-dragon-q6a.conf).
 
+A machine configuration is the file BitBake reads when `MACHINE` names a board: it chooses the kernel, the bootloader, the device tree and the firmware packages that board needs ([machine](../../docs/glossary.md), [hardware configuration options](https://docs.yoctoproject.org/bsp-guide/bsp.html#hardware-configuration-options)). This one describes the Radxa Dragon Q6A, whose boot firmware lives in SPI NOR and is flashed with Radxa's own edl-ng tool, so this configuration produces the OS disk image alone, an EFI System Partition beside the root filesystem.
+
 ```text
 Boot architecture:
   SPI NOR (Radxa-managed):  PBL -> XBL -> UEFI/EDK2 -> discovers ESP

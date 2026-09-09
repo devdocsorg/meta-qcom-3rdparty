@@ -2,7 +2,7 @@
 
 # recipes-kernel/images/
 
-A bbappend that packages the `uno-q` device tree into the EFI System Partition image, so the board's unified kernel image carries its own device tree. Used by the `esp-qcom-image` recipe in meta-qcom.
+A [bbappend](../../docs/glossary.md) extends a recipe another layer provides ([appending layer metadata](https://docs.yoctoproject.org/dev-manual/layers.html#appending-other-layers-metadata-with-your-layer)). This folder holds one bbappend, adding the Arduino UNO Q's device tree to the EFI System Partition image. Used by the `esp-qcom-image` recipe in meta-qcom.
 
 ## Contents
 

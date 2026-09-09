@@ -4,6 +4,8 @@
 
 Packages for the Radxa Dragon Q6A platform. Used by [conf/machine/radxa-dragon-q6a.conf](../../conf/machine/radxa-dragon-q6a.conf), which names `packagegroup-radxa-dragon-q6a-firmware` and `packagegroup-radxa-dragon-q6a-hexagon-dsp-binaries`.
 
+A package group is a recipe that names a set of packages to install together, so a machine or an image pulls them in under one name ([package group](../../docs/glossary.md), [custom package groups](https://docs.yoctoproject.org/dev-manual/customizing-images.html#customizing-images-using-custom-package-groups)). This one bundles the firmware and Hexagon DSP packages the Radxa Dragon Q6A needs, each set under one installable name, and part of that firmware follows the distro's feature choices.
+
 | Field | Detail |
 | --- | --- |
 | Recipe | [recipes-bsp/packagegroups/packagegroup-radxa-dragon-q6a.bb](packagegroup-radxa-dragon-q6a.bb) |

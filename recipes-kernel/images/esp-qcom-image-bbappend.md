@@ -4,6 +4,8 @@
 
 Modifies the `esp-qcom-image` recipe. That recipe is not defined in this layer; another layer in the build provides it, and this repository pins no revision of it. This layer declares `LAYERDEPENDS_qcom-3rdparty = "core qcom"` in [conf/layer.conf](../../conf/layer.conf). Used by the [`esp-qcom-image`](https://github.com/qualcomm-linux/meta-qcom/blob/wrynose/recipes-kernel/images/esp-qcom-image.bb) recipe in meta-qcom, which this file extends.
 
+A bbappend extends a recipe that lives in another layer, adding settings and files to it while the recipe itself stays where it is ([bbappend](../../docs/glossary.md), [appending to another layer's metadata](https://docs.yoctoproject.org/dev-manual/layers.html#appending-other-layers-metadata-with-your-layer)). This one has the EFI System Partition image carry the Arduino UNO Q's device tree, so the board's unified kernel image ships with it.
+
 Bbappend file: [recipes-kernel/images/esp-qcom-image.bbappend](esp-qcom-image.bbappend).
 
 ## Configuration variables

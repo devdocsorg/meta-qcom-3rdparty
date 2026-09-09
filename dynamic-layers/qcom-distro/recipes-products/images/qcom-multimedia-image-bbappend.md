@@ -4,6 +4,8 @@
 
 Modifies the `qcom-multimedia-image` recipe. That recipe is not defined in this layer; another layer in the build provides it, and this repository pins no revision of it. This layer declares `LAYERDEPENDS_qcom-3rdparty = "core qcom"` in [conf/layer.conf](../../../../conf/layer.conf). Used by the [`qcom-multimedia-image`](https://github.com/qualcomm-linux/meta-qcom-distro/blob/wrynose/recipes-products/images/qcom-multimedia-image.bb) recipe in meta-qcom-distro, which this file extends.
 
+A bbappend extends a recipe that lives in another layer. Under `dynamic-layers`, a bbappend is read only when the layer collection its directory names is part of the build ([bbappend](../../../../docs/glossary.md), [appending to another layer's metadata](https://docs.yoctoproject.org/dev-manual/layers.html#appending-other-layers-metadata-with-your-layer)). This one grants the Arduino UNO Q's vendor-licensed boot firmware an exception to the distro's license policy, so the multimedia image it extends can install that firmware.
+
 Bbappend file: [dynamic-layers/qcom-distro/recipes-products/images/qcom-multimedia-image.bbappend](qcom-multimedia-image.bbappend).
 
 Activation: this file is parsed only when the `qcom-distro` layer collection is present. [conf/layer.conf](../../../../conf/layer.conf) sets `BBFILES_DYNAMIC` with the entry `qcom-distro:${LAYERDIR}/dynamic-layers/qcom-distro/*/*/*.bbappend`.

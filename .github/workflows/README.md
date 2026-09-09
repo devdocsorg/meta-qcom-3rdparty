@@ -2,7 +2,7 @@
 
 # .github/workflows/
 
-The GitHub Actions workflows this repository runs: lint gates, a reusable Yocto build pipeline driven by push, pull-request and nightly triggers, and a call out to Qualcomm's shared compliance workflows. Used by GitHub Actions.
+A workflow is a YAML file GitHub Actions runs on a repository event ([GitHub Actions documentation](https://docs.github.com/en/actions)). This folder holds the lint gates, the reusable Yocto build pipeline driven by push, pull-request and nightly triggers, and a call out to Qualcomm's shared compliance workflows. Used by GitHub Actions.
 
 ## Contents
 
