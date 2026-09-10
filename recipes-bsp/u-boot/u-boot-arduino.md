@@ -35,7 +35,7 @@ A bootloader recipe builds the program that runs before the kernel and hands con
 | Task | Scope | Comment |
 | --- | --- | --- |
 | `uboot_compile_config:append()` | `append` | |
-| `uboot_deploy_config:append:qcom()` | `append`, scope `qcom` (not a machine configured in this layer) | The file notes: "Symlink the 'main' u-boot.bin to boot.img so the qcom image bbclass pick it up". |
+| `uboot_deploy_config:append:qcom()` | `append`, SoC-family scope `qcom` (an override meta-qcom sets in `conf/machine/include/qcom-common.inc`) | The file notes: "Symlink the 'main' u-boot.bin to boot.img so the qcom image bbclass pick it up". |
 
 ## Compatibility
 
