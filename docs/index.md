@@ -20,9 +20,9 @@ The `meta-qcom-3rdparty` layer provides:
 ## Documentation Index
 
 - [Contribution Guidelines](contributing.md) — how to contribute patches, follow Yocto conventions, and structure vendor-specific code.
-- [Usage Guide](usage.md) — how to include and build the layer, add it to your workspace, and validate target builds (TODO).
-- [Supported Machines](supported-machines.md) — list of currently supported platforms, vendors, and hardware status (TODO).
-- [Developer Notes](developer.md) — additional details for maintainers, CI integration, and testing recommendations (TODO).
+- [Usage Guide](usage.md) — how to include and build the layer, add it to your workspace, and validate target builds.
+- [Supported Machines](supported-machines.md) — list of currently supported platforms, vendors, and hardware status.
+- [Developer Notes](developer.md) — additional details for maintainers, CI integration, and testing recommendations.
 
 ---
 
