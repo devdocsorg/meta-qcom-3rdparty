@@ -1,0 +1,31 @@
+name: Supported Machines
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'conf/machine/*.conf'
+      - 'docs/supported-machines.md'
+      - 'ci/supported-machines.sh'
+      - '.github/workflows/supported-machines.yml'
+  pull_request:
+    paths:
+      - 'conf/machine/*.conf'
+      - 'docs/supported-machines.md'
+      - 'ci/supported-machines.sh'
+      - '.github/workflows/supported-machines.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  supported-machines:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v6
+
+      - name: Check the table against the machine headers
+        run: |
+          sh ci/supported-machines.sh
+          git diff --exit-code -- docs/supported-machines.md
