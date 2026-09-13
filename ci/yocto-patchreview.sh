@@ -1,6 +1,7 @@
 #!/bin/sh -e
 # Copyright (c) 2024 Qualcomm Innovation Center, Inc. All rights reserved.
 # SPDX-License-Identifier: MIT
+# @file ci/yocto-patchreview.sh
 
 if [ -z $1 ] || [ -z $2 ] ; then
     echo "The REPO_DIR or WORK_DIR is empty and it needs to point to the corresponding directories."
@@ -12,6 +13,13 @@ fi
 REPO_DIR="$1"
 WORK_DIR="$2"
 
+# @description Check that the input directory exists.
+# @arg $1 string Directory path to check.
+# @exitcode 0 The directory exists.
+# @exitcode 1 The directory is absent; exits the calling script.
+# @stdout Prints a diagnostic if the directory is absent.
+# @example
+#   _is_dir "$REPO_DIR"
 _is_dir(){
     test -d "$1" && return
     echo "The '$1' is not a directory."

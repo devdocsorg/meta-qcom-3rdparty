@@ -1,0 +1,7 @@
+# Local settings.
+/.env
+# Documentation dependencies and generated output.
+/.venv/
+/docs/__pycache__/
+/docs/_build/
+/docs/.generated/

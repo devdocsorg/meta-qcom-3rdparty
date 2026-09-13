@@ -1,0 +1,3 @@
+# Required, exact documentation-package versions; no effect on Yocto builds.
+Sphinx==9.1.0
+myst-parser==5.1.0

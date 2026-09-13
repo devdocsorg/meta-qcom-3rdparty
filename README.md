@@ -28,6 +28,18 @@ branch: master
 revision: HEAD
 ```
 
+## Getting Started
+
+Follow the [usage tutorial](docs/usage.md) to prepare the workspace. Then inspect
+the selected build configuration:
+
+```sh
+kas-container dump ci/radxa-dragon-q6a.yml
+```
+
+The [documentation guide](docs/README.md) links the tutorial, configuration
+documentation, and the Sphinx build for the generated function reference.
+
 ## Branches
 
 - **main:** Primary development branch, with focus on upstream support and
@@ -36,6 +48,11 @@ revision: HEAD
   Qualcomm Linux 2.x.
 - **scarthgap:** Qualcomm Linux >= 1.4, aligned with Yocto Project 5.0 (LTS).
 - **kirkstone:** Qualcomm Linux <= 1.3, aligned with Yocto Project 4.0 (LTS).
+
+- **next:** CI and workflow validation before changes land on `main`;
+  use for testing and send new contributions through the `main` review process.
+
+See [BRANCHES.md](BRANCHES.md) for branch relationships.
 
 ## Machine Support
 
@@ -64,5 +81,27 @@ Pull requests will be discussed within the GitHub pull-request infrastructure.
 
 ## License
 
-This layer is licensed under the MIT license. Check out [COPYING.MIT](COPYING.MIT)
+This layer is licensed under the MIT license. Check out [LICENSE](LICENSE)
 for more details.
+
+## Folders
+
+- [.github/](.github/): GitHub configuration, ownership, and contribution templates.
+- [ci/](ci/README.md): Container helper scripts and kas configuration fragments.
+- [conf/](conf/README.md): Layer registration and machine configuration.
+- [docs/](docs/README.md): Tutorials, contribution guidance, and Sphinx reference sources.
+- [dynamic-layers/](dynamic-layers/README.md): Appends enabled only by matching optional layer collections.
+- [recipes-bsp/](recipes-bsp/README.md): Board boot firmware and package groups.
+- [recipes-kernel/](recipes-kernel/README.md): Kernel appends and configuration fragments.
+
+## Files
+
+- [.env.example](.env.example): Documents optional host paths with safe shell defaults.
+- [.gitignore](.gitignore): Excludes local settings and generated documentation files.
+- [AGENTS.md](AGENTS.md): Describes the existing container-based build and contribution workflow.
+- [BRANCHES.md](BRANCHES.md): Documents branch purpose, maintenance, and integration relationships.
+- [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md): Defines participation standards and reporting.
+- [CONTRIBUTING.md](CONTRIBUTING.md): Links the existing contribution guide and named PR template.
+- [LICENSE](LICENSE): Contains the MIT licence and original copyright notice.
+- [README.md](README.md): Introduces this directory and lists its contents.
+- [SECURITY.md](SECURITY.md): Routes private vulnerability reports to the appropriate maintainers.
