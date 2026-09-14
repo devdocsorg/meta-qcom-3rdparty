@@ -7,8 +7,8 @@ live alongside these guides.
 ```{toctree}
 :hidden:
 
-contributing
-usage
+CONTRIBUTING
+USAGE
 AGENTS
 ```
 
@@ -24,6 +24,6 @@ AGENTS
 ## Files
 
 - [README.md](README.md): Introduces the contributor guides and generated function reference.
-- [contributing.md](contributing.md): Explains BSP contribution guidelines and the board example.
-- [usage.md](usage.md): Walks through kas setup, configuration inspection, parsing, and image output.
+- [CONTRIBUTING.md](CONTRIBUTING.md): Explains BSP contribution guidelines and the board example.
+- [USAGE.md](USAGE.md): Walks through kas setup, configuration inspection, parsing, and image output.
 - [AGENTS.md](AGENTS.md): Defines the agent build, validation, and contribution workflow.

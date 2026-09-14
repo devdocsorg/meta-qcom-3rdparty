@@ -63,7 +63,7 @@ mkdir -p "${DL_DIR}" "${SSTATE_DIR}" "${KAS_WORK_DIR}"
 CI build composition pattern:
 `:ci/<machine>.yml[:distro.yml]`
 
-Machines available at `conf/machines`, kas fragments at `ci/<machine>.yml`.
+Machines available at `conf/machine`, kas fragments at `ci/<machine>.yml`.
 
 Example builds:
 
@@ -103,7 +103,7 @@ Use the helper scripts for CI parity whenever possible.
 
 ## 6) Pull request / contribution workflow
 
-Follow the repository `README.md` and `docs/source/contributing/contributing.md` contribution flow:
+Follow the repository `README.md` and `docs/source/contributing/CONTRIBUTING.md` contribution flow:
 
 1. Target branch: **main**.
 2. Fork `qualcomm-linux/meta-qcom-3rdparty`, create a topic branch, implement changes.
@@ -111,7 +111,7 @@ Follow the repository `README.md` and `docs/source/contributing/contributing.md`
 4. Open a GitHub pull request.
 5. Use PR discussion for review iteration.
 
-Important constraints from `docs/source/contributing/contributing.md`:
+Important constraints from `docs/source/contributing/CONTRIBUTING.md`:
 
 - **No recipe forks:** do not copy recipes from `meta-qcom`, `meta-qcom-hwe`, or
   base OE / Yocto layers. Use `.bbappend` files instead.

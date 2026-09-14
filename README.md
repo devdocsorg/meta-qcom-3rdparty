@@ -30,7 +30,7 @@ revision: HEAD
 
 ## Getting Started
 
-Follow the [usage tutorial](docs/source/contributing/usage.md) to prepare the workspace. Then inspect
+Follow the [usage tutorial](docs/source/contributing/USAGE.md) to prepare the workspace. Then inspect
 the selected build configuration:
 
 ```sh

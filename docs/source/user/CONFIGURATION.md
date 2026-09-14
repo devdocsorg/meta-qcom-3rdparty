@@ -4,7 +4,7 @@
 
 `.env.example` documents the optional `KAS_CONTAINER`, `KAS_WORK_DIR`, `DL_DIR`,
 and `SSTATE_DIR` strings, their defaults, and example paths. Source it explicitly
-as shown in the [tutorial](../contributing/usage.md). The example retains existing environment
+as shown in the [tutorial](../contributing/USAGE.md). The example retains existing environment
 values and keeps build output and caches outside the checkout.
 
 ## Layer and recipe settings

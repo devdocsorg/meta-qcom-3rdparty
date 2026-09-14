@@ -12,4 +12,4 @@ versions. The layer's `LAYERSERIES_COMPAT` setting records Yocto compatibility.
 | `kirkstone` | Yocto 4.0 LTS, used by Qualcomm Linux 1.3 and earlier | Maintained separately for the matching release. |
 
 Use the [security policy](SECURITY.md) for supported security-fix branches and
-[contribution guidelines](docs/source/contributing/contributing.md) for submission requirements.
+[contribution guidelines](docs/source/contributing/CONTRIBUTING.md) for submission requirements.

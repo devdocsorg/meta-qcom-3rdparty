@@ -22,7 +22,7 @@ mkdir -p "$KAS_WORK_DIR" "$DL_DIR" "$SSTATE_DIR"
 ```
 
 Existing environment values are retained. Keep these directories outside the
-checkout. See [configuration](../user/configuration.md) for types and defaults.
+checkout. See [configuration](../user/CONFIGURATION.md) for types and defaults.
 
 ## 2. Select and inspect the machine
 

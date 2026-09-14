@@ -15,7 +15,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="ci/yocto-buildstats.sh" href=".generated/ci-yocto-buildstats.sh.html" />
-    <link rel="prev" title="Prepare a layer build with kas" href="usage.html" />
+    <link rel="prev" title="Prepare a layer build with kas" href="USAGE.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -95,7 +95,7 @@ mkdir<span class="w"> </span>-p<span class="w"> </span><span class="s2">"</span>
 <h2>3) Build with kas-container (CI style)<a class="headerlink" href="#build-with-kas-container-ci-style" title="Link to this heading">¶</a></h2>
 <p>CI build composition pattern:
 <code class="docutils literal notranslate"><span class="pre">:ci/&lt;machine&gt;.yml[:distro.yml]</span></code></p>
-<p>Machines available at <code class="docutils literal notranslate"><span class="pre">conf/machines</span></code>, kas fragments at <code class="docutils literal notranslate"><span class="pre">ci/&lt;machine&gt;.yml</span></code>.</p>
+<p>Machines available at <code class="docutils literal notranslate"><span class="pre">conf/machine</span></code>, kas fragments at <code class="docutils literal notranslate"><span class="pre">ci/&lt;machine&gt;.yml</span></code>.</p>
 <p>Example builds:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># Build for rubikpi3 with the Qualcomm distro</span>
 <span class="nb">export</span><span class="w"> </span><span class="nv">KAS_YAMLS</span><span class="o">=</span><span class="s2">"ci/rubikpi3.yml:ci/qcom-distro.yml"</span>
@@ -128,7 +128,7 @@ mkdir<span class="w"> </span>-p<span class="w"> </span><span class="s2">"</span>
 </section>
 <section id="pull-request-contribution-workflow">
 <h2>6) Pull request / contribution workflow<a class="headerlink" href="#pull-request-contribution-workflow" title="Link to this heading">¶</a></h2>
-<p>Follow the repository <code class="docutils literal notranslate"><span class="pre">README.md</span></code> and <code class="docutils literal notranslate"><span class="pre">docs/source/contributing/contributing.md</span></code> contribution flow:</p>
+<p>Follow the repository <code class="docutils literal notranslate"><span class="pre">README.md</span></code> and <code class="docutils literal notranslate"><span class="pre">docs/source/contributing/CONTRIBUTING.md</span></code> contribution flow:</p>
 <ol class="arabic simple">
 <li><p>Target branch: <strong>main</strong>.</p></li>
 <li><p>Fork <code class="docutils literal notranslate"><span class="pre">qualcomm-linux/meta-qcom-3rdparty</span></code>, create a topic branch, implement changes.</p></li>
@@ -136,7 +136,7 @@ mkdir<span class="w"> </span>-p<span class="w"> </span><span class="s2">"</span>
 <li><p>Open a GitHub pull request.</p></li>
 <li><p>Use PR discussion for review iteration.</p></li>
 </ol>
-<p>Important constraints from <code class="docutils literal notranslate"><span class="pre">docs/source/contributing/contributing.md</span></code>:</p>
+<p>Important constraints from <code class="docutils literal notranslate"><span class="pre">docs/source/contributing/CONTRIBUTING.md</span></code>:</p>
 <ul class="simple">
 <li><p><strong>No recipe forks:</strong> do not copy recipes from <code class="docutils literal notranslate"><span class="pre">meta-qcom</span></code>, <code class="docutils literal notranslate"><span class="pre">meta-qcom-hwe</span></code>, or
 base OE / Yocto layers. Use <code class="docutils literal notranslate"><span class="pre">.bbappend</span></code> files instead.</p></li>
@@ -226,8 +226,8 @@ in the patch where they are introduced.</p></li>
 <script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="README.html">Contributor documentation</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="contributing.html">Contributing to meta-qcom-3rdparty</a></li>
-<li class="toctree-l2"><a class="reference internal" href="usage.html">Prepare a layer build with kas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CONTRIBUTING.html">Contributing to meta-qcom-3rdparty</a></li>
+<li class="toctree-l2"><a class="reference internal" href="USAGE.html">Prepare a layer build with kas</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Agent Guide for meta-qcom-3rdparty</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#project-overview">Project Overview</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#prerequisites">1) Prerequisites</a><ul>
@@ -254,7 +254,7 @@ in the patch where they are introduced.</p></li>
 <ul>
   <li><a href="../README.html">Documentation overview</a><ul>
   <li><a href="README.html">Contributor documentation</a><ul>
-      <li>Previous: <a href="usage.html" title="previous chapter">Prepare a layer build with kas</a></li>
+      <li>Previous: <a href="USAGE.html" title="previous chapter">Prepare a layer build with kas</a></li>
       <li>Next: <a href=".generated/ci-yocto-buildstats.sh.html" title="next chapter">ci/yocto-buildstats.sh</a></li>
   </ul></li>
   </ul></li>
