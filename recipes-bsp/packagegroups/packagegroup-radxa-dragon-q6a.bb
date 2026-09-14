@@ -1,4 +1,8 @@
 SUMMARY = "Packages for the Radxa Dragon Q6A platform"
+DESCRIPTION = "Radxa Dragon Q6A firmware and Hexagon DSP binaries. The -firmware \
+package recommends GPU firmware when DISTRO_FEATURES has opencl, opengl or vulkan, \
+plus camera, display bridge, audio, compute, QUPv3 and video firmware. The \
+-hexagon-dsp-binaries package depends on the board's ADSP and CDSP binaries."
 
 inherit packagegroup
 

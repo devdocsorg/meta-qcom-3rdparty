@@ -1,4 +1,7 @@
 SUMMARY = "Packages for the Thundercomm RUBIK Pi 3 platform"
+DESCRIPTION = "Thundercomm RUBIK Pi 3 firmware. The -firmware package recommends \
+GPU firmware when DISTRO_FEATURES has opencl, opengl or vulkan, plus QUPv3, video, \
+audio and compute firmware."
 
 inherit packagegroup
 
