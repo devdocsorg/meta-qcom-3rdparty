@@ -13,7 +13,7 @@ user/README
 ## Folders
 
 - [contributing/](contributing/README.md): Contribution guidelines, the usage tutorial, agent instructions, and generated function reference.
-- [user/](user/README.md): User-facing configuration and overview documentation.
+- [user/](user/README.md): User-facing configuration documentation.
 
 ## Files
 

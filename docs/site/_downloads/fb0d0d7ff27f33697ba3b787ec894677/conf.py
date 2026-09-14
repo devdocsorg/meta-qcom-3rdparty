@@ -11,9 +11,6 @@ project = "meta-qcom-3rdparty"
 extensions = ["myst_parser"]
 # Optional string; default 'index'. Use the folder guide as the site homepage.
 root_doc = "README"
-# Optional pattern list; default []. The existing overview contains planned
-# guides and remains available on GitHub.
-exclude_patterns = ["user/index.md"]
 # Optional integer; default 0. Support heading links in generated Markdown.
 myst_heading_anchors = 4
 # Optional boolean; default False. Check unresolved cross-references.
