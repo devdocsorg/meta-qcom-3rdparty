@@ -1,24 +1,7 @@
-# meta-qcom-3rdparty Documentation
+# Documentation
 
-Use the [tutorial](usage.md) to prepare a build, and the
-[contribution guidelines](contributing.md) when adding board support.
-The generated website includes a reference extracted from the function comments.
-
-```{toctree}
-:maxdepth: 1
-
-usage
-contributing
-configuration
-```
-
-```{toctree}
-:caption: Function reference
-:maxdepth: 2
-:glob:
-
-.generated/*
-```
+Edit the guides in [source/](source/README.md) and rebuild the Sphinx website in
+[site/](site/). Commit the updated source and generated site together.
 
 ## Build the documentation
 
@@ -26,23 +9,23 @@ Use Python 3.12 or newer, `uv`, GNU awk (`gawk`), and `curl`. From the repositor
 
 ```sh
 uv venv .venv
-uv pip install --python .venv/bin/python -r docs/requirements.txt
+uv pip install --python .venv/bin/python -r docs/source/requirements.txt
 curl --fail --location https://raw.githubusercontent.com/reconquest/shdoc/b3436134f08428f8bbe2e54bc4dc20da85cd300b/shdoc --output .venv/bin/shdoc
 chmod +x .venv/bin/shdoc
-.venv/bin/sphinx-build -W --keep-going -b html docs docs/_build/html
+rm -rf docs/site
+.venv/bin/sphinx-build -W --keep-going -E -b html -d docs/.doctrees docs/source docs/site
 ```
 
-Open `docs/_build/html/README.html`. Each build extracts the shell and BitBake
-function annotations with shdoc v1.4 and renders them with Sphinx. Generated
-reference pages and HTML are build output; edit the source comments to change
-the reference.
+Open `docs/site/README.html`. The function reference is extracted from source
+comments with shdoc v1.4 during the build. Edit the comments to change the reference.
+The site contains generated HTML and assets; build caches and intermediate
+Markdown stay outside it.
+
+## Folders
+
+- [source/](source/README.md): Contributor and user documentation, dependencies, and Sphinx configuration.
+- [site/](site/): The generated Sphinx website stored with its source.
 
 ## Files
 
-- [README.md](README.md): Introduces this directory and lists its contents.
-- [conf.py](conf.py): Extracts function comments with shdoc and configures Sphinx.
-- [configuration.md](configuration.md): Documents configuration types, defaults, and examples.
-- [contributing.md](contributing.md): Explains BSP contribution guidelines and the board example.
-- [index.md](https://github.com/qualcomm-linux/meta-qcom-3rdparty/blob/main/docs/index.md): Contains the original documentation overview and planned guide links.
-- [requirements.txt](requirements.txt): Pins documentation-only Python dependencies.
-- [usage.md](usage.md): Walks through kas setup, configuration inspection, parsing, and image output.
+- [README.md](README.md): Explains the documentation layout and build command.

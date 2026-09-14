@@ -4,7 +4,7 @@
 
 `.env.example` documents the optional `KAS_CONTAINER`, `KAS_WORK_DIR`, `DL_DIR`,
 and `SSTATE_DIR` strings, their defaults, and example paths. Source it explicitly
-as shown in the [tutorial](usage.md). The example retains existing environment
+as shown in the [tutorial](../contributing/usage.md). The example retains existing environment
 values and keeps build output and caches outside the checkout.
 
 ## Layer and recipe settings
@@ -95,6 +95,8 @@ settings apply. `kas-container dump` shows the final merged configuration.
 The README beside the kernel `.cfg` documents each requested symbol. The kernel
 validates these requests; omitted symbols retain defconfig or earlier settings.
 
-`conf.py` documents optional Sphinx settings and generates reference pages from
-source comments using shdoc. `requirements.txt` pins the Python build dependencies;
-[Documentation](README.md#build-the-documentation) pins the shdoc executable.
+[conf.py](../conf.py) documents optional Sphinx settings and generates reference
+pages from source comments using shdoc. [requirements.txt](../requirements.txt)
+pins the Python build dependencies. The repository's
+[documentation build instructions](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/devdocs/required-files-sphinx/docs/README.md#build-the-documentation)
+pin the shdoc executable.

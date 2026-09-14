@@ -30,7 +30,7 @@ revision: HEAD
 
 ## Getting Started
 
-Follow the [usage tutorial](docs/usage.md) to prepare the workspace. Then inspect
+Follow the [usage tutorial](docs/source/contributing/usage.md) to prepare the workspace. Then inspect
 the selected build configuration:
 
 ```sh
@@ -89,16 +89,17 @@ for more details.
 - [.github/](.github/): GitHub configuration, ownership, and contribution templates.
 - [ci/](ci/README.md): Container helper scripts and kas configuration fragments.
 - [conf/](conf/README.md): Layer registration and machine configuration.
-- [docs/](docs/README.md): Tutorials, contribution guidance, and Sphinx reference sources.
+- [docs/](docs/README.md): Documentation sources and the generated Sphinx website.
 - [dynamic-layers/](dynamic-layers/README.md): Appends enabled only by matching optional layer collections.
 - [recipes-bsp/](recipes-bsp/README.md): Board boot firmware and package groups.
 - [recipes-kernel/](recipes-kernel/README.md): Kernel appends and configuration fragments.
+- [skills/](skills/README.md): Points to skill documentation in the contributor guides.
 
 ## Files
 
 - [.env.example](.env.example): Documents optional host paths with safe shell defaults.
 - [.gitignore](.gitignore): Excludes local settings and generated documentation files.
-- [AGENTS.md](AGENTS.md): Describes the existing container-based build and contribution workflow.
+- [AGENTS.md](AGENTS.md): Points to the agent instructions in the contributor documentation.
 - [BRANCHES.md](BRANCHES.md): Documents branch purpose, maintenance, and integration relationships.
 - [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md): Defines participation standards and reporting.
 - [CONTRIBUTING.md](CONTRIBUTING.md): Links the existing contribution guide and named PR template.

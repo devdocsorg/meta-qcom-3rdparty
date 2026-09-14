@@ -1,0 +1,33 @@
+# ci/yocto-patchreview.sh
+
+## Overview
+
+Check that the input directory exists.
+
+## Index
+
+* [_is_dir](#_is_dir)
+
+### _is_dir
+
+Check that the input directory exists.
+
+#### Example
+
+```bash
+_is_dir "$REPO_DIR"
+```
+
+#### Arguments
+
+* **$1** (string): Directory path to check.
+
+#### Exit codes
+
+* **0**: The directory exists.
+* **1**: The directory is absent; exits the calling script.
+
+#### Output on stdout
+
+* Prints a diagnostic if the directory is absent.
+

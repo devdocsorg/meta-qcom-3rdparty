@@ -11,18 +11,18 @@ project = "meta-qcom-3rdparty"
 extensions = ["myst_parser"]
 # Optional string; default 'index'. Use the folder guide as the site homepage.
 root_doc = "README"
-# Optional pattern list; default []. The existing index contains planned guides
-# and stays available on GitHub; the folder README is the website homepage.
-exclude_patterns = ["_build", "index.md"]
+# Optional pattern list; default []. The existing overview contains planned
+# guides and remains available on GitHub.
+exclude_patterns = ["user/index.md"]
 # Optional integer; default 0. Support heading links in generated Markdown.
 myst_heading_anchors = 4
 # Optional boolean; default False. Check unresolved cross-references.
 nitpicky = True
 
 # Build paths are derived from this file; no host-specific configuration.
-docs = Path(__file__).resolve().parent
-root = docs.parent
-generated = docs / ".generated"
+source_dir = Path(__file__).resolve().parent
+root = source_dir.parents[1]
+generated = source_dir / "contributing" / ".generated"
 shdoc = Path(sys.executable).with_name("shdoc")
 generated.mkdir(exist_ok=True)
 # Replace generated pages on every build, including after source-file removal.
