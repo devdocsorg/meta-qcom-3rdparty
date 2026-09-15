@@ -20,6 +20,7 @@ browser:
 	.venv/bin/playwright install chromium
 
 check: html
+	.venv/bin/python .github/test_reference_coverage.py
 	.venv/bin/python .github/check_offline.py docs/site _is_dir
 	test -f docs/site/index.html
 	grep -q 'SHOW_SEARCH_SUMMARY: false' docs/site/_static/documentation_options.js

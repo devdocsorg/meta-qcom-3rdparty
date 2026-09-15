@@ -122,7 +122,8 @@ navigation, and coverage validation together.</p>
 <p>Edit comments beside each function to change its reference. Generated intermediate
 Markdown and rendered pages are derived output, not independently maintained API
 prose. The documentation CI job rebuilds from scratch, checks reference coverage,
-and rejects stale committed output.</p>
+rejects stale committed output, and tests that temporary undocumented shell
+functions and unsupported Python tasks cause a build failure.</p>
 <p>The <a class="reference download internal" download="" href="../_downloads/b67911656ef5d18c4ae36cb6741b7965/Makefile"><span class="xref download myst">Makefile</span></a> owns dependency installation and build commands for
 both local use and CI. After committing regenerated output, run
 <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">-f</span> <span class="pre">docs/source/Makefile</span> <span class="pre">check</span></code> to verify it reproduces.</p>

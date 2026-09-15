@@ -76,7 +76,8 @@ navigation, and coverage validation together.
 Edit comments beside each function to change its reference. Generated intermediate
 Markdown and rendered pages are derived output, not independently maintained API
 prose. The documentation CI job rebuilds from scratch, checks reference coverage,
-and rejects stale committed output.
+rejects stale committed output, and tests that temporary undocumented shell
+functions and unsupported Python tasks cause a build failure.
 
 The [Makefile](../Makefile) owns dependency installation and build commands for
 both local use and CI. After committing regenerated output, run
