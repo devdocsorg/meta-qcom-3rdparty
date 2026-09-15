@@ -8,6 +8,7 @@ live alongside these guides.
 :hidden:
 
 CONTRIBUTING
+DEVELOPMENT
 USAGE
 AGENTS
 ```
@@ -22,6 +23,8 @@ AGENTS
 ```
 
 ## Files
+
+- [DEVELOPMENT.md](DEVELOPMENT.md): Walks through contributor setup, documentation extraction, offline validation, and layer-check entry points.
 
 - [README.md](README.md): Introduces the contributor guides and generated function reference.
 - [CONTRIBUTING.md](CONTRIBUTING.md): Explains BSP contribution guidelines and the board example.

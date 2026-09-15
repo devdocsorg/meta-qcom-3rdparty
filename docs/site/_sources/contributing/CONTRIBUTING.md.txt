@@ -1,5 +1,8 @@
 # Contributing to meta-qcom-3rdparty
 
+Start with [development environment setup](DEVELOPMENT.md) to prepare a checkout,
+build the documentation, and find the layer validation workflow.
+
 This document describes how to contribute to the **Qualcomm Linux “meta-qcom-3rdparty”** layer and what standards are expected from contributors and vendors.
 It follows the same conventions used by the Yocto Project and OpenEmbedded upstream layers to ensure interoperability and quality.
 

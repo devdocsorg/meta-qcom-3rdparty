@@ -40,6 +40,11 @@ kas-container dump ci/radxa-dragon-q6a.yml
 The [documentation guide](docs/README.md) links the tutorial, configuration
 documentation, and the Sphinx build for the generated function reference.
 
+Open `docs/site/index.html` directly in a browser for the locally browsable site.
+See the [nearby repository map](docs/source/user/REPOSITORY_MAP.md) for this layer's
+place in the Qualcomm ecosystem, and [development environment setup](docs/source/contributing/DEVELOPMENT.md)
+to prepare a contributor checkout and the documentation toolchain.
+
 ## Branches
 
 - **main:** Primary development branch, with focus on upstream support and

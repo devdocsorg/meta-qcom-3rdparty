@@ -1,31 +1,19 @@
 # Documentation
 
-Edit the guides in [source/](source/README.md) and rebuild the Sphinx website in
-[site/](site/). Commit the updated source and generated site together.
+Open [site/index.html](site/index.html) directly in a browser to read the generated
+site without an HTTP server. Edit the guides in [source/](source/README.md), follow
+[development environment setup](source/contributing/DEVELOPMENT.md) to install the
+documentation tools and build, and commit updated source and generated output together.
 
-## Build the documentation
-
-Use Python 3.12 or newer, `uv`, GNU awk (`gawk`), and `curl`. From the repository root:
-
-```sh
-uv venv .venv
-uv pip install --python .venv/bin/python -r docs/source/requirements.txt
-curl --fail --location https://raw.githubusercontent.com/reconquest/shdoc/b3436134f08428f8bbe2e54bc4dc20da85cd300b/shdoc --output .venv/bin/shdoc
-chmod +x .venv/bin/shdoc
-rm -rf docs/site
-.venv/bin/sphinx-build -W --keep-going -E -b html -d docs/.doctrees docs/source docs/site
-```
-
-Open `docs/site/README.html`. The function reference is extracted from source
-comments with shdoc v1.4 during the build. Edit the comments to change the reference.
-The site contains generated HTML and assets; build caches and intermediate
-Markdown stay outside it.
+Generated [third-party asset notices](site/THIRD_PARTY_LICENSES.txt) preserve the
+licences supplied by the locked documentation packages. The build attaches the
+upstream notices to redistributed JavaScript without changing its behaviour.
 
 ## Folders
 
 - [source/](source/README.md): Contributor and user documentation, dependencies, and Sphinx configuration.
-- [site/](site/): The generated Sphinx website stored with its source.
+- [site/](site/index.html): The generated Sphinx website stored with its source.
 
 ## Files
 
-- [README.md](README.md): Explains the documentation layout and build command.
+- [README.md](README.md): Links the documentation source, built site, and contributor build walkthrough.

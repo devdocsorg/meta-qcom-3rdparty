@@ -1,7 +1,10 @@
+# Copyright (c) 2026 DevDocs
 # SPDX-License-Identifier: MIT
 """Build the guides and extract function documentation without running recipes."""
 
 from pathlib import Path
+import ast
+import re
 import subprocess
 import sys
 
@@ -16,6 +19,15 @@ myst_heading_anchors = 4
 # Optional boolean; default False. Check unresolved cross-references.
 nitpicky = True
 
+# Optional list; default []. Exclude the entry-point template from source discovery.
+exclude_patterns = [".templates/**"]
+# Optional list; default []. Resolve bundled HTML templates locally.
+templates_path = [".templates"]
+# Optional mapping; default {}. Keep README as the sole homepage source.
+html_additional_pages = {"index": "index.html"}
+# Optional boolean; default True. Avoid fetch() of local files for search excerpts.
+html_show_search_summary = False
+
 # Build paths are derived from this file; no host-specific configuration.
 source_dir = Path(__file__).resolve().parent
 root = source_dir.parents[1]
@@ -25,10 +37,34 @@ generated.mkdir(exist_ok=True)
 # Replace generated pages on every build, including after source-file removal.
 for stale in generated.glob("*.md"):
     stale.unlink()
+# Reject Python functions until their native extraction/coverage path is configured.
+for python_source in sorted([*root.glob("ci/*.py"), *source_dir.glob("*.py"),
+                             *(root / ".github").rglob("*.py")]):
+    python_tree = ast.parse(python_source.read_text())
+    if any(isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef, ast.Lambda))
+           for node in ast.walk(python_tree)):
+        raise RuntimeError(f"Configure Python API extraction for {python_source.relative_to(root)}")
+
+reference_count = 0
 for source in sorted([*root.glob("ci/*.sh"), *root.glob("recipes-*/**/*.bb*")]):
+    source_text = source.read_text()
+    if re.search(r"(?m)^\s*(?:fakeroot\s+)?python\s*(?:[\w:.-]+\s*)?\(\s*\)\s*\{|^\s*(?:async\s+)?def\s+", source_text):
+        raise RuntimeError(f"Configure BitBake Python extraction for {source.relative_to(root)}")
+    declared = set(re.findall(r"(?m)^\s*(?:function\s+)?([\w:.-]+)\s*\(\s*\)\s*\{", source_text))
+    declared.update(re.findall(r"(?m)^\s*function\s+([\w:.-]+)\s*\{", source_text))
     with source.open() as script:
         result = subprocess.run([str(shdoc)], stdin=script, text=True,
                                 capture_output=True, check=True)
+    documented = set(re.findall(r"(?m)^### ([\w:.-]+)\s*$", result.stdout))
+    if declared != documented:
+        raise RuntimeError(f"Reference coverage mismatch in {source.relative_to(root)}: "
+                           f"missing={sorted(declared - documented)}, extra={sorted(documented - declared)}")
+    reference_count += len(declared)
     if result.stdout.strip():
         name = str(source.relative_to(root)).replace("/", "-")
         (generated / (name + ".md")).write_text(result.stdout)
+
+print(f"Verified language-specific reference coverage: {reference_count} shell functions/tasks")
+
+# Optional mapping; theme defaults to 940px. Give diagrams and evidence tables room.
+html_theme_options = {"page_width": "1280px", "sidebar_width": "220px"}
