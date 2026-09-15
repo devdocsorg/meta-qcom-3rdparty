@@ -34,106 +34,93 @@
             
   <section id="repository-map-qualcomm-linux-meta-qcom-3rdparty">
 <h1>Repository map: qualcomm-linux/meta-qcom-3rdparty<a class="headerlink" href="#repository-map-qualcomm-linux-meta-qcom-3rdparty" title="Link to this heading">¶</a></h1>
-<p><strong>You are here:</strong> <code class="docutils literal notranslate"><span class="pre">qualcomm-linux/meta-qcom-3rdparty</span></code>. This view shows recorded nearby repositories, including
-both incoming and outgoing relationships. The diagram prioritises software/build
-connections when present; the table also records shared automation. Dashed lines mean optional or indirect
-relationships; the table states when each connection applies.</p>
-<p><img alt="Nearby repositories for qualcomm-linux/meta-qcom-3rdparty" src="../_images/repository-map.svg" /></p>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head"><p>From</p></th>
-<th class="head"><p>Relationship</p></th>
-<th class="head"><p>To</p></th>
-<th class="head"><p>When it applies</p></th>
-<th class="head"><p>Evidence</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>qualcomm-linux/meta-qcom-3rdparty</p></td>
-<td><p>depends on</p></td>
-<td><p>openembedded/openembedded-core</p></td>
-<td><p>wrynose-compatible main snapshot 8927b428bcae; required layer collection.</p></td>
-<td><p><a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-3rdparty/blob/8927b428bcaea0c47186beeb9d9446061c785e9c/conf/layer.conf">1</a></p></td>
-</tr>
-<tr class="row-odd"><td><p>qualcomm-linux/meta-qcom-3rdparty</p></td>
-<td><p>uses automation from</p></td>
-<td><p>qualcomm-linux/bitbake-lint-action</p></td>
-<td><p>GitHub Actions integration at the evidence revision; workflow/action refs are specified by the calling files. This is not a runtime dependency.</p></td>
-<td><p><a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-3rdparty/blob/8927b428bcaea0c47186beeb9d9446061c785e9c/.github/workflows/bitbake-lint.yml">1</a></p></td>
-</tr>
-<tr class="row-even"><td><p>qualcomm-linux/meta-qcom-3rdparty</p></td>
-<td><p>uses automation from</p></td>
-<td><p>qualcomm-linux/github-action-matrix-outputs-read</p></td>
-<td><p>GitHub Actions integration at the evidence revision; workflow/action refs are specified by the calling files. This is not a runtime dependency.</p></td>
-<td><p><a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-3rdparty/blob/8927b428bcaea0c47186beeb9d9446061c785e9c/.github/workflows/test-distro.yml">1</a></p></td>
-</tr>
-<tr class="row-odd"><td><p>qualcomm-linux/meta-qcom-3rdparty</p></td>
-<td><p>uses automation from</p></td>
-<td><p>qualcomm-linux/github-action-matrix-outputs-write</p></td>
-<td><p>GitHub Actions integration at the evidence revision; workflow/action refs are specified by the calling files. This is not a runtime dependency.</p></td>
-<td><p><a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-3rdparty/blob/8927b428bcaea0c47186beeb9d9446061c785e9c/.github/workflows/test-distro.yml">1</a></p></td>
-</tr>
-<tr class="row-even"><td><p>qualcomm-linux/meta-qcom-3rdparty</p></td>
-<td><p>depends on</p></td>
-<td><p>qualcomm-linux/meta-qcom</p></td>
-<td><p>wrynose-compatible main snapshot 8927b428bcae; required layer collection.</p></td>
-<td><p><a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-3rdparty/blob/8927b428bcaea0c47186beeb9d9446061c785e9c/conf/layer.conf">1</a></p></td>
-</tr>
-<tr class="row-odd"><td><p>qualcomm-linux/meta-qcom-3rdparty</p></td>
-<td><p>uses automation from</p></td>
-<td><p>qualcomm-linux/meta-qcom</p></td>
-<td><p>GitHub Actions integration at the evidence revision; workflow/action refs are specified by the calling files. This is not a runtime dependency.</p></td>
-<td><p><a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-3rdparty/blob/8927b428bcaea0c47186beeb9d9446061c785e9c/.github/workflows/build-yocto.yml">1</a> · <a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-3rdparty/blob/8927b428bcaea0c47186beeb9d9446061c785e9c/.github/workflows/build-yocto.yml">2</a> · <a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-3rdparty/blob/8927b428bcaea0c47186beeb9d9446061c785e9c/.github/workflows/test-distro.yml">3</a> · <a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-3rdparty/blob/8927b428bcaea0c47186beeb9d9446061c785e9c/.github/workflows/test-distro.yml">4</a> · <a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-3rdparty/blob/8927b428bcaea0c47186beeb9d9446061c785e9c/.github/workflows/test-distro.yml">5</a></p></td>
-</tr>
-<tr class="row-even"><td><p>qualcomm-linux/meta-qcom-3rdparty</p></td>
-<td><p>integrates with</p></td>
-<td><p>qualcomm-linux/meta-qcom-distro</p></td>
-<td><p>Optional: the dynamic layer applies only when qcom-distro is present.</p></td>
-<td><p><a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-3rdparty/blob/8927b428bcaea0c47186beeb9d9446061c785e9c/conf/layer.conf">1</a></p></td>
-</tr>
-<tr class="row-odd"><td><p>qualcomm-linux/meta-qcom-3rdparty</p></td>
-<td><p>uses indirectly</p></td>
-<td><p>qualcomm-linux/qcom-ptool</p></td>
-<td><p>Partition tooling is supplied through meta-qcom; this is an indirect relationship, not an extra layer dependency.</p></td>
-<td><p><a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom/blob/c6729710f055e1c0337c830030ab25eef7f293a5/recipes-bsp/partition/qcom-ptool.inc">1</a> · <a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-3rdparty/blob/8927b428bcaea0c47186beeb9d9446061c785e9c/conf/machine/rubikpi3.conf">2</a></p></td>
-</tr>
-<tr class="row-even"><td><p>qualcomm-linux/meta-qcom-3rdparty</p></td>
-<td><p>uses automation from</p></td>
-<td><p>qualcomm/qcom-reusable-workflows</p></td>
-<td><p>GitHub Actions integration at the evidence revision; workflow/action refs are specified by the calling files. This is not a runtime dependency.</p></td>
-<td><p><a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-3rdparty/blob/8927b428bcaea0c47186beeb9d9446061c785e9c/.github/workflows/qcom-preflight-checks.yml">1</a></p></td>
-</tr>
-<tr class="row-odd"><td><p>qualcomm-linux/meta-qcom-3rdparty</p></td>
-<td><p>fetches source from</p></td>
-<td><p>rubikpi-ai/boot-assets</p></td>
-<td><p>RUBIK Pi 3 boot firmware only; pinned by the recipe SRCREV.</p></td>
-<td><p><a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-3rdparty/blob/8927b428bcaea0c47186beeb9d9446061c785e9c/recipes-bsp/firmware-boot/firmware-qcom-boot-rubikpi3_20260621.bb">1</a></p></td>
-</tr>
-</tbody>
-</table>
-<section id="nearby-repositories">
-<h2>Nearby repositories<a class="headerlink" href="#nearby-repositories" title="Link to this heading">¶</a></h2>
+<p><strong>You are here: <a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-3rdparty">qualcomm-linux/meta-qcom-3rdparty</a></strong></p>
+<p>OpenEmbedded/Yocto Project BSP layer for Third-Party Maintained Qualcomm based platforms</p>
+<section id="outgoing-connections">
+<h2>Outgoing connections<a class="headerlink" href="#outgoing-connections" title="Link to this heading">¶</a></h2>
+<p><strong>Depends on</strong></p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/openembedded/openembedded-core">openembedded/openembedded-core</a> — Base OpenEmbedded recipes and classes.</p></li>
-<li><p><a class="reference external" href="https://github.com/qualcomm-linux/bitbake-lint-action">qualcomm-linux/bitbake-lint-action</a> — GitHub Action for linting bitbake recipes using oelint-adv linter</p></li>
-<li><p><a class="reference external" href="https://github.com/qualcomm-linux/github-action-matrix-outputs-read">qualcomm-linux/github-action-matrix-outputs-read</a> — Workaround implementation - Read matrix jobs outputs</p></li>
-<li><p><a class="reference external" href="https://github.com/qualcomm-linux/github-action-matrix-outputs-write">qualcomm-linux/github-action-matrix-outputs-write</a> — Workaround implementation - Write matrix jobs outputs</p></li>
-<li><p><a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom">qualcomm-linux/meta-qcom</a> — OpenEmbedded/Yocto Project BSP layer for Qualcomm based platforms</p></li>
-<li><p><a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-3rdparty">qualcomm-linux/meta-qcom-3rdparty</a> — OpenEmbedded/Yocto Project BSP layer for Third-Party Maintained Qualcomm based platforms</p></li>
-<li><p><a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-distro">qualcomm-linux/meta-qcom-distro</a> — OpenEmbedded/Yocto Project Reference Distribution layer for Qualcomm based platforms</p></li>
-<li><p><a class="reference external" href="https://github.com/qualcomm-linux/qcom-ptool">qualcomm-linux/qcom-ptool</a> — qcom-ptool contains various device partitioning utilities like ptool.py, gen_partitions.py and various sample partition configuration files needed for Qualcomm SoCs.</p></li>
-<li><p><a class="reference external" href="https://github.com/qualcomm/qcom-reusable-workflows">qualcomm/qcom-reusable-workflows</a> — Qualcomm reusable workflows</p></li>
-<li><p><a class="reference external" href="https://github.com/rubikpi-ai/boot-assets">rubikpi-ai/boot-assets</a> — Vendor-hosted RUBIK Pi boot firmware consumed by the board recipe.</p></li>
+<li><p><a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-3rdparty">qualcomm-linux/meta-qcom-3rdparty</a> → <strong>depends on</strong> → <a class="reference external" href="https://github.com/openembedded/openembedded-core">openembedded/openembedded-core</a></p>
+<ul>
+<li><p>wrynose-compatible main snapshot 8927b428bcae; required layer collection.</p></li>
+<li><p><a class="reference external" href="https://github.com/devdocsorg/qualcomm-repository-map/blob/7128fd07bfb1f0c45f7c66144afe56485b37e3b1/maps/openembedded--openembedded-core.md">Explore openembedded/openembedded-core</a> · <a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-3rdparty/blob/8927b428bcaea0c47186beeb9d9446061c785e9c/conf/layer.conf">evidence 1</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-3rdparty">qualcomm-linux/meta-qcom-3rdparty</a> → <strong>depends on</strong> → <a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom">qualcomm-linux/meta-qcom</a></p>
+<ul>
+<li><p>wrynose-compatible main snapshot 8927b428bcae; required layer collection.</p></li>
+<li><p><a class="reference external" href="https://github.com/devdocsorg/qualcomm-repository-map/blob/7128fd07bfb1f0c45f7c66144afe56485b37e3b1/maps/qualcomm-linux--meta-qcom.md">Explore qualcomm-linux/meta-qcom</a> · <a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-3rdparty/blob/8927b428bcaea0c47186beeb9d9446061c785e9c/conf/layer.conf">evidence 1</a></p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Fetches source from</strong></p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-3rdparty">qualcomm-linux/meta-qcom-3rdparty</a> → <strong>fetches source from</strong> → <a class="reference external" href="https://github.com/rubikpi-ai/boot-assets">rubikpi-ai/boot-assets</a></p>
+<ul>
+<li><p>RUBIK Pi 3 boot firmware only; pinned by the recipe SRCREV.</p></li>
+<li><p><a class="reference external" href="https://github.com/devdocsorg/qualcomm-repository-map/blob/7128fd07bfb1f0c45f7c66144afe56485b37e3b1/maps/rubikpi-ai--boot-assets.md">Explore rubikpi-ai/boot-assets</a> · <a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-3rdparty/blob/8927b428bcaea0c47186beeb9d9446061c785e9c/recipes-bsp/firmware-boot/firmware-qcom-boot-rubikpi3_20260621.bb">evidence 1</a></p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Integrates with</strong></p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-3rdparty">qualcomm-linux/meta-qcom-3rdparty</a> → <strong>integrates with</strong> → <a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-distro">qualcomm-linux/meta-qcom-distro</a></p>
+<ul>
+<li><p>Optional: the dynamic layer applies only when qcom-distro is present.</p></li>
+<li><p><a class="reference external" href="https://github.com/devdocsorg/qualcomm-repository-map/blob/7128fd07bfb1f0c45f7c66144afe56485b37e3b1/maps/qualcomm-linux--meta-qcom-distro.md">Explore qualcomm-linux/meta-qcom-distro</a> · <a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-3rdparty/blob/8927b428bcaea0c47186beeb9d9446061c785e9c/conf/layer.conf">evidence 1</a></p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Uses automation from</strong></p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-3rdparty">qualcomm-linux/meta-qcom-3rdparty</a> → <strong>uses automation from</strong> → <a class="reference external" href="https://github.com/qualcomm-linux/bitbake-lint-action">qualcomm-linux/bitbake-lint-action</a></p>
+<ul>
+<li><p>GitHub Actions integration at the evidence revision; workflow/action refs are specified by the calling files. This is not a runtime dependency.</p></li>
+<li><p><a class="reference external" href="https://github.com/devdocsorg/qualcomm-repository-map/blob/7128fd07bfb1f0c45f7c66144afe56485b37e3b1/maps/qualcomm-linux--bitbake-lint-action.md">Explore qualcomm-linux/bitbake-lint-action</a> · <a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-3rdparty/blob/8927b428bcaea0c47186beeb9d9446061c785e9c/.github/workflows/bitbake-lint.yml">evidence 1</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-3rdparty">qualcomm-linux/meta-qcom-3rdparty</a> → <strong>uses automation from</strong> → <a class="reference external" href="https://github.com/qualcomm-linux/github-action-matrix-outputs-read">qualcomm-linux/github-action-matrix-outputs-read</a></p>
+<ul>
+<li><p>GitHub Actions integration at the evidence revision; workflow/action refs are specified by the calling files. This is not a runtime dependency.</p></li>
+<li><p><a class="reference external" href="https://github.com/devdocsorg/qualcomm-repository-map/blob/7128fd07bfb1f0c45f7c66144afe56485b37e3b1/maps/qualcomm-linux--github-action-matrix-outputs-read.md">Explore qualcomm-linux/github-action-matrix-outputs-read</a> · <a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-3rdparty/blob/8927b428bcaea0c47186beeb9d9446061c785e9c/.github/workflows/test-distro.yml">evidence 1</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-3rdparty">qualcomm-linux/meta-qcom-3rdparty</a> → <strong>uses automation from</strong> → <a class="reference external" href="https://github.com/qualcomm-linux/github-action-matrix-outputs-write">qualcomm-linux/github-action-matrix-outputs-write</a></p>
+<ul>
+<li><p>GitHub Actions integration at the evidence revision; workflow/action refs are specified by the calling files. This is not a runtime dependency.</p></li>
+<li><p><a class="reference external" href="https://github.com/devdocsorg/qualcomm-repository-map/blob/7128fd07bfb1f0c45f7c66144afe56485b37e3b1/maps/qualcomm-linux--github-action-matrix-outputs-write.md">Explore qualcomm-linux/github-action-matrix-outputs-write</a> · <a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-3rdparty/blob/8927b428bcaea0c47186beeb9d9446061c785e9c/.github/workflows/test-distro.yml">evidence 1</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-3rdparty">qualcomm-linux/meta-qcom-3rdparty</a> → <strong>uses automation from</strong> → <a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom">qualcomm-linux/meta-qcom</a></p>
+<ul>
+<li><p>GitHub Actions integration at the evidence revision; workflow/action refs are specified by the calling files. This is not a runtime dependency.</p></li>
+<li><p><a class="reference external" href="https://github.com/devdocsorg/qualcomm-repository-map/blob/7128fd07bfb1f0c45f7c66144afe56485b37e3b1/maps/qualcomm-linux--meta-qcom.md">Explore qualcomm-linux/meta-qcom</a> · <a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-3rdparty/blob/8927b428bcaea0c47186beeb9d9446061c785e9c/.github/workflows/build-yocto.yml">evidence 1</a> · <a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-3rdparty/blob/8927b428bcaea0c47186beeb9d9446061c785e9c/.github/workflows/build-yocto.yml">evidence 2</a> · <a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-3rdparty/blob/8927b428bcaea0c47186beeb9d9446061c785e9c/.github/workflows/test-distro.yml">evidence 3</a> · <a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-3rdparty/blob/8927b428bcaea0c47186beeb9d9446061c785e9c/.github/workflows/test-distro.yml">evidence 4</a> · <a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-3rdparty/blob/8927b428bcaea0c47186beeb9d9446061c785e9c/.github/workflows/test-distro.yml">evidence 5</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-3rdparty">qualcomm-linux/meta-qcom-3rdparty</a> → <strong>uses automation from</strong> → <a class="reference external" href="https://github.com/qualcomm/qcom-reusable-workflows">qualcomm/qcom-reusable-workflows</a></p>
+<ul>
+<li><p>GitHub Actions integration at the evidence revision; workflow/action refs are specified by the calling files. This is not a runtime dependency.</p></li>
+<li><p><a class="reference external" href="https://github.com/devdocsorg/qualcomm-repository-map/blob/7128fd07bfb1f0c45f7c66144afe56485b37e3b1/maps/qualcomm--qcom-reusable-workflows.md">Explore qualcomm/qcom-reusable-workflows</a> · <a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-3rdparty/blob/8927b428bcaea0c47186beeb9d9446061c785e9c/.github/workflows/qcom-preflight-checks.yml">evidence 1</a></p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Uses indirectly</strong></p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-3rdparty">qualcomm-linux/meta-qcom-3rdparty</a> → <strong>uses indirectly</strong> → <a class="reference external" href="https://github.com/qualcomm-linux/qcom-ptool">qualcomm-linux/qcom-ptool</a></p>
+<ul>
+<li><p>Partition tooling is supplied through meta-qcom; this is an indirect relationship, not an extra layer dependency.</p></li>
+<li><p><a class="reference external" href="https://github.com/devdocsorg/qualcomm-repository-map/blob/7128fd07bfb1f0c45f7c66144afe56485b37e3b1/maps/qualcomm-linux--qcom-ptool.md">Explore qualcomm-linux/qcom-ptool</a> · <a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom/blob/c6729710f055e1c0337c830030ab25eef7f293a5/recipes-bsp/partition/qcom-ptool.inc">evidence 1</a> · <a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-3rdparty/blob/8927b428bcaea0c47186beeb9d9446061c785e9c/conf/machine/rubikpi3.conf">evidence 2</a></p></li>
+</ul>
+</li>
 </ul>
 </section>
 <section id="full-ecosystem-map">
 <h2>Full ecosystem map<a class="headerlink" href="#full-ecosystem-map" title="Link to this heading">¶</a></h2>
-<p>Return to the <a class="reference external" href="https://github.com/devdocsorg/qualcomm-repository-map">Qualcomm repository map</a> for the wider ecosystem,
-other nearby views, and the locally browsable site. Relationship claims apply to
-the linked evidence revisions; use release-compatible revisions for a build.</p>
-<p>Generated from <code class="docutils literal notranslate"><span class="pre">data/repositories.json</span></code> (SHA-256 <code class="docutils literal notranslate"><span class="pre">602a68056238817dccee9f98db5c06ea20d0bb165a53a0c23ff2d0423240dfca</span></code>).
-Source: <a class="reference external" href="https://github.com/devdocsorg/qualcomm-repository-map/tree/823a772ba747fc220b79ffdef57acd65d3d7703c">central map revision <code class="docutils literal notranslate"><span class="pre">823a772ba747</span></code></a>.
-Edit the shared dataset and regenerate this view to change relationships.</p>
+<p><a class="reference external" href="https://github.com/devdocsorg/qualcomm-repository-map">Explore the Qualcomm repository map</a>.</p>
+<p>The shared map is private and requires repository access. The repository and evidence links above point directly to their public sources.</p>
+<p>Connections apply to the linked evidence revisions; use release-compatible revisions for a build.</p>
+<p>Dataset SHA-256: <code class="docutils literal notranslate"><span class="pre">602a68056238817dccee9f98db5c06ea20d0bb165a53a0c23ff2d0423240dfca</span></code>.
+Generated from <a class="reference external" href="https://github.com/devdocsorg/qualcomm-repository-map/tree/7128fd07bfb1f0c45f7c66144afe56485b37e3b1">central map revision <code class="docutils literal notranslate"><span class="pre">7128fd07bfb1</span></code></a>. Edit the shared dataset and regenerate to change connections.</p>
 </section>
 </section>
 
@@ -168,7 +155,7 @@ Edit the shared dataset and regenerate this view to change relationships.</p>
 <li class="toctree-l1 current"><a class="reference internal" href="README.html">User documentation</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="CONFIGURATION.html">Configuration</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Repository map: qualcomm-linux/meta-qcom-3rdparty</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#nearby-repositories">Nearby repositories</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#outgoing-connections">Outgoing connections</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#full-ecosystem-map">Full ecosystem map</a></li>
 </ul>
 </li>

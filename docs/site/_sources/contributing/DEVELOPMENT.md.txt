@@ -100,8 +100,9 @@ run setup, and rebuild before committing both source and output.
 The [repository map](../user/REPOSITORY_MAP.md) records the central map commit and
 dataset digest. Relationships belong in the
 [Qualcomm repository map](https://github.com/devdocsorg/qualcomm-repository-map).
-Use its contributor export procedure to regenerate this repository's Markdown and
-SVG from a reviewed commit, then rebuild this site. Do not maintain a second copy
+Use its [map update and export procedure](https://github.com/devdocsorg/qualcomm-repository-map/blob/main/data/README.md)
+to regenerate this repository's linked Markdown view from a reviewed commit, then
+rebuild this site. Access to the private map repository is required for updates. Do not maintain a second copy
 of relationship facts here.
 
 The setup target recreates the documentation-only `.venv` from the lockfile.
