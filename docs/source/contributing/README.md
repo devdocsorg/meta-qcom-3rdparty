@@ -1,8 +1,10 @@
 # Contributor documentation
 
-Follow the contribution guidelines when adding board support, or start with the
-usage tutorial to prepare a layer build. Agent instructions and skill documentation
-live alongside these guides.
+Follow the [contribution guidelines](CONTRIBUTING.md) when adding board support,
+or start with the [usage tutorial](USAGE.md) to prepare a layer build.
+[Development setup](DEVELOPMENT.md) covers the contributor environment, and the
+[agent instructions](AGENTS.md) describe the automated build and validation workflow.
+Skill documentation lives alongside these guides.
 
 ```{toctree}
 :hidden:

@@ -31,16 +31,17 @@ revision: HEAD
 ## Getting Started
 
 Follow the [usage tutorial](docs/source/contributing/USAGE.md) to prepare the workspace. Then inspect
-the selected build configuration:
+the selected [build configuration](ci/radxa-dragon-q6a.yml):
 
 ```sh
 kas-container dump ci/radxa-dragon-q6a.yml
 ```
 
-The [documentation guide](docs/README.md) links the tutorial, configuration
-documentation, and the Sphinx build for the generated function reference.
+The [documentation guide](docs/README.md) links the tutorial,
+[configuration reference](docs/source/user/CONFIGURATION.md), and the Sphinx build
+for the [generated function reference](docs/source/contributing/README.md#function-reference).
 
-Open `docs/site/index.html` directly in a browser for the locally browsable site.
+Open [docs/site/index.html](docs/site/index.html) directly in a browser for the locally browsable site.
 See the [nearby repository map](docs/source/user/REPOSITORY_MAP.md) for this layer's
 place in the Qualcomm ecosystem, and [development environment setup](docs/source/contributing/DEVELOPMENT.md)
 to prepare a contributor checkout and the documentation toolchain.
@@ -61,7 +62,7 @@ See [BRANCHES.md](BRANCHES.md) for branch relationships.
 
 ## Machine Support
 
-See `conf/machine` for the complete list of supported devices.
+See [conf/machine](conf/machine/README.md) for the complete list of supported devices.
 
 ## Contributing
 
@@ -81,10 +82,15 @@ Pull requests will be discussed within the GitHub pull-request infrastructure.
 - **GitHub Issues:** [meta-qcom-3rdparty issues](https://github.com/qualcomm-linux/meta-qcom-3rdparty/issues)
 - **Pull Requests:** [meta-qcom-3rdparty pull requests](https://github.com/qualcomm-linux/meta-qcom-3rdparty/pulls)
 
+Follow the [Code of Conduct](CODE_OF_CONDUCT.md) when participating, and use the
+[security policy](SECURITY.md) to report vulnerabilities.
+
 ## Maintainer(s)
 
 - Ricardo Salveti <ricardo.salveti@oss.qualcomm.com>
 - Nicolas Dechesne <nicolas.dechesne@oss.qualcomm.com>
+
+See [CODEOWNERS](.github/CODEOWNERS) for review ownership by repository path.
 
 ## License
 

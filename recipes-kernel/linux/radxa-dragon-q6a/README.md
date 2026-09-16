@@ -1,6 +1,6 @@
 # Dragon Q6A kernel configuration
 
-The fragment requests the Realtek Ethernet driver and its PHY dependencies.
+The [kernel configuration fragment](realtek-eth-8169.cfg) requests the Realtek Ethernet driver and its PHY dependencies.
 `m` requests a module and `y` built-in support; the selected kernel determines
 each symbol's permitted type, dependencies, and effective value. Omitted symbols
 keep the kernel defconfig or earlier fragment's setting.

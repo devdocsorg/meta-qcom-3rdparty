@@ -1,6 +1,8 @@
 # User documentation
 
-Read the configuration guide for setting types, defaults, and examples.
+Read the [configuration guide](CONFIGURATION.md) for setting types, defaults, and
+examples. The [nearby repository map](REPOSITORY_MAP.md) shows how this layer
+connects to related repositories.
 
 ```{toctree}
 :hidden:

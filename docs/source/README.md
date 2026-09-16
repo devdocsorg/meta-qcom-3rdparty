@@ -1,7 +1,7 @@
 # meta-qcom-3rdparty Documentation
 
-Use the contributor guides to build or extend the layer, and the user guides
-to understand its configuration.
+Use the [contributor guides](contributing/README.md) to build or extend the layer,
+and the [user guides](user/README.md) to understand its configuration.
 
 ```{toctree}
 :hidden:
