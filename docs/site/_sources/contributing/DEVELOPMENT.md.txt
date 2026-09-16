@@ -102,7 +102,9 @@ dataset digest. Relationships belong in the
 [Qualcomm repository map](https://github.com/devdocsorg/qualcomm-repository-map).
 Use its [map update and export procedure](https://github.com/devdocsorg/qualcomm-repository-map/blob/main/data/README.md)
 to regenerate this repository's linked Markdown view from a reviewed commit, then
-rebuild this site. Access to the private map repository is required for updates. Do not maintain a second copy
+rebuild this site. The build also regenerates the map below the root README's
+folder and file indexes from that same snapshot. Edit neither derived view by hand.
+Access to the private map repository is required for updates. Do not maintain a second copy
 of relationship facts here.
 
 The setup target recreates the documentation-only `.venv` from the lockfile.

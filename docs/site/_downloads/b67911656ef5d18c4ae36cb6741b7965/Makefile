@@ -24,5 +24,5 @@ check: html
 	.venv/bin/python .github/check_offline.py docs/site _is_dir
 	test -f docs/site/index.html
 	grep -q 'SHOW_SEARCH_SUMMARY: false' docs/site/_static/documentation_options.js
-	git diff --exit-code -- docs/site
+	git diff --exit-code -- README.md docs/site
 	test -z "$$(git ls-files --others --exclude-standard docs/site)"

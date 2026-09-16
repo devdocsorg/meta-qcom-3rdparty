@@ -31,6 +31,21 @@ html_show_search_summary = False
 # Build paths are derived from this file; no host-specific configuration.
 source_dir = Path(__file__).resolve().parent
 root = source_dir.parents[1]
+# Derive the README map from the shared-map snapshot already used by this site.
+# Only the marked block is replaced; all other README content stays authored there.
+readme_path = root / "README.md"
+readme_text = readme_path.read_text()
+map_start = "<!-- repository-map:start -->"
+map_end = "<!-- repository-map:end -->"
+if readme_text.count(map_start) != 1 or readme_text.count(map_end) != 1:
+    raise RuntimeError("README must contain exactly one repository-map marker pair")
+readme_before, readme_map = readme_text.split(map_start)
+map_previous, readme_after = readme_map.split(map_end)
+map_snapshot = (source_dir / "user" / "REPOSITORY_MAP.md").read_text()
+map_section = "## Repository map\n" + re.sub(r"(?m)^(#{1,5}) ", r"#\1 ", map_snapshot.split("\n", 1)[1])
+readme_path.write_text(readme_before + map_start + "\n\n" + map_section.rstrip()
+                       + "\n\n" + map_end + readme_after)
+
 generated = source_dir / "contributing" / ".generated"
 shdoc = Path(sys.executable).with_name("shdoc")
 generated.mkdir(exist_ok=True)
