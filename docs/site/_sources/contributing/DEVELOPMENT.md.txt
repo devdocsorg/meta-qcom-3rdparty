@@ -98,12 +98,14 @@ run setup, and rebuild before committing both source and output.
 ## Nearby map updates
 
 The [nearby map at the bottom of the root README](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/devdocs/required-files-sphinx/README.md#repository-map)
-shows the direct dependencies and build inputs. Its source comment records the
+shows the recorded build/component connections, including incoming links,
+optional integrations, and indirect paths through their providers. Its source comment records the
 central map commit and dataset digest. The
 [Qualcomm repository map](https://github.com/devdocsorg/qualcomm-repository-map)
 owns the relationship facts and full view. Follow its
 [README export procedure](https://github.com/devdocsorg/qualcomm-repository-map/blob/main/data/README.md)
-to regenerate the marked block directly from a reviewed commit. Use `--check` to
+to audit build references, run the source and coverage checks, and regenerate the
+marked block directly from a reviewed commit. Use `--check` to
 verify that the block matches the recorded source. Access to the private map
 repository is required for updates. Do not maintain a second copy of relationship
 facts here.
