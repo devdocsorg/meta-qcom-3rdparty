@@ -97,8 +97,9 @@ run setup, and rebuild before committing both source and output.
 
 ## Nearby map updates
 
-The [repository map](../user/REPOSITORY_MAP.md) records the central map commit and
-dataset digest. Relationships belong in the
+The [repository map](../user/REPOSITORY_MAP.md) is a short dependency guide. Its
+source comment records the central map commit and dataset digest; the full map
+keeps relationship evidence and automation details. Relationships belong in the
 [Qualcomm repository map](https://github.com/devdocsorg/qualcomm-repository-map).
 Use its [map update and export procedure](https://github.com/devdocsorg/qualcomm-repository-map/blob/main/data/README.md)
 to regenerate this repository's linked Markdown view from a reviewed commit, then
