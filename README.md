@@ -65,6 +65,8 @@ See `conf/machine` for the complete list of supported devices.
 
 ## Contributing
 
+Read [CONTRIBUTING.md](CONTRIBUTING.md) for the contribution guidelines.
+
 Please submit any patches against the `meta-qcom-3rdparty` layer by using
 the GitHub pull-request feature. Fork the repo, create a branch,
 do the work, rebase from upstream, and create the pull request.
