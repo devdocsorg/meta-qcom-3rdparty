@@ -124,17 +124,27 @@ for more details.
 
 ## Repository map
 
-You are here: **[meta-qcom-3rdparty](https://github.com/qualcomm-linux/meta-qcom-3rdparty)**.
+```mermaid
+flowchart LR
+    r0["meta-qcom-3rdparty (you are here)"]
+    click r0 href "https://github.com/qualcomm-linux/meta-qcom-3rdparty" _blank
+    r1["openembedded-core"]
+    click r1 href "https://github.com/openembedded/openembedded-core" _blank
+    r2["meta-qcom"]
+    click r2 href "https://github.com/qualcomm-linux/meta-qcom" _blank
+    r3["meta-qcom-distro"]
+    click r3 href "https://github.com/qualcomm-linux/meta-qcom-distro" _blank
+    r4["boot-assets"]
+    click r4 href "https://github.com/rubikpi-ai/boot-assets" _blank
+    r0 -->|"Required: base OpenEmbedded layer."| r1
+    r0 -->|"Required: Qualcomm BSP layer."| r2
+    r0 -->|"Optional: Qualcomm reference distro."| r3
+    r0 -->|"RUBIK Pi 3 firmware, fetched by the build."| r4
+    style r0 fill:#e6f3ff,stroke:#0969da,stroke-width:3px,color:#182c43
+```
 
-| Repository | Used for |
-| --- | --- |
-| [openembedded-core](https://github.com/openembedded/openembedded-core) | Required: base OpenEmbedded layer. |
-| [meta-qcom](https://github.com/qualcomm-linux/meta-qcom) | Required: Qualcomm BSP layer. |
-| [meta-qcom-distro](https://github.com/qualcomm-linux/meta-qcom-distro) | Optional: Qualcomm reference distro. |
-| [boot-assets](https://github.com/rubikpi-ai/boot-assets) | RUBIK Pi 3 firmware, fetched by the build. |
+[Full Qualcomm repository map](https://github.com/devdocsorg/qualcomm-repository-map).
 
-[Full map and relationship details](https://github.com/devdocsorg/qualcomm-repository-map/blob/ddb464aecab9d073fd83267d9a02a3b73ffe7e58/maps/qualcomm-linux--meta-qcom-3rdparty.md).
-
-<!-- Generated from https://github.com/devdocsorg/qualcomm-repository-map at ddb464aecab9d073fd83267d9a02a3b73ffe7e58; dataset SHA-256: bd976587e3980bd55d7438b70404ec9c904e9867ffff16f5f02793244f602c8a. -->
+<!-- Generated from https://github.com/devdocsorg/qualcomm-repository-map at cc9bb581b676ebb672b5a4ac22a4358c7ae1052e; dataset SHA-256: bd976587e3980bd55d7438b70404ec9c904e9867ffff16f5f02793244f602c8a. -->
 
 <!-- repository-map:end -->

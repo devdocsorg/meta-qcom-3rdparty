@@ -18,6 +18,12 @@ from playwright.sync_api import sync_playwright
 
 source = Path(sys.argv[1]).resolve()
 query = sys.argv[2]
+# Repository maps belong only in the root README, including their source blocks.
+for artifact in source.rglob("*"):
+    if artifact.is_file() and artifact.suffix in {".html", ".md", ".txt"}:
+        assert "REPOSITORY_MAP" not in artifact.name.upper(), artifact
+        content = artifact.read_text()
+        assert "<!-- repository-map:start -->" not in content, artifact
 with tempfile.TemporaryDirectory(prefix='docs-offline-') as tmp:
     site = Path(tmp) / 'copied-site'
     shutil.copytree(source, site)

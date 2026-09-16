@@ -39,7 +39,7 @@ Markdown stay outside it.
 Open `docs/site/index.html`, navigate into contributor and user pages, follow a
 heading link, and return home. Search for `_is_dir` and open a function result.
 Repeat with the network disabled and with `docs/site/` copied outside the checkout.
-Navigation, styling, search, and the repository map must still work. External
+Navigation, styling, and search must still work. External
 repository and upstream documentation links require connectivity.
 
 Search shows result titles without fetching page excerpts, which browsers block
@@ -97,16 +97,19 @@ run setup, and rebuild before committing both source and output.
 
 ## Nearby map updates
 
-The [repository map](../user/REPOSITORY_MAP.md) is a short dependency guide. Its
-source comment records the central map commit and dataset digest; the full map
-keeps relationship evidence and automation details. Relationships belong in the
-[Qualcomm repository map](https://github.com/devdocsorg/qualcomm-repository-map).
-Use its [map update and export procedure](https://github.com/devdocsorg/qualcomm-repository-map/blob/main/data/README.md)
-to regenerate this repository's linked Markdown view from a reviewed commit, then
-rebuild this site. The build also regenerates the map below the root README's
-folder and file indexes from that same snapshot. Edit neither derived view by hand.
-Access to the private map repository is required for updates. Do not maintain a second copy
-of relationship facts here.
+The [nearby map at the bottom of the root README](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/devdocs/required-files-sphinx/README.md#repository-map)
+shows the direct dependencies and build inputs. Its source comment records the
+central map commit and dataset digest. The
+[Qualcomm repository map](https://github.com/devdocsorg/qualcomm-repository-map)
+owns the relationship facts and full view. Follow its
+[README export procedure](https://github.com/devdocsorg/qualcomm-repository-map/blob/main/data/README.md)
+to regenerate the marked block directly from a reviewed commit. Use `--check` to
+verify that the block matches the recorded source. Access to the private map
+repository is required for updates. Do not maintain a second copy of relationship
+facts here.
+
+The map lives only in the root README. Map export is independent of Sphinx;
+the documentation build does not read, copy, or write the map.
 
 The setup target recreates the documentation-only `.venv` from the lockfile.
 Keep project dependencies and custom tools in their own environments.
