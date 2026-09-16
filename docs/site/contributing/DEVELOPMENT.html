@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Set up your development environment &#8212; meta-qcom-3rdparty  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=6fc51f2d" />
+    <script src="../_static/documentation_options.js?v=748769dd"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Prepare a layer build with kas" href="USAGE.html" />
+    <link rel="prev" title="Contributing to meta-qcom-3rdparty" href="CONTRIBUTING.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="set-up-your-development-environment">
+<h1>Set up your development environment<a class="headerlink" href="#set-up-your-development-environment" title="Link to this heading">¶</a></h1>
+<p>This walkthrough prepares a contributor checkout, installs the documentation
+extractors, and connects to the existing kas build tutorial and CI checks.</p>
+<section id="prepare-a-checkout">
+<h2>1. Prepare a checkout<a class="headerlink" href="#prepare-a-checkout" title="Link to this heading">¶</a></h2>
+<p>Use Git and a Linux host. For documentation changes, you need the documentation
+tools below; image builds also need the container runtime and kas setup in the
+<a class="reference internal" href="USAGE.html#prerequisites"><span class="std std-ref">usage tutorial</span></a>.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/qualcomm-linux/meta-qcom-3rdparty.git
+<span class="nb">cd</span><span class="w"> </span>meta-qcom-3rdparty
+git<span class="w"> </span>switch<span class="w"> </span>-c<span class="w"> </span>docs/my-change
+</pre></div>
+</div>
+<p>For this documentation proposal, use your checkout of the PR branch in
+<code class="docutils literal notranslate"><span class="pre">devdocsorg/meta-qcom-3rdparty</span></code>. The upstream clone acquires these documentation
+files when the proposal is adopted. Keep contribution routing in the
+<a class="reference internal" href="CONTRIBUTING.html"><span class="std std-doc">contribution guide</span></a>.</p>
+</section>
+<section id="build-the-documentation">
+<h2>2. Build the documentation<a class="headerlink" href="#build-the-documentation" title="Link to this heading">¶</a></h2>
+<p>Use Make, Python 3.12 or newer, <code class="docutils literal notranslate"><span class="pre">uv</span></code>, GNU awk (<code class="docutils literal notranslate"><span class="pre">gawk</span></code>), and <code class="docutils literal notranslate"><span class="pre">curl</span></code>. From the repository root:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>-f<span class="w"> </span>docs/source/Makefile<span class="w"> </span>setup
+make<span class="w"> </span>-f<span class="w"> </span>docs/source/Makefile<span class="w"> </span>html
+</pre></div>
+</div>
+<p>Open <code class="docutils literal notranslate"><span class="pre">docs/site/index.html</span></code> directly in a browser, without an HTTP server. The function reference is extracted from source
+comments with shdoc v1.4 during the build. Edit the comments to change the reference.
+The site contains generated HTML and assets; build caches and intermediate
+Markdown stay outside it.</p>
+</section>
+<section id="check-the-site-without-a-server">
+<h2>3. Check the site without a server<a class="headerlink" href="#check-the-site-without-a-server" title="Link to this heading">¶</a></h2>
+<p>Open <code class="docutils literal notranslate"><span class="pre">docs/site/index.html</span></code>, navigate into contributor and user pages, follow a
+heading link, and return home. Search for <code class="docutils literal notranslate"><span class="pre">_is_dir</span></code> and open a function result.
+Repeat with the network disabled and with <code class="docutils literal notranslate"><span class="pre">docs/site/</span></code> copied outside the checkout.
+Navigation, styling, search, and the repository map must still work. External
+repository and upstream documentation links require connectivity.</p>
+<p>Search shows result titles without fetching page excerpts, which browsers block
+under <code class="docutils literal notranslate"><span class="pre">file://</span></code>. The site entry point redirects to the homepage generated from
+<code class="docutils literal notranslate"><span class="pre">docs/source/README.md</span></code>; there is only one maintained homepage.</p>
+</section>
+<section id="prepare-and-validate-a-layer-change">
+<h2>4. Prepare and validate a layer change<a class="headerlink" href="#prepare-and-validate-a-layer-change" title="Link to this heading">¶</a></h2>
+<p>Follow <a class="reference internal" href="USAGE.html"><span class="std std-doc">Prepare a layer build with kas</span></a> for workspace defaults, machine
+selection, metadata parsing, and image output. This is the authoritative setup
+procedure for those operations; existing environment settings take precedence.</p>
+<p>Follow the <a class="reference internal" href="AGENTS.html#run-routine-checks-via-ci-helper-scripts"><span class="std std-ref">agent and CI guide</span></a>
+for the required patch review and layer checks. The guide also owns container
+smoke tests, cache placement, and the submission check order.</p>
+</section>
+<section id="documentation-language-coverage">
+<h2>Documentation language coverage<a class="headerlink" href="#documentation-language-coverage" title="Link to this heading">¶</a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Maintained source</p></th>
+<th class="head"><p>Extractor and output</p></th>
+<th class="head"><p>Validation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Shell functions in <code class="docutils literal notranslate"><span class="pre">ci/*.sh</span></code></p></td>
+<td><p>shdoc v1.4 extracts standard shell documentation comments into the contributor function reference.</p></td>
+<td><p>The Sphinx build compares declared function names with shdoc entries and fails on missing entries.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Shell tasks in BitBake recipes and appends</p></td>
+<td><p>The same shdoc extractor reads the task comments without executing BitBake or firmware tasks.</p></td>
+<td><p>Task names must appear in the extracted reference; shell syntax and BitBake metadata remain validated by the existing CI checks.</p></td>
+</tr>
+<tr class="row-even"><td><p>Python documentation build configuration and checks</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">conf.py</span></code> and the documentation checks in <code class="docutils literal notranslate"><span class="pre">.github/</span></code> currently define no Python functions or classes needing an API reference.</p></td>
+<td><p>Adding Python functions requires a Python extractor and coverage check before the build can pass.</p></td>
+</tr>
+<tr class="row-odd"><td><p>kas YAML and BitBake configuration</p></td>
+<td><p>MyST renders the <a class="reference internal" href="../user/CONFIGURATION.html"><span class="std std-doc">configuration reference</span></a>.</p></td>
+<td><p>These are configuration settings, not function definitions; their types, defaults, and examples belong in that reference.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Sphinx/MyST renders the prose and generated Markdown. shdoc is the language-specific
+extractor. Both are installed by the build setup above. Inline calls such as
+<code class="docutils literal notranslate"><span class="pre">${&#64;bb.utils.contains_any(...)}</span></code> use upstream functions; they do not define local
+Python functions. The build rejects Python function definitions in recipes until
+an appropriate Python extraction path is configured, rather than silently omitting
+them. New languages must add their native extractor, pinned dependencies, reference
+navigation, and coverage validation together.</p>
+<p>Edit comments beside each function to change its reference. Generated intermediate
+Markdown and rendered pages are derived output, not independently maintained API
+prose. The documentation CI job rebuilds from scratch, checks reference coverage,
+rejects stale committed output, and tests that temporary undocumented shell
+functions and unsupported Python tasks cause a build failure.</p>
+<p>The <a class="reference download internal" download="" href="../_downloads/b67911656ef5d18c4ae36cb6741b7965/Makefile"><span class="xref download myst">Makefile</span></a> owns dependency installation and build commands for
+both local use and CI. After committing regenerated output, run
+<code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">-f</span> <span class="pre">docs/source/Makefile</span> <span class="pre">check</span></code> to verify it reproduces.</p>
+<p>The shared <code class="docutils literal notranslate"><span class="pre">check</span></code> target also opens a copied site with Playwright and networking
+disabled. It checks navigation, anchors, resources, and a search-result click.
+It uses system Chromium when available; otherwise run
+<code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">-f</span> <span class="pre">docs/source/Makefile</span> <span class="pre">browser</span></code> to install Playwright’s user-local browser.
+CI installs its browser before invoking the same check target.</p>
+<p>Direct documentation dependencies are declared in <code class="docutils literal notranslate"><span class="pre">docs/source/requirements.txt</span></code>;
+<code class="docutils literal notranslate"><span class="pre">docs/source/requirements.lock</span></code> also pins their transitive dependencies. After an
+intentional tool update, regenerate the lock with
+<code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">pip</span> <span class="pre">compile</span> <span class="pre">--python-version</span> <span class="pre">3.12</span> <span class="pre">docs/source/requirements.txt</span> <span class="pre">-o</span> <span class="pre">docs/source/requirements.lock</span></code>,
+run setup, and rebuild before committing both source and output.</p>
+</section>
+<section id="nearby-map-updates">
+<h2>Nearby map updates<a class="headerlink" href="#nearby-map-updates" title="Link to this heading">¶</a></h2>
+<p>The <a class="reference internal" href="../user/REPOSITORY_MAP.html"><span class="std std-doc">repository map</span></a> is a short dependency guide. Its
+source comment records the central map commit and dataset digest; the full map
+keeps relationship evidence and automation details. Relationships belong in the
+<a class="reference external" href="https://github.com/devdocsorg/qualcomm-repository-map">Qualcomm repository map</a>.
+Use its <a class="reference external" href="https://github.com/devdocsorg/qualcomm-repository-map/blob/main/data/README.md">map update and export procedure</a>
+to regenerate this repository’s linked Markdown view from a reviewed commit, then
+rebuild this site. The build also regenerates the map below the root README’s
+folder and file indexes from that same snapshot. Edit neither derived view by hand.
+Access to the private map repository is required for updates. Do not maintain a second copy
+of relationship facts here.</p>
+<p>The setup target recreates the documentation-only <code class="docutils literal notranslate"><span class="pre">.venv</span></code> from the lockfile.
+Keep project dependencies and custom tools in their own environments.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../README.html">meta-qcom-3rdparty</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="README.html">Contributor documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="CONTRIBUTING.html">Contributing to meta-qcom-3rdparty</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Set up your development environment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#prepare-a-checkout">1. Prepare a checkout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#build-the-documentation">2. Build the documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#check-the-site-without-a-server">3. Check the site without a server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#prepare-and-validate-a-layer-change">4. Prepare and validate a layer change</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#documentation-language-coverage">Documentation language coverage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nearby-map-updates">Nearby map updates</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="USAGE.html">Prepare a layer build with kas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AGENTS.html">Agent Guide for meta-qcom-3rdparty</a></li>
+<li class="toctree-l2"><a class="reference internal" href="README.html#function-reference">Function reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="README.html#files">Files</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../user/README.html">User documentation</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../README.html">Documentation overview</a><ul>
+  <li><a href="README.html">Contributor documentation</a><ul>
+      <li>Previous: <a href="CONTRIBUTING.html" title="previous chapter">Contributing to meta-qcom-3rdparty</a></li>
+      <li>Next: <a href="USAGE.html" title="next chapter">Prepare a layer build with kas</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/contributing/DEVELOPMENT.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

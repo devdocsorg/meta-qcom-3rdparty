@@ -1,0 +1,7 @@
+# Local settings.
+/.env
+# Documentation dependencies, caches, and intermediate reference pages.
+/.venv/
+/docs/source/__pycache__/
+/docs/.doctrees/
+/docs/source/contributing/.generated/
