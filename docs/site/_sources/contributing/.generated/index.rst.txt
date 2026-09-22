@@ -1,0 +1,13 @@
+Native function reference
+=========================
+
+Generated from native comments; private helpers are included.
+
+.. toctree::
+   :maxdepth: 2
+
+   ci--yocto-buildstats-sh
+   ci--yocto-check-layer-sh
+   ci--yocto-patchreview-sh
+   recipes-bsp--firmware-boot--firmware-qcom-boot-rubikpi3_20260621-bb
+   python

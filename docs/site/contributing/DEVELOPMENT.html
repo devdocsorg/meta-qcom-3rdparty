@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Development environment &#8212; meta-qcom-3rdparty  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=27fed22d" />
+    <script src="../_static/documentation_options.js?v=748769dd"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Native function reference" href=".generated/index.html" />
+    <link rel="prev" title="Agent Guide for meta-qcom-3rdparty" href="AGENTS.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="development-environment">
+<h1>Development environment<a class="headerlink" href="#development-environment" title="Link to this heading">¶</a></h1>
+<p>Use a Linux checkout for the kas container workflow. Documentation also builds in
+WSL. The layer produces Yocto images; documentation changes do not require an
+entire image build. Read the <a class="reference internal" href="CONTRIBUTING.html"><span class="std std-doc">contributor guide</span></a> before changing
+BSP behaviour.</p>
+<section id="check-out-the-layer">
+<h2>1. Check out the layer<a class="headerlink" href="#check-out-the-layer" title="Link to this heading">¶</a></h2>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/qualcomm-linux/meta-qcom-3rdparty.git
+<span class="nb">cd</span><span class="w"> </span>meta-qcom-3rdparty
+git<span class="w"> </span>switch<span class="w"> </span>-c<span class="w"> </span>docs/my-change
+</pre></div>
+</div>
+<p>For a fork, clone that fork and preserve upstream contribution routing. See
+<a class="reference download internal" download="" href="../_downloads/f1df9724e004c17f822af856bb966222/BRANCHES.md"><code class="xref download docutils literal notranslate"><span class="pre">branch</span> <span class="pre">guidance</span></code></a> before selecting a release. For a
+reproducible review, record the checkout commit and kas-resolved parent revisions.
+The development kas fragments follow parent branches, so later resolutions can
+change independently of this layer.</p>
+</section>
+<section id="prepare-build-tooling">
+<h2>2. Prepare build tooling<a class="headerlink" href="#prepare-build-tooling" title="Link to this heading">¶</a></h2>
+<p>The tested build setup uses Git, Docker, and kas-container 4.8.2 with the
+<code class="docutils literal notranslate"><span class="pre">ghcr.io/siemens/kas/kas:4.8.2</span></code> image. Use an existing installation where available.
+For a user-local kas wrapper with <a class="reference external" href="https://docs.astral.sh/uv/">uv</a>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>tool<span class="w"> </span>install<span class="w"> </span><span class="s1">'kas==4.8.2'</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">KAS_CONTAINER</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/.local/bin/kas-container"</span>
+</pre></div>
+</div>
+<p>The <a class="reference internal" href="AGENTS.html#prerequisites"><span class="std std-ref">agent guide</span></a> owns the required Docker/Podman smoke
+test order and the <a class="reference internal" href="AGENTS.html#recommended-environment"><span class="std std-ref">shared-cache setup</span></a>.
+Set real writable paths outside the checkout for <code class="docutils literal notranslate"><span class="pre">KAS_WORK_DIR</span></code>, <code class="docutils literal notranslate"><span class="pre">DL_DIR</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">SSTATE_DIR</span></code>; preserve existing values. <code class="docutils literal notranslate"><span class="pre">.env.example</span></code> is documentation, not an
+automatically loaded environment. See <a class="reference internal" href="../user/CONFIGURATION.html"><span class="std std-doc">configuration</span></a>.</p>
+<p>Follow the <a class="reference internal" href="AGENTS.html#build-with-kas-container-ci-style"><span class="std std-ref">CI-style build procedure</span></a>
+and <a class="reference internal" href="AGENTS.html#pull-request-contribution-workflow"><span class="std std-ref">ordered patch/layer checks</span></a>.
+A successful patch review writes <code class="docutils literal notranslate"><span class="pre">status.json</span></code> without malformed patch metadata;
+a successful layer check completes with no failed tests. The helper always uses
+<code class="docutils literal notranslate"><span class="pre">ci/base.yml</span></code>; a first run fetches parent layers. The layer checker clones the
+committed checkout, so commit the intended BSP changes before its final run.</p>
+</section>
+<section id="install-documentation-tools">
+<h2>3. Install documentation tools<a class="headerlink" href="#install-documentation-tools" title="Link to this heading">¶</a></h2>
+<p>Prerequisites are Git, GNU Make, Bash, GNU awk (<code class="docutils literal notranslate"><span class="pre">gawk</span></code>), and uv. The tested host
+uses uv 0.12.3, GNU awk 5.4.1, and Bash 5.3. The setup command selects Python 3.12
+(tested 3.12.13), installs exact Python packages from the lockfile, and fetches
+immutable shdoc and BitBake parser revisions declared in the Makefile.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>-f<span class="w"> </span>docs/source/Makefile<span class="w"> </span>setup
+make<span class="w"> </span>-f<span class="w"> </span>docs/source/Makefile<span class="w"> </span>browser
+</pre></div>
+</div>
+<p>Reused infrastructure notices are in <a class="reference download internal" download="" href="../_downloads/2c5d927a62ba4517e0d3be3ad77445da/THIRD_PARTY_NOTICES.md"><code class="xref download docutils literal notranslate"><span class="pre">THIRD_PARTY_NOTICES.md</span></code></a>; generated assets bundle their own upstream licences.</p>
+<p>The documentation-only <code class="docutils literal notranslate"><span class="pre">.venv</span></code> is recreated by setup. Extractors are stored in
+ignored <code class="docutils literal notranslate"><span class="pre">.doc-tools/</span></code>; neither directory belongs in the generated site. The
+browser target installs user-local Chromium; omit it when a compatible system
+Chromium is available. CI installs its browser dependencies before running the
+same check target. No Yocto task is executed during documentation extraction.</p>
+</section>
+<section id="edit-regenerate-and-check">
+<h2>4. Edit, regenerate, and check<a class="headerlink" href="#edit-regenerate-and-check" title="Link to this heading">¶</a></h2>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>-f<span class="w"> </span>docs/source/Makefile<span class="w"> </span>html
+</pre></div>
+</div>
+<p>Expected result: strict Sphinx build exit status zero, matching native function
+coverage, and <code class="docutils literal notranslate"><span class="pre">docs/site/index.html</span></code>. The build removes stale HTML and replaces
+only generated reference sources under <code class="docutils literal notranslate"><span class="pre">contributing/.generated/</span></code>. Open the site
+entry directly, copy the site elsewhere, and use its navigation and firmware
+search with networking disabled.</p>
+<p>Keep each authored subject in one source file. Policies stay at the repository
+root. Update maintained-folder README inventories when adding or moving files.
+Stage and commit documentation sources and generated output together, then run:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>-f<span class="w"> </span>docs/source/Makefile<span class="w"> </span>check
+</pre></div>
+</div>
+<p>This checks independent function coverage, source navigation, and the copied site
+in a headless offline browser, then rejects changed or untracked site output. The
+<a class="reference download internal" download="" href="../_downloads/1ad3fd36148816c8c7caa77e0af869f5/documentation.yml"><span class="xref download myst">documentation workflow</span></a> uses this
+same entry point. Use <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span> <span class="pre">-s</span></code> to apply the required sign-off.</p>
+</section>
+<section id="maintain-native-references">
+<h2>5. Maintain native references<a class="headerlink" href="#maintain-native-references" title="Link to this heading">¶</a></h2>
+<p>Shell functions use <a class="reference external" href="https://github.com/reconquest/shdoc">shdoc annotations</a>:
+<code class="docutils literal notranslate"><span class="pre">&#64;description</span></code>, typed <code class="docutils literal notranslate"><span class="pre">&#64;arg</span></code> or <code class="docutils literal notranslate"><span class="pre">&#64;noargs</span></code>, <code class="docutils literal notranslate"><span class="pre">&#64;example</span></code>, and <code class="docutils literal notranslate"><span class="pre">&#64;exitcode</span></code>, plus relevant
+output/failure notes. Do not mark private helpers <code class="docutils literal notranslate"><span class="pre">&#64;internal</span></code>, which hides output.
+The generator compares shdoc entries against Bash syntax discovery; BitBake’s
+native parser discovers task blocks without evaluating statements or loading
+includes. The reference includes the local shell tasks, not inherited functions.</p>
+<p>Python tooling uses native docstrings with parameter/return types, an example,
+and failure behaviour. Sphinx autodoc imports only the audited reference module,
+whose work is protected by a main guard. Python AST discovery rejects additional
+modules, nested definitions, or unsupported definitions until safe native
+extraction is configured. Embedded Python definitions in BitBake and functions
+inside workflow <code class="docutils literal notranslate"><span class="pre">run</span></code> blocks are detected and fail with a setup instruction;
+current inline Python expressions define no functions. Never execute a recipe or
+an unaudited Python module to generate documentation.</p>
+<p>When changing tools, update the declared versions, regenerate the lock, rerun setup,
+and rebuild. The Makefile owns shdoc and BitBake revision pins; the Python lock owns
+Sphinx, MyST, bashlex, PyYAML, Playwright, and transitive package versions.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>pip<span class="w"> </span>compile<span class="w"> </span>--python-version<span class="w"> </span><span class="m">3</span>.12<span class="w"> </span>docs/source/requirements.txt<span class="w"> </span>-o<span class="w"> </span>docs/source/requirements.lock
+</pre></div>
+</div>
+</section>
+<section id="update-the-nearby-repository-map">
+<h2>6. Update the nearby repository map<a class="headerlink" href="#update-the-nearby-repository-map" title="Link to this heading">¶</a></h2>
+<p>The root README map is exported independently of Sphinx. Follow the shared map’s
+<a class="reference external" href="https://github.com/devdocsorg/qualcomm-repository-map/blob/main/data/README.md">maintenance procedure</a>,
+using its repository owners and pull-request route for relationship changes.
+Access to that repository is required for regeneration. Audit this layer’s
+recipes, manifests, includes, and selected parent inputs, then use the existing
+central checker and exporter with canonical identity <code class="docutils literal notranslate"><span class="pre">qualcomm-linux/meta-qcom-3rdparty</span></code>.
+Do not copy the map generator, dataset, or map content into this documentation site.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../README.html">meta-qcom-3rdparty</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../user/README.html">Using the layer</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="README.html">Contributor documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="CONTRIBUTING.html">Contributing to meta-qcom-3rdparty</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AGENTS.html">Agent Guide for meta-qcom-3rdparty</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Development environment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#check-out-the-layer">1. Check out the layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#prepare-build-tooling">2. Prepare build tooling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#install-documentation-tools">3. Install documentation tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#edit-regenerate-and-check">4. Edit, regenerate, and check</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#maintain-native-references">5. Maintain native references</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#update-the-nearby-repository-map">6. Update the nearby repository map</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href=".generated/index.html">Native function reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="README.html#files">Files</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../README.html">Documentation overview</a><ul>
+  <li><a href="README.html">Contributor documentation</a><ul>
+      <li>Previous: <a href="AGENTS.html" title="previous chapter">Agent Guide for meta-qcom-3rdparty</a></li>
+      <li>Next: <a href=".generated/index.html" title="next chapter">Native function reference</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/contributing/DEVELOPMENT.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

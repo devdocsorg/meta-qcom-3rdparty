@@ -12,6 +12,13 @@ fi
 REPO_DIR="$1"
 WORK_DIR="$2"
 
+# @description Validate that the supplied path is an existing directory.
+# @arg $1 string Directory path, absolute or relative to the current working directory.
+# @example
+#   _is_dir "$WORK_DIR"
+# @exitcode 0 The directory exists; no value is returned on stdout.
+# @exitcode 1 The path is not a directory; exits the calling script.
+# @stdout A diagnostic naming the invalid path on failure.
 _is_dir(){
     test -d "$1" && return
     echo "The '$1' is not a directory."

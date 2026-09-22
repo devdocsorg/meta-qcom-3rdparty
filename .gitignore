@@ -1,0 +1,6 @@
+.venv/
+.doc-tools/
+__pycache__/
+*.pyc
+docs/.doctrees/
+docs/source/contributing/.generated/

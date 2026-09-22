@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>recipes-bsp/firmware-boot/firmware-qcom-boot-rubikpi3_20260621.bb &#8212; meta-qcom-3rdparty  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=27fed22d" />
+    <script src="../../_static/documentation_options.js?v=748769dd"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Documentation tooling" href="python.html" />
+    <link rel="prev" title="ci/yocto-patchreview.sh" href="ci--yocto-patchreview-sh.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="recipes-bsp-firmware-boot-firmware-qcom-boot-rubikpi3-20260621-bb">
+<h1>recipes-bsp/firmware-boot/firmware-qcom-boot-rubikpi3_20260621.bb<a class="headerlink" href="#recipes-bsp-firmware-boot-firmware-qcom-boot-rubikpi3-20260621-bb" title="Link to this heading">¶</a></h1>
+<section id="index">
+<h2>Index<a class="headerlink" href="#index" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="#do-deploy">do_deploy</a></p></li>
+</ul>
+<section id="do-deploy">
+<h3>do_deploy<a class="headerlink" href="#do-deploy" title="Link to this heading">¶</a></h3>
+<p>Install RUBIK Pi boot binaries and its CDT into the deploy staging directory.</p>
+<section id="example">
+<h4>Example<a class="headerlink" href="#example" title="Link to this heading">¶</a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">  </span>bitbake<span class="w"> </span>firmware-qcom-boot-rubikpi3<span class="w"> </span>-c<span class="w"> </span>deploy
+@exitcode<span class="w"> </span><span class="m">0</span><span class="w"> </span>Deployment<span class="w"> </span>completes<span class="p">;</span><span class="w"> </span>there<span class="w"> </span>is<span class="w"> </span>no<span class="w"> </span><span class="k">return</span><span class="w"> </span>value<span class="w"> </span>on<span class="w"> </span>stdout.
+@exitcode<span class="w"> </span><span class="m">1</span><span class="w"> </span>Installation<span class="w"> </span>fails<span class="w"> </span>when<span class="w"> </span><span class="nb">source</span><span class="w"> </span>assets<span class="w"> </span>are<span class="w"> </span>missing<span class="w"> </span>or<span class="w"> </span>staging<span class="w"> </span>is<span class="w"> </span>unwritable.
+@stderr<span class="w"> </span>Diagnostics<span class="w"> </span>from<span class="w"> </span>install<span class="w"> </span>or<span class="w"> </span>find<span class="w"> </span>when<span class="w"> </span>deployment<span class="w"> </span>fails.
+Uses<span class="w"> </span>BitBake<span class="w"> </span>string<span class="w"> </span>paths<span class="w"> </span>S,<span class="w"> </span>DEPLOYDIR,<span class="w"> </span>and<span class="w"> </span>QCOM_BOOT_IMG_SUBDIR.
+</pre></div>
+</div>
+<p><em>Function has no arguments.</em></p>
+</section>
+</section>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../README.html">meta-qcom-3rdparty</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../user/README.html">Using the layer</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../README.html">Contributor documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../CONTRIBUTING.html">Contributing to meta-qcom-3rdparty</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AGENTS.html">Agent Guide for meta-qcom-3rdparty</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../DEVELOPMENT.html">Development environment</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Native function reference</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="ci--yocto-buildstats-sh.html">ci/yocto-buildstats.sh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ci--yocto-check-layer-sh.html">ci/yocto-check-layer.sh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ci--yocto-patchreview-sh.html">ci/yocto-patchreview.sh</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">recipes-bsp/firmware-boot/firmware-qcom-boot-rubikpi3_20260621.bb</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#index">Index</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#do-deploy">do_deploy</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="python.html">Documentation tooling</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../README.html#files">Files</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../README.html">Documentation overview</a><ul>
+  <li><a href="../README.html">Contributor documentation</a><ul>
+  <li><a href="index.html">Native function reference</a><ul>
+      <li>Previous: <a href="ci--yocto-patchreview-sh.html" title="previous chapter">ci/yocto-patchreview.sh</a></li>
+      <li>Next: <a href="python.html" title="next chapter">Documentation tooling</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../../_sources/contributing/.generated/recipes-bsp--firmware-boot--firmware-qcom-boot-rubikpi3_20260621-bb.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
