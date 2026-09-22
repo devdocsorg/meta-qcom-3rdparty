@@ -154,38 +154,42 @@ flowchart LR
     click r8 href "https://github.com/qualcomm-linux/meta-qcom-distro" _blank
     r9["qcom-ptool"]
     click r9 href "https://github.com/qualcomm-linux/qcom-ptool" _blank
-    r10["boot-assets"]
-    click r10 href "https://github.com/rubikpi-ai/boot-assets" _blank
-    r11["kas"]
-    click r11 href "https://github.com/siemens/kas" _blank
-    r12["meta-updater"]
-    click r12 href "https://github.com/uptane/meta-updater" _blank
-    r13["meta-security"]
-    click r13 href "https://git.yoctoproject.org/meta-security" _blank
-    r14["meta-selinux"]
-    click r14 href "https://git.yoctoproject.org/meta-selinux" _blank
-    r15["meta-virtualization"]
-    click r15 href "https://git.yoctoproject.org/meta-virtualization" _blank
+    r10["shdoc"]
+    click r10 href "https://github.com/reconquest/shdoc" _blank
+    r11["boot-assets"]
+    click r11 href "https://github.com/rubikpi-ai/boot-assets" _blank
+    r12["kas"]
+    click r12 href "https://github.com/siemens/kas" _blank
+    r13["meta-updater"]
+    click r13 href "https://github.com/uptane/meta-updater" _blank
+    r14["meta-security"]
+    click r14 href "https://git.yoctoproject.org/meta-security" _blank
+    r15["meta-selinux"]
+    click r15 href "https://git.yoctoproject.org/meta-selinux" _blank
+    r16["meta-virtualization"]
+    click r16 href "https://git.yoctoproject.org/meta-virtualization" _blank
     r0 -->|"uses base Linux build recipes from"| r4
     r0 -->|"adds third-party board support to"| r7
     r0 -->|"can use Qualcomm Linux settings from"| r8
     r7 -->|"gets partition tools from"| r9
-    r0 -->|"fetches RUBIK Pi boot firmware from"| r10
-    r0 -->|"sets up and runs builds with"| r11
+    r0 -->|"fetches RUBIK Pi boot firmware from"| r11
+    r0 -->|"sets up and runs builds with"| r12
     r7 -->|"includes for Qualcomm Linux images"| r1
     r7 -->|"runs build tasks with"| r2
     r7 -->|"includes for Qualcomm Linux images"| r3
     r7 -->|"fetches Linux kernel sources from"| r5
     r7 -->|"includes for Qualcomm Linux images"| r6
+    r7 -->|"includes for Qualcomm Linux images"| r16
     r7 -->|"includes for Qualcomm Linux images"| r15
     r7 -->|"includes for Qualcomm Linux images"| r14
     r7 -->|"includes for Qualcomm Linux images"| r13
-    r7 -->|"includes for Qualcomm Linux images"| r12
+    r0 -->|"generates shell reference with"| r10
+    r0 -->|"parses recipe docs with"| r2
     style r0 fill:#e6f3ff,stroke:#0969da,stroke-width:3px,color:#182c43
 ```
 
 [Full Qualcomm repository map](https://github.com/devdocsorg/qualcomm-repository-map).
 
-<!-- Generated from https://github.com/devdocsorg/qualcomm-repository-map at b8990cbd3948b44d0a9f3dc5e1bfd0363015e443; dataset SHA-256: cb5079d4a57391600aa45ccbfb03b7d6c7124c4528a2d3976604cb11b8bdf015. -->
+<!-- Generated from https://github.com/devdocsorg/qualcomm-repository-map at 32b7e064b42deb0d85170b3c8549e8d4d48e373e; dataset SHA-256: 9e7b00dbb0a9c9cae08e0d6bc4489934121f2612db992c071011dcabe3c793b3. -->
 
 <!-- repository-map:end -->
