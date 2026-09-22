@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>meta-qcom-3rdparty Documentation &#8212; meta-qcom-3rdparty  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=6fc51f2d" />
+    <script src="_static/documentation_options.js?v=748769dd"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Contributor documentation" href="contributing/README.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="meta-qcom-3rdparty-documentation">
+<h1>meta-qcom-3rdparty Documentation<a class="headerlink" href="#meta-qcom-3rdparty-documentation" title="Link to this heading">¶</a></h1>
+<p>Welcome to the documentation for <strong>meta-qcom-3rdparty</strong>, an OpenEmbedded / Yocto layer that extends the Qualcomm Linux ecosystem by supporting community and vendor hardware platforms not officially maintained by Qualcomm.</p>
+<p>This documentation is intended for developers, vendors, and contributors working with Qualcomm-based SoCs using the Yocto Project build system.</p>
+<p>Use the <a class="reference internal" href="contributing/README.html"><span class="std std-doc">contributor guides</span></a> to build or extend the layer,
+and the <a class="reference internal" href="user/README.html"><span class="std std-doc">user guides</span></a> to understand its configuration.</p>
+<div class="toctree-wrapper compound">
+</div>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">meta-qcom-3rdparty</span></code> layer provides:</p>
+<ul class="simple">
+<li><p>Common BSP enablement for <strong>third-party and community boards</strong></p></li>
+<li><p><strong>Upstream-aligned</strong> machine support based on <code class="docutils literal notranslate"><span class="pre">meta-qcom</span></code></p></li>
+<li><p>Clean, maintainable structure to avoid fragmentation across vendors</p></li>
+<li><p>Integration hooks for both <strong>Qualcomm Linux 1.x</strong> (downstream) and future <strong>Qualcomm Linux 2.x</strong> (upstream) releases</p></li>
+</ul>
+</section>
+<section id="related-layers-and-references">
+<h2>Related Layers and References<a class="headerlink" href="#related-layers-and-references" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom">meta-qcom</a></p></li>
+<li><p><a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-hwe">meta-qcom-hwe</a></p></li>
+<li><p><a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-distro">meta-qcom-distro</a></p></li>
+<li><p><a class="reference external" href="https://layers.openembedded.org/layerindex/">OpenEmbedded Layer Index</a></p></li>
+<li><p><a class="reference external" href="https://docs.yoctoproject.org/">Yocto Project Documentation</a></p></li>
+</ul>
+</section>
+<section id="folders">
+<h2>Folders<a class="headerlink" href="#folders" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference download internal" download="" href="_downloads/693aba6a2018a205eb26279abdd0c0b9/index.html"><span class="xref download myst">.templates/</span></a>: Supplies the generated local-browser entry point.</p></li>
+<li><p><a class="reference internal" href="contributing/README.html"><span class="std std-doc">contributing/</span></a>: Contribution guidelines, the usage tutorial, agent instructions, and generated function reference.</p></li>
+<li><p><a class="reference internal" href="user/README.html"><span class="std std-doc">user/</span></a>: User-facing configuration documentation.</p></li>
+</ul>
+</section>
+<section id="files">
+<h2>Files<a class="headerlink" href="#files" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference download internal" download="" href="_downloads/b67911656ef5d18c4ae36cb6741b7965/Makefile"><span class="xref download myst">Makefile</span></a>: Provides the shared local and CI setup, build, and reproducibility commands.</p></li>
+<li><p><a class="reference internal" href="#"><span class="std std-doc">README.md</span></a>: Introduces the documentation and lists its contents.</p></li>
+<li><p><a class="reference download internal" download="" href="_downloads/fb0d0d7ff27f33697ba3b787ec894677/conf.py"><span class="xref download myst">conf.py</span></a>: Extracts function comments with shdoc and configures Sphinx.</p></li>
+<li><p><a class="reference download internal" download="" href="_downloads/b4ef698db8ca845e5845c4618278f29a/requirements.txt"><span class="xref download myst">requirements.txt</span></a>: Pins the Python documentation dependencies.</p></li>
+<li><p><a class="reference download internal" download="" href="_downloads/dcd3f6477531eb948a0d4ed0a01c6a04/requirements.lock"><span class="xref download myst">requirements.lock</span></a> — Locks direct and transitive documentation dependencies for reproducible builds.</p></li>
+</ul>
+<p><strong>SPDX-License-Identifier:</strong> MIT</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="#">meta-qcom-3rdparty</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="contributing/README.html">Contributor documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user/README.html">User documentation</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+      <li>Next: <a href="contributing/README.html" title="next chapter">Contributor documentation</a></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="_sources/README.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

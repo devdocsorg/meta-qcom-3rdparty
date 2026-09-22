@@ -4,7 +4,15 @@ Welcome to the documentation for **meta-qcom-3rdparty**, an OpenEmbedded / Yocto
 
 This documentation is intended for developers, vendors, and contributors working with Qualcomm-based SoCs using the Yocto Project build system.
 
----
+Use the [contributor guides](contributing/README.md) to build or extend the layer,
+and the [user guides](user/README.md) to understand its configuration.
+
+```{toctree}
+:hidden:
+
+contributing/README
+user/README
+```
 
 ## Overview
 
@@ -15,34 +23,6 @@ The `meta-qcom-3rdparty` layer provides:
 - Clean, maintainable structure to avoid fragmentation across vendors
 - Integration hooks for both **Qualcomm Linux 1.x** (downstream) and future **Qualcomm Linux 2.x** (upstream) releases
 
----
-
-## Documentation Index
-
-- [Contribution Guidelines](contributing.md) — how to contribute patches, follow Yocto conventions, and structure vendor-specific code.
-- [Usage Guide](usage.md) — how to include and build the layer, add it to your workspace, and validate target builds (TODO).
-- [Supported Machines](supported-machines.md) — list of currently supported platforms, vendors, and hardware status (TODO).
-- [Developer Notes](developer.md) — additional details for maintainers, CI integration, and testing recommendations (TODO).
-
----
-
-## Quick Start
-
-To build a reference image using [kas](https://kas.readthedocs.io/):
-
-```bash
-kas build meta-qcom-3rdparty/ci/<machine.yml>
-```
-
-Otherwise add this layer to your existing Yocto environment:
-
-```bash
-git clone https://github.com/qualcomm-linux/meta-qcom-3rdparty.git
-bitbake-layers add-layer ../meta-qcom-3rdparty
-```
-
----
-
 ## Related Layers and References
 
 - [meta-qcom](https://github.com/qualcomm-linux/meta-qcom)
@@ -51,6 +31,21 @@ bitbake-layers add-layer ../meta-qcom-3rdparty
 - [OpenEmbedded Layer Index](https://layers.openembedded.org/layerindex/)
 - [Yocto Project Documentation](https://docs.yoctoproject.org/)
 
----
+## Folders
+
+- [.templates/](.templates/index.html): Supplies the generated local-browser entry point.
+
+- [contributing/](contributing/README.md): Contribution guidelines, the usage tutorial, agent instructions, and generated function reference.
+- [user/](user/README.md): User-facing configuration documentation.
+
+## Files
+
+- [Makefile](Makefile): Provides the shared local and CI setup, build, and reproducibility commands.
+
+- [README.md](README.md): Introduces the documentation and lists its contents.
+- [conf.py](conf.py): Extracts function comments with shdoc and configures Sphinx.
+- [requirements.txt](requirements.txt): Pins the Python documentation dependencies.
+
+- [requirements.lock](requirements.lock) — Locks direct and transitive documentation dependencies for reproducible builds.
 
 **SPDX-License-Identifier:** MIT
