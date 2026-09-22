@@ -212,6 +212,6 @@ flowchart LR
 
 [Full Qualcomm repository map](https://github.com/devdocsorg/qualcomm-repository-map).
 
-<!-- Generated from https://github.com/devdocsorg/qualcomm-repository-map at 553011d6733c5dd580d4904635d39b3108bbcbb4; dataset SHA-256: e982748f04280948551ebc34df82a5ace5a3a15b61c228a4f6d3c796557bdcdd. -->
+<!-- Generated from https://github.com/devdocsorg/qualcomm-repository-map at 968289fcf129c5d47cd47d0c38c2ab5548f36c53; dataset SHA-256: 9324eac3e38a07fd3bb353964fcbaf8beed8656761e2066eb51e8dad41f070a6. -->
 
 <!-- repository-map:end -->
