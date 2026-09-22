@@ -1,11 +1,11 @@
-# dynamic-layers/qcom-distro
+# qcom-distro
 
-Contains appends enabled only with the qcom-distro layer collection.
+Qualcomm distro-specific appends.
 
 ## Folders
 
-- [recipes-products](recipes-products/README.md) — Extends optional distribution product recipes.
+- [recipes-products/](recipes-products/README.md): Product recipe customizations.
 
 ## Files
 
-- [README.md](README.md) — Introduces this folder and indexes its maintained contents.
+- [README.md](README.md): Introduces this directory and lists its contents.

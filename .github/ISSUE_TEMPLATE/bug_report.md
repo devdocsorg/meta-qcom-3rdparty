@@ -1,23 +1,14 @@
 ---
 name: Bug report
-about: Report a reproducible BSP or documentation problem.
-labels: ''
-assignees: ''
+about: Report a problem with a build, board, or documentation.
 ---
 
 # Problem
 
-Describe the observed behaviour and expected result. Report vulnerabilities
-privately using [SECURITY.md](../../SECURITY.md).
+Describe what happened and the expected result.
 
-## Environment
+## Configuration and reproduction
 
-Include branch and commit, machine, kas fragments, distro, and relevant tool versions.
-
-## Reproduction
-
-List commands, observed errors, and relevant logs with credentials removed.
-
-## Validation
-
-Describe affected builds or hardware, and any known working configuration.
+Include the branch and commit, machine, distro, kas configuration, and command.
+For documentation, link the affected page. Include relevant error output and
+remove private information from logs.

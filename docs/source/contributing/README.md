@@ -1,25 +1,34 @@
 # Contributor documentation
 
-The contributor guide owns contribution rules and the worked board-integration
-example. The agent guide owns CI-style build and check procedures. The development
-walkthrough installs tools and links those procedures.
-
-[Native function reference](.generated/index.rst) is generated from source comments,
-including private shell helpers, the BitBake deploy task, and documentation tooling.
-It is rebuilt automatically; do not maintain a second authored API manual.
+Follow the [contribution guidelines](CONTRIBUTING.md) when adding board support,
+or start with the [usage tutorial](USAGE.md) to prepare a layer build.
+[Development setup](DEVELOPMENT.md) covers the contributor environment, and the
+[agent instructions](AGENTS.md) describe the automated build and validation workflow.
+Skill documentation lives alongside these guides.
 
 ```{toctree}
 :hidden:
 
 CONTRIBUTING
-AGENTS
 DEVELOPMENT
-.generated/index
+USAGE
+AGENTS
+```
+
+## Function reference
+
+```{toctree}
+:maxdepth: 2
+:glob:
+
+.generated/*
 ```
 
 ## Files
 
-- [AGENTS.md](AGENTS.md) — Owns container checks, build commands, contribution routing, and commit rules for agents.
-- [CONTRIBUTING.md](CONTRIBUTING.md) — Owns contribution standards and the worked RUBIK Pi board-integration example.
-- [DEVELOPMENT.md](DEVELOPMENT.md) — Walks through checkout, tools, checks, and documentation maintenance.
-- [README.md](README.md) — Introduces this folder and indexes its maintained contents.
+- [DEVELOPMENT.md](DEVELOPMENT.md): Walks through contributor setup, documentation extraction, offline validation, and layer-check entry points.
+
+- [README.md](README.md): Introduces the contributor guides and generated function reference.
+- [CONTRIBUTING.md](CONTRIBUTING.md): Explains BSP contribution guidelines and the board example.
+- [USAGE.md](USAGE.md): Walks through kas setup, configuration inspection, parsing, and image output.
+- [AGENTS.md](AGENTS.md): Defines the agent build, validation, and contribution workflow.

@@ -1,40 +1,28 @@
-# Run from the repository root: make -f docs/source/Makefile TARGET.
-# Optional path string; defaults to .venv/bin/python. Example: PYTHON=.venv/bin/python.
-PYTHON ?= .venv/bin/python
-# Required immutable extractor revisions; change only with validation and a rebuild.
-SHDOC_REV := 52917b2f3471fe77c745ede115494d2d5c9168d1
-BITBAKE_REV := 18cca50ba3da5ce27bc674478957bb08e7536b9a
+# Run from the repository root: make -f docs/source/Makefile <target>.
+# setup installs only the pinned documentation toolchain in the local .venv.
+# html removes stale generated pages and builds the complete site strictly.
+# check verifies output is committed and direct-file search avoids fetch().
+.PHONY: setup html check browser
 
-.PHONY: setup html check browser references
 setup:
 	uv venv --python 3.12 --clear .venv
-	uv pip install --python $(PYTHON) -r docs/source/requirements.lock
-	mkdir -p .doc-tools/shdoc .doc-tools/bitbake
-	git -C .doc-tools/shdoc init -q
-	git -C .doc-tools/shdoc fetch -q --depth=1 https://github.com/reconquest/shdoc.git $(SHDOC_REV)
-	git -C .doc-tools/shdoc checkout -q --detach FETCH_HEAD
-	git -C .doc-tools/bitbake init -q
-	git -C .doc-tools/bitbake fetch -q --depth=1 https://github.com/openembedded/bitbake.git $(BITBAKE_REV)
-	git -C .doc-tools/bitbake checkout -q --detach FETCH_HEAD
-	command -v gawk
+	uv pip install --python .venv/bin/python -r docs/source/requirements.lock
+	curl --fail --location https://raw.githubusercontent.com/reconquest/shdoc/b3436134f08428f8bbe2e54bc4dc20da85cd300b/shdoc --output .venv/bin/shdoc
+	chmod +x .venv/bin/shdoc
 
-references:
-	test "$$(git -C .doc-tools/shdoc rev-parse HEAD)" = "$(SHDOC_REV)"
-	test "$$(git -C .doc-tools/bitbake rev-parse HEAD)" = "$(BITBAKE_REV)"
-	$(PYTHON) .github/doc_reference.py generate
-
-html: references
+html:
 	rm -rf docs/site
 	.venv/bin/sphinx-build -W --keep-going -E -a -b html -d docs/.doctrees docs/source docs/site
-	$(PYTHON) .github/finalise_site.py
-	$(PYTHON) .github/doc_reference.py check
+	.venv/bin/python .github/finalise_site.py
 
+# Install a user-local browser only when system Chromium is unavailable.
 browser:
 	.venv/bin/playwright install chromium
 
 check: html
-	$(PYTHON) .github/check_reference_regressions.py
-	$(PYTHON) .github/check_navigation.py
-	$(PYTHON) .github/check_offline.py docs/site firmware
-	git diff --exit-code -- docs/site
+	.venv/bin/python .github/test_reference_coverage.py
+	.venv/bin/python .github/check_offline.py docs/site _is_dir
+	test -f docs/site/index.html
+	grep -q 'SHOW_SEARCH_SUMMARY: false' docs/site/_static/documentation_options.js
+	git diff --exit-code -- README.md docs/site
 	test -z "$$(git ls-files --others --exclude-standard docs/site)"

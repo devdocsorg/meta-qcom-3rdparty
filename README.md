@@ -28,53 +28,69 @@ branch: master
 revision: HEAD
 ```
 
-## First build and documentation
+## Getting Started
 
-Prepare the [development environment](docs/source/contributing/DEVELOPMENT.md),
-then select an existing board, for example:
+Follow the [usage tutorial](docs/source/contributing/USAGE.md) to prepare the workspace. Then inspect
+the selected [build configuration](ci/radxa-dragon-q6a.yml):
 
 ```sh
-kas-container build ci/rubikpi3.yml
+kas-container dump ci/radxa-dragon-q6a.yml
 ```
 
-For a smaller first output, follow the [firmware deployment tutorial](docs/source/user/USAGE.md).
-Browse the [documentation source](docs/source/README.md) or open the committed
-[offline documentation site](docs/site/index.html) directly from a local checkout.
-The [configuration reference](docs/source/user/CONFIGURATION.md) explains kas
-composition, BitBake precedence, machine variables, and CI settings.
+The [documentation guide](docs/README.md) links the tutorial,
+[configuration reference](docs/source/user/CONFIGURATION.md), and the Sphinx build
+for the [generated function reference](docs/source/contributing/README.md#function-reference).
+
+Open [docs/site/index.html](docs/site/index.html) directly in a browser for the locally browsable site.
+See the [nearby repository map](#repository-map) for this layer's
+place in the Qualcomm ecosystem, and [development environment setup](docs/source/contributing/DEVELOPMENT.md)
+to prepare a contributor checkout and the documentation toolchain.
 
 ## Branches
 
-[Branch maintenance](BRANCHES.md) describes long-lived maintenance and merge
-relationships. Upstream release guidance remains authoritative; this fork's
-review branches do not change contribution ownership.
+- **main:** Primary development branch, with focus on upstream support and
+  compatibility with the most recent Yocto Project release.
+- **wrynose:** LTS branch based on the Yocto Project 6.0 release, used by
+  Qualcomm Linux 2.x.
+- **scarthgap:** Qualcomm Linux >= 1.4, aligned with Yocto Project 5.0 (LTS).
+- **kirkstone:** Qualcomm Linux <= 1.3, aligned with Yocto Project 4.0 (LTS).
 
-| Branch | Purpose and status | Use and contributions |
-| --- | --- | --- |
-| Upstream `main` | Primary development, with focus on upstream support and compatibility with the most recent Yocto release. | Build with its matching layers; normal product contributions target upstream main. |
-| Upstream `wrynose` | Yocto Project 6.0 LTS, used by Qualcomm Linux 2.x. | Separate LTS builds and reviewed backports. |
-| `scarthgap` in upstream/fork | Qualcomm Linux >= 1.4, aligned with Yocto 5.0 LTS. | Build matching release layers; send product fixes to upstream scarthgap. |
-| `kirkstone` in upstream/fork | Qualcomm Linux <= 1.3, aligned with Yocto 4.0 LTS. | Retained release baseline; check current support and send applicable fixes upstream. |
-| `next` in upstream/fork | Retained staging/development work. | Evaluate explicitly; normal product contributions go to main unless maintainers direct otherwise. |
-| Fork `main` | Default fork integration branch, potentially divergent from upstream. | Review the checkout before building; fork documentation work uses its stated PR base. |
-| Fork `upstream` | Upstream-derived fork review baseline. | Base for selected documentation proposals; verify its commit before rebasing. |
-| `devdocs/main`, `devdocs/build`, `devdocs/s3-cache-backup` | Retained DevDocs integration, build, and cache-work topics. | Topic evaluation only; review against each proposal's stated fork base. |
-| `devdocs/docs-v3`, `devdocs/generated-tutorials`, `devdocs/required-files-sphinx`, `devdocs/source-file-docs`, `docs/qli-2-tutorials` | Retained documentation and tutorial topics. | Review documentation in the selected checkout; not release build baselines. |
-| `devdocs/wrynose/docs`, `devdocs/wrynose/docs-v2` | Retained wrynose documentation topics. | Use matching release layers if evaluating; documentation review uses the proposal's fork base. |
-| `devdocs/imx219-cam2` | Retained camera-integration topic. | Hardware development evaluation only; approved product changes belong upstream. |
-| `devdocs/vscode` | Retained editor-development topic. | Evaluate its development setup; not a release baseline. |
-| `njjetha` | Retained contributor topic with no maintenance contract declared here. | Inspect its scope before use; confirm the proposal's base before contributing. |
-| `radxa-dragon-q6a-hdmi`, `radxa-dragon-q6a-hdmi-cmdline-extra`, `radxa-dragon-q6a-hdmi-deferred-config`, `radxa-dragon-q6a-hdmi-uki-cmdline` | Retained Radxa HDMI and boot-command-line development topics. | Board-specific evaluation only; normal product changes are proposed upstream. |
-| `test/qualcomm-upgrade-astra` | Temporary Astra xHigh repository-upgrade skill test. | Review the proposed docs and checks against fork upstream; leave this test unmerged. |
+- **next:** CI and workflow validation before changes land on `main`;
+  use for testing and send new contributions through the `main` review process.
+
+See [BRANCHES.md](BRANCHES.md) for branch relationships.
+
+The `devdocsorg` fork hosts integration and review work; product contributions
+still go to `qualcomm-linux/meta-qcom-3rdparty`. Its `main`, `next`, `scarthgap`,
+and `kirkstone` branches are fork copies, and `upstream` records the upstream
+baseline used for review. Select release builds from the upstream branches above.
+
+The fork's remaining branches are topic or integration work, rather than release
+branches. Build them only to test the named change and send product fixes through
+the upstream contribution process:
+
+- **devdocs/main:** Fork integration work, maintained separately from upstream releases.
+- **devdocs/build** and **devdocs/s3-cache-backup:** Build resource settings and cache integration work for `devdocs/main`.
+- **devdocs/docs-v3**, **devdocs/wrynose/docs**, and **devdocs/wrynose/docs-v2:** Documentation work for the corresponding development or `wrynose` baseline.
+- **devdocs/generated-tutorials** and **docs/qli-2-tutorials:** Generated tutorial proposals.
+- **devdocs/source-file-docs:** Source-comment documentation work.
+- **devdocs/required-files-sphinx** and **test/qualcomm-upgrade-astra:** Documentation proposals available for review, not release branches.
+- **devdocs/imx219-cam2:** Dragon Q6A IMX219 CAM2 integration work.
+- **devdocs/vscode:** Development runtime support work.
+- **njjetha:** Preflight-check integration work.
+- **radxa-dragon-q6a-hdmi**, **radxa-dragon-q6a-hdmi-cmdline-extra**, **radxa-dragon-q6a-hdmi-deferred-config**, and **radxa-dragon-q6a-hdmi-uki-cmdline:** HDMI and deferred-probe alternatives for testing.
+
+`BRANCHES.md` is part of this proposal and becomes the canonical branch guide on
+`main` when adopted.
 
 ## Machine Support
 
-See [conf/machine](conf/machine/README.md) for the complete list of supported devices
-and the [machine guide](docs/source/user/SUPPORTED_MACHINES.md) for boot and firmware boundaries.
+See [conf/machine](conf/machine/README.md) for the complete list of supported devices.
 
 ## Contributing
 
-Follow [CONTRIBUTING.md](CONTRIBUTING.md) for setup, policy, and submission routing.
+Read [CONTRIBUTING.md](CONTRIBUTING.md) for the contribution guidelines.
+
 Please submit any patches against the `meta-qcom-3rdparty` layer by using
 the GitHub pull-request feature. Fork the repo, create a branch,
 do the work, rebase from upstream, and create the pull request.
@@ -88,45 +104,44 @@ Pull requests will be discussed within the GitHub pull-request infrastructure.
 
 - **GitHub Issues:** [meta-qcom-3rdparty issues](https://github.com/qualcomm-linux/meta-qcom-3rdparty/issues)
 - **Pull Requests:** [meta-qcom-3rdparty pull requests](https://github.com/qualcomm-linux/meta-qcom-3rdparty/pulls)
-- **Security concerns:** use the [private vulnerability reporting route](SECURITY.md).
-- **Conduct concerns:** follow the [Code of Conduct](CODE_OF_CONDUCT.md) and its reporting contact.
+
+Follow the [Code of Conduct](CODE_OF_CONDUCT.md) when participating, and use the
+[security policy](SECURITY.md) to report vulnerabilities.
 
 ## Maintainer(s)
 
 - Ricardo Salveti <ricardo.salveti@oss.qualcomm.com>
 - Nicolas Dechesne <nicolas.dechesne@oss.qualcomm.com>
 
-[CODEOWNERS](.github/CODEOWNERS) assigns these maintainers to code and documentation review.
+See [CODEOWNERS](.github/CODEOWNERS) for review ownership by repository path.
 
 ## License
 
-This layer is licensed under the MIT license. Check out [LICENSE](LICENSE) (the original [COPYING.MIT](COPYING.MIT) text)
+This layer is licensed under the MIT license. Check out [LICENSE](LICENSE)
 for more details.
 
 ## Folders
 
-- [.github](.github/) — Holds code owners, contribution templates, documentation tools, and CI workflows.
-- [ci](ci/README.md) — Composes kas builds and provides CI-equivalent validation helpers.
-- [conf](conf/README.md) — Declares layer discovery and supported machine configuration.
-- [docs](docs/README.md) — Contains authored documentation and the committed offline website.
-- [dynamic-layers](dynamic-layers/README.md) — Adds integration only when the corresponding optional layer is loaded.
-- [recipes-bsp](recipes-bsp/README.md) — Supplies board boot firmware and machine packagegroups.
-- [recipes-kernel](recipes-kernel/README.md) — Extends parent kernel recipes with board-specific configuration.
+- [.github/](.github/): GitHub configuration, ownership, and contribution templates.
+- [ci/](ci/README.md): Container helper scripts and kas configuration fragments.
+- [conf/](conf/README.md): Layer registration and machine configuration.
+- [docs/](docs/README.md): Documentation sources and the generated Sphinx website.
+- [dynamic-layers/](dynamic-layers/README.md): Appends enabled only by matching optional layer collections.
+- [recipes-bsp/](recipes-bsp/README.md): Board boot firmware and package groups.
+- [recipes-kernel/](recipes-kernel/README.md): Kernel appends and configuration fragments.
+- [skills/](skills/README.md): Points to skill documentation in the contributor guides.
 
 ## Files
 
-- [.env.example](.env.example) — Documents optional shell exports without storing credentials.
-- [.gitignore](.gitignore) — Excludes local documentation tools, caches, and intermediate output.
-- [AGENTS.md](AGENTS.md) — Directs automation to the complete contributor-side agent guide.
-- [BRANCHES.md](BRANCHES.md) — Explains release maintenance, staging, and fork contribution relationships.
-- [CODE-OF-CONDUCT.md](CODE-OF-CONDUCT.md) — Owns the original Contributor Covenant and Qualcomm reporting contact.
-- [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) — Exposes the existing conduct policy under the standard discovery name.
-- [CONTRIBUTING.md](CONTRIBUTING.md) — Directs contributors to setup, submission rules, and upstream review.
-- [COPYING.MIT](COPYING.MIT) — Owns the original MIT licence text for this layer.
-- [LICENSE](LICENSE) — Exposes the approved layer licence under the standard discovery name.
-- [README.md](README.md) — Introduces this folder and indexes its maintained contents.
-- [SECURITY.md](SECURITY.md) — Defines private vulnerability reporting and supported-fix policy.
-- [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) — Retains notices for reused documentation infrastructure.
+- [.env.example](.env.example): Documents optional host paths with safe shell defaults.
+- [.gitignore](.gitignore): Excludes local settings and generated documentation files.
+- [AGENTS.md](AGENTS.md): Points to the agent instructions in the contributor documentation.
+- [BRANCHES.md](BRANCHES.md): Documents branch purpose, maintenance, and integration relationships.
+- [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md): Defines participation standards and reporting.
+- [CONTRIBUTING.md](CONTRIBUTING.md): Links the existing contribution guide and named PR template.
+- [LICENSE](LICENSE): Contains the MIT licence and original copyright notice.
+- [README.md](README.md): Introduces this directory and lists its contents.
+- [SECURITY.md](SECURITY.md): Routes private vulnerability reports to the appropriate maintainers.
 
 <!-- repository-map:start -->
 
@@ -184,12 +199,11 @@ flowchart LR
     r7 -->|"includes for Qualcomm Linux images"| r14
     r7 -->|"includes for Qualcomm Linux images"| r13
     r0 -->|"generates shell reference with"| r10
-    r0 -->|"parses recipe docs with"| r2
     style r0 fill:#e6f3ff,stroke:#0969da,stroke-width:3px,color:#182c43
 ```
 
 [Full Qualcomm repository map](https://github.com/devdocsorg/qualcomm-repository-map).
 
-<!-- Generated from https://github.com/devdocsorg/qualcomm-repository-map at 32b7e064b42deb0d85170b3c8549e8d4d48e373e; dataset SHA-256: 9e7b00dbb0a9c9cae08e0d6bc4489934121f2612db992c071011dcabe3c793b3. -->
+<!-- Generated from https://github.com/devdocsorg/qualcomm-repository-map at 553011d6733c5dd580d4904635d39b3108bbcbb4; dataset SHA-256: e982748f04280948551ebc34df82a5ace5a3a15b61c228a4f6d3c796557bdcdd. -->
 
 <!-- repository-map:end -->

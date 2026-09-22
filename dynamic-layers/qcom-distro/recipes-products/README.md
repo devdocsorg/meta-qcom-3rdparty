@@ -1,11 +1,11 @@
-# dynamic-layers/qcom-distro/recipes-products
+# recipes-products
 
-Extends optional distribution product recipes.
+Product recipe customizations.
 
 ## Folders
 
-- [images](images/README.md) — Contains board-specific image integration.
+- [images/](images/README.md): Distro-specific image adjustments.
 
 ## Files
 
-- [README.md](README.md) — Introduces this folder and indexes its maintained contents.
+- [README.md](README.md): Introduces this directory and lists its contents.

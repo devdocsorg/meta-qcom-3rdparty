@@ -1,14 +1,12 @@
 # conf
 
-Declares layer discovery and supported machine configuration.
-
-See the [configuration reference](../docs/source/user/CONFIGURATION.md) for settings and precedence.
+Layer registration and machine configuration.
 
 ## Folders
 
-- [machine](machine/README.md) — Contains each supported board definition.
+- [machine/](machine/README.md): Machine-specific BSP settings.
 
 ## Files
 
-- [README.md](README.md) — Introduces this folder and indexes its maintained contents.
-- [layer.conf](layer.conf) — Declares collections, compatibility, dependencies, and recipe search paths.
+- [README.md](README.md): Introduces this directory and lists its contents.
+- [layer.conf](layer.conf): Registers recipes, layer dependencies, compatibility, and dynamic appends.

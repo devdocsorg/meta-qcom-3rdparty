@@ -1,14 +1,12 @@
 # recipes-bsp
 
-Supplies board boot firmware and machine packagegroups.
-
-See the [configuration reference](../docs/source/user/CONFIGURATION.md) for settings and precedence.
+Board boot firmware and package groups.
 
 ## Folders
 
-- [firmware-boot](firmware-boot/README.md) — Contains the RUBIK Pi vendor boot-firmware deployment recipe.
-- [packagegroups](packagegroups/README.md) — Groups machine firmware and DSP packages for image selection.
+- [firmware-boot/](firmware-boot/README.md): Prebuilt board boot firmware and CDT recipes.
+- [packagegroups/](packagegroups/README.md): Per-board firmware and DSP package groups.
 
 ## Files
 
-- [README.md](README.md) — Introduces this folder and indexes its maintained contents.
+- [README.md](README.md): Introduces this directory and lists its contents.

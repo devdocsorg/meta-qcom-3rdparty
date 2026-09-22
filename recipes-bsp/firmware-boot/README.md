@@ -1,8 +1,8 @@
-# recipes-bsp/firmware-boot
+# firmware-boot
 
-Contains the RUBIK Pi vendor boot-firmware deployment recipe.
+Prebuilt board boot firmware and CDT recipes.
 
 ## Files
 
-- [README.md](README.md) — Introduces this folder and indexes its maintained contents.
-- [firmware-qcom-boot-rubikpi3_20260621.bb](firmware-qcom-boot-rubikpi3_20260621.bb) — Fetches pinned vendor boot assets and deploys RUBIK Pi firmware and CDT.
+- [README.md](README.md): Introduces this directory and lists its contents.
+- [firmware-qcom-boot-rubikpi3_20260621.bb](firmware-qcom-boot-rubikpi3_20260621.bb): Deploys RUBIK Pi 3 boot firmware and CDT assets.
