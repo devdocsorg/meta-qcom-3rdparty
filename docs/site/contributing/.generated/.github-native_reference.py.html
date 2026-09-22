@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Documentation reference tools &#8212; meta-qcom-3rdparty  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=27fed22d" />
+    <script src="../../_static/documentation_options.js?v=748769dd"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="ci/yocto-buildstats.sh" href="ci-yocto-buildstats.sh.html" />
+    <link rel="prev" title="Contribution procedures, development setup, agent instructions, and generated native reference" href="../README.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-native_reference">
+<span id="documentation-reference-tools"></span><h1>Documentation reference tools<a class="headerlink" href="#module-native_reference" title="Link to this heading">¶</a></h1>
+<p>Discover local definitions independently and generate their native reference.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="native_reference.generate">
+<span class="sig-prename descclassname"><span class="pre">native_reference.</span></span><span class="sig-name descname"><span class="pre">generate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#native_reference.generate" title="Link to this definition">¶</a></dt>
+<dd><p>Generate shdoc and autodoc source pages without running layer code.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>root</strong> (<em>Path</em>) – Repository root, for example <code class="docutils literal notranslate"><span class="pre">Path.cwd()</span></code>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Writes ignored Markdown intermediates below the contributor area.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>RuntimeError</strong> – shdoc omits a discovered definition.</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<p><code class="docutils literal notranslate"><span class="pre">generate(Path.cwd())</span></code> is called by Sphinx configuration.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="native_reference.inventory">
+<span class="sig-prename descclassname"><span class="pre">native_reference.</span></span><span class="sig-name descname"><span class="pre">inventory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#native_reference.inventory" title="Link to this definition">¶</a></dt>
+<dd><p>Discover functions in maintained Python, shell, and BitBake sources.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>root</strong> (<em>Path</em>) – Repository root, for example <code class="docutils literal notranslate"><span class="pre">Path.cwd()</span></code>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Relative paths mapped to function names
+and their native documentation comments or docstrings.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict[str, list[tuple[str, str]]]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – A definition lacks documentation or uses unsupported syntax.</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<p><code class="docutils literal notranslate"><span class="pre">definitions</span> <span class="pre">=</span> <span class="pre">inventory(Path.cwd())</span></code> discovers internal helpers too.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="native_reference.verify">
+<span class="sig-prename descclassname"><span class="pre">native_reference.</span></span><span class="sig-name descname"><span class="pre">verify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#native_reference.verify" title="Link to this definition">¶</a></dt>
+<dd><p>Compare independently discovered functions with rendered native entries.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>root</strong> (<em>Path</em>) – Built repository root, for example <code class="docutils literal notranslate"><span class="pre">Path.cwd()</span></code>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Prints the number of verified reference entries.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – A discovered function has no rendered native heading or ID.</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<p><code class="docutils literal notranslate"><span class="pre">verify(Path.cwd())</span></code> checks a completed <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">html</span></code> build.</p>
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../README.html">meta-qcom-3rdparty</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../README.html">Contribution procedures, development setup, agent instructions, and generated native reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../README.html#files">Files</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../README.html#function-reference">Function reference</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Documentation reference tools</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#native_reference.generate"><code class="docutils literal notranslate"><span class="pre">generate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#native_reference.inventory"><code class="docutils literal notranslate"><span class="pre">inventory()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#native_reference.verify"><code class="docutils literal notranslate"><span class="pre">verify()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ci-yocto-buildstats.sh.html">ci/yocto-buildstats.sh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ci-yocto-check-layer.sh.html">ci/yocto-check-layer.sh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ci-yocto-patchreview.sh.html">ci/yocto-patchreview.sh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="recipes-bsp-firmware-boot-firmware-qcom-boot-rubikpi3_20260621.bb.html">recipes-bsp/firmware-boot/firmware-qcom-boot-rubikpi3_20260621.bb</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../CONTRIBUTING.html">Contributing to meta-qcom-3rdparty</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../DEVELOPMENT.html">Development environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../AGENTS.html">Agent Guide for meta-qcom-3rdparty</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../user/README.html">User tutorial and configuration reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../README.html">Documentation overview</a><ul>
+  <li><a href="../README.html">Contribution procedures, development setup, agent instructions, and generated native reference</a><ul>
+      <li>Previous: <a href="../README.html" title="previous chapter">Contribution procedures, development setup, agent instructions, and generated native reference</a></li>
+      <li>Next: <a href="ci-yocto-buildstats.sh.html" title="next chapter">ci/yocto-buildstats.sh</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../../_sources/contributing/.generated/.github-native_reference.py.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

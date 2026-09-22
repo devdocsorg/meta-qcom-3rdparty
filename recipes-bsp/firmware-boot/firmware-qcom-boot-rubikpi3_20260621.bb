@@ -1,3 +1,4 @@
+# @file recipes-bsp/firmware-boot/firmware-qcom-boot-rubikpi3_20260621.bb
 SUMMARY = "Boot firmware for Thundercomm RUBIK Pi 3"
 DESCRIPTION = "Qualcomm-signed SoC boot firmware and Rubik Pi 3-specific LUN 6 \
 payloads from rubikpi-ai/boot-assets."
@@ -18,6 +19,12 @@ QCOM_BOOT_IMG_SUBDIR = "rubikpi3"
 
 COMPATIBLE_MACHINE = "(rubikpi3)"
 
+# @description Copy RUBIK Pi boot firmware and the board CDT into the deploy directory.
+# No positional arguments; BitBake supplies S, DEPLOYDIR, and QCOM_BOOT_IMG_SUBDIR strings.
+# @example
+#   bitbake firmware-qcom-boot-rubikpi3 -c deploy
+# @exitcode 0 Firmware and the required CDT were installed.
+# @exitcode 1 A source file is missing or the destination cannot be written.
 do_deploy() {
     install -d ${DEPLOYDIR}/${QCOM_BOOT_IMG_SUBDIR}
 

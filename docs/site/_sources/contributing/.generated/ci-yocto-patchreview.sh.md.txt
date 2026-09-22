@@ -1,0 +1,27 @@
+# ci/yocto-patchreview.sh
+
+## Overview
+
+Require an existing directory before invoking Yocto tooling.
+
+## Index
+
+* [_is_dir](#_is_dir)
+
+### _is_dir
+
+Require an existing directory before invoking Yocto tooling.
+
+#### Example
+
+```bash
+  _is_dir "/work/oe-core"
+@exitcode 0 The directory exists.
+@exitcode 1 The directory is absent; exits the calling script.
+@stdout Diagnostic for a missing directory.
+```
+
+#### Arguments
+
+* **$1** (string): Directory path to validate.
+
