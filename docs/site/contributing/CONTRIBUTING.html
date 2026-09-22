@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Contributing to meta-qcom-3rdparty &#8212; meta-qcom-3rdparty  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=27fed22d" />
+    <script src="../_static/documentation_options.js?v=748769dd"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Development environment" href="DEVELOPMENT.html" />
+    <link rel="prev" title="recipes-bsp/firmware-boot/firmware-qcom-boot-rubikpi3_20260621.bb" href=".generated/recipes-bsp-firmware-boot-firmware-qcom-boot-rubikpi3_20260621.bb.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="contributing-to-meta-qcom-3rdparty">
+<h1>Contributing to meta-qcom-3rdparty<a class="headerlink" href="#contributing-to-meta-qcom-3rdparty" title="Link to this heading">¶</a></h1>
+<p>This document describes how to contribute to the <strong>Qualcomm Linux “meta-qcom-3rdparty”</strong> layer and what standards are expected from contributors and vendors.
+It follows the same conventions used by the Yocto Project and OpenEmbedded upstream layers to ensure interoperability and quality.</p>
+<p>Start with the <a class="reference internal" href="DEVELOPMENT.html"><span class="std std-doc">development environment</span></a>, then follow the
+<a class="reference internal" href="AGENTS.html"><span class="std std-doc">agent guide</span></a> for required validation ordering. Submit changes to
+<a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-3rdparty/compare/main...HEAD?expand=1&amp;template=pr_template.md">upstream main</a>.</p>
+<hr class="docutils" />
+<section id="purpose-of-this-repository">
+<h2>1  Purpose of this Repository<a class="headerlink" href="#purpose-of-this-repository" title="Link to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">meta-qcom-3rdparty</span></code> layer provides a <strong>common OpenEmbedded / Yocto BSP</strong> foundation for third-party hardware platforms based on Qualcomm SoCs.</p>
+<section id="goals">
+<h3>Goals<a class="headerlink" href="#goals" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>Common layer for non-Qualcomm EVKs:</strong> consolidate enablement for boards not officially maintained by Qualcomm.</p></li>
+<li><p><strong>Clean BSP implementation:</strong> a shared source of truth that vendors can reuse without divergence.</p></li>
+<li><p><strong>Extend the Qualcomm Linux ecosystem:</strong> encourage community participation and long-term maintainability aligned with <code class="docutils literal notranslate"><span class="pre">meta-qcom</span></code>.</p></li>
+</ul>
+<p>References:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.yoctoproject.org/overview-manual/yp-intro.html">Yocto Project Overview</a></p></li>
+<li><p><a class="reference external" href="https://layers.openembedded.org/layerindex/">OpenEmbedded Layer Index</a></p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="general-contribution-guidelines">
+<h2>2  General Contribution Guidelines<a class="headerlink" href="#general-contribution-guidelines" title="Link to this heading">¶</a></h2>
+<p>Our process mirrors the official Yocto Project contribution flow — see
+<a class="reference external" href="https://docs.yoctoproject.org/dev/contributor-guide/submit-changes.html#preparing-changes-for-submission">Preparing Changes for Submission</a>.</p>
+<section id="pull-request-workflow">
+<h3>2.1  Pull-Request Workflow<a class="headerlink" href="#pull-request-workflow" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>Fork and propose changes</strong> via GitHub Pull Requests.
+Use <strong>draft mode</strong> for work-in-progress patches.</p></li>
+<li><p><strong>Create clean commits:</strong> one logical change per commit.
+Follow <a class="reference external" href="https://docs.yoctoproject.org/dev/contributor-guide/submit-changes.html#implement-and-commit-changes">Yocto commit style</a>.</p></li>
+<li><p><strong>Explain <em>why</em></strong> the change is needed in the commit message.</p></li>
+<li><p><strong>Add a Signed-off-by line</strong> to certify compliance with the <a class="reference external" href="https://developercertificate.org/">Developer’s Certificate of Origin</a>.</p></li>
+<li><p><strong>Validate locally</strong> before submission: build with <code class="docutils literal notranslate"><span class="pre">bitbake</span></code>, flash, and verify runtime.</p></li>
+<li><p><strong>Address review feedback</strong> and re-push to update your PR.
+Use <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">rebase</span> <span class="pre">-i</span></code> to squash or reorder commits as needed.</p></li>
+</ul>
+</section>
+<section id="machine-specific-isolation">
+<h3>2.2  Machine-Specific Isolation<a class="headerlink" href="#machine-specific-isolation" title="Link to this heading">¶</a></h3>
+<p>Because this layer expects to host multiple vendor platforms:</p>
+<ul class="simple">
+<li><p>Use <strong>machine overrides</strong> (<code class="docutils literal notranslate"><span class="pre">:machine</span></code> or <code class="docutils literal notranslate"><span class="pre">:append:machine</span></code>) to confine board-specific logic.</p></li>
+<li><p>Avoid cross-contamination between machines or with upstream <code class="docutils literal notranslate"><span class="pre">meta-qcom</span></code>.</p></li>
+<li><p>Do not introduce SoC-generic behavior under a machine-specific path. Such SoC-generic behavior must be sent/upstreamed to <code class="docutils literal notranslate"><span class="pre">meta-qcom</span></code> instead.</p></li>
+</ul>
+<p>Reference: <a class="reference external" href="https://docs.yoctoproject.org/bitbake/bitbake-user-manual/bitbake-user-manual-ref-variables.html#term-OVERRIDES">BitBake Overrides</a></p>
+</section>
+<section id="repository-organization">
+<h3>2.3  Repository Organization<a class="headerlink" href="#repository-organization" title="Link to this heading">¶</a></h3>
+<p>All vendor boards live together in a single layer:</p>
+<ul class="simple">
+<li><p><strong>No branch or folder segregation per vendor.</strong></p></li>
+<li><p>Maintain quality equivalent to <code class="docutils literal notranslate"><span class="pre">meta-qcom</span></code>.</p></li>
+</ul>
+</section>
+<section id="no-recipe-forks">
+<h3>2.4  No Recipe Forks<a class="headerlink" href="#no-recipe-forks" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Forks of recipes from <code class="docutils literal notranslate"><span class="pre">meta-qcom</span></code>, <code class="docutils literal notranslate"><span class="pre">meta-qcom-hwe</span></code>, or base OE / Yocto layers are <strong>not accepted</strong>.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">.bbappend</span></code> files for vendor-specific patching.</p></li>
+<li><p>Keep upstream recipes authoritative.</p></li>
+</ul>
+<p>Reference: <a class="reference external" href="https://docs.yoctoproject.org/ref-manual/terms.html#term-Append-Files">Understanding bbappends</a></p>
+</section>
+<section id="scope-of-changes">
+<h3>2.5  Scope of Changes<a class="headerlink" href="#scope-of-changes" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Limit changes to <strong>BSP-specific content</strong> (kernel, firmware, device tree, drivers, partition configs).</p></li>
+<li><p>Avoid distribution-specific logic — vendors may ship separate distro layers.</p></li>
+</ul>
+<p>Preferred test distros:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">nodistro</span></code> (systemd-compatible)</p></li>
+<li><p><a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-distro"><code class="docutils literal notranslate"><span class="pre">meta-qcom-distro</span></code></a></p></li>
+</ul>
+</section>
+<section id="maintainer-expectations">
+<h3>2.6  Maintainer Expectations<a class="headerlink" href="#maintainer-expectations" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Each contributor acts as the <strong>maintainer</strong> of their changes, upstream and downstream.</p></li>
+<li><p>Vendors must appoint a <strong>point-of-contact (PoC)</strong> to review and triage vendor-specific PRs and issues promptly, which will be incorporated as part of the repository <a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-3rdparty/blob/main/.github/CODEOWNERS">CODEOWNERS file</a>.</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="upstream-baseline">
+<h2>3  Upstream Baseline<a class="headerlink" href="#upstream-baseline" title="Link to this heading">¶</a></h2>
+<p><strong>Goal:</strong> upstream-aligned BSP enablement serving as the base for future Qualcomm Linux releases.
+<strong>Target branch:</strong> <code class="docutils literal notranslate"><span class="pre">main</span></code></p>
+<section id="expected-contribution-types">
+<h3>3.1  Expected Contribution Types<a class="headerlink" href="#expected-contribution-types" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>Machine configuration files</strong> (<code class="docutils literal notranslate"><span class="pre">conf/machine/*.conf</span></code>)</p></li>
+<li><p><strong>Closed-source component recipes</strong></p>
+<ul>
+<li><p>Do <strong>not</strong> commit binaries.</p></li>
+<li><p>Host them on a <strong>public, no-login mirror</strong> managed by the vendor.</p></li>
+<li><p>Provide a clear <code class="docutils literal notranslate"><span class="pre">DESCRIPTION</span></code> and <code class="docutils literal notranslate"><span class="pre">LICENSE</span></code> field.</p></li>
+</ul>
+</li>
+<li><p><strong>Machine-specific packagegroups:</strong>
+See <a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom/tree/master/recipes-bsp/packagegroups"><code class="docutils literal notranslate"><span class="pre">meta-qcom/recipes-bsp/packagegroups</span></code></a></p></li>
+<li><p><strong>Partition definitions:</strong>
+Use <a class="reference external" href="https://github.com/qualcomm-linux/qcom-ptool"><code class="docutils literal notranslate"><span class="pre">qcom-ptool</span></code></a> to manage partition layouts.</p></li>
+<li><p><strong>Kernel enablement:</strong></p>
+<ul>
+<li><p>Align with <code class="docutils literal notranslate"><span class="pre">linux-yocto-dev</span></code> and <code class="docutils literal notranslate"><span class="pre">linux-qcom-next</span></code>.</p></li>
+<li><p>Patches should be <strong>submitted upstream to the Linux kernel</strong> first.</p></li>
+<li><p>Temporary backports or in-flight patches are acceptable if tracked.
+References:</p></li>
+<li><p><a class="reference external" href="https://docs.yoctoproject.org/kernel-dev/index.html">Yocto kernel workflow</a></p></li>
+<li><p><a class="reference external" href="https://www.kernel.org/doc/html/latest/process/submitting-patches.html">Submitting Linux patches</a></p></li>
+</ul>
+</li>
+<li><p><strong>Firmware:</strong>
+Custom firmware must be contributed to <a class="reference external" href="https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/"><code class="docutils literal notranslate"><span class="pre">linux-firmware</span></code></a> whenever possible.</p></li>
+<li><p><strong>External layer recipes:</strong>
+Changes targeting <code class="docutils literal notranslate"><span class="pre">oe-core</span></code> or <code class="docutils literal notranslate"><span class="pre">meta-openembedded</span></code> should be sent directly upstream.</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="downstream-baseline-qualcomm-linux-1-x">
+<h2>4  Downstream Baseline – Qualcomm Linux 1.x<a class="headerlink" href="#downstream-baseline-qualcomm-linux-1-x" title="Link to this heading">¶</a></h2>
+<p><strong>Goal:</strong> extend existing Qualcomm Linux 1.x releases with third-party hardware support equivalent to official EVKs.
+<strong>Target branch:</strong> <code class="docutils literal notranslate"><span class="pre">scarthgap</span></code> (≥ 1.4)</p>
+<section id="id1">
+<h3>4.1  Expected Contribution Types<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Machine configuration files</p></li>
+<li><p>Recipes for closed-source components
+(same binary-hosting rules as upstream)</p></li>
+<li><p>Machine-specific packagegroups:
+<a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-hwe/tree/scarthgap/recipes-firmware/packagegroups"><code class="docutils literal notranslate"><span class="pre">meta-qcom-hwe/recipes-firmware/packagegroups</span></code></a></p></li>
+<li><p>Partition definitions:
+<a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-hwe/tree/scarthgap/recipes-devtools/partition-utils"><code class="docutils literal notranslate"><span class="pre">meta-qcom-hwe/recipes-devtools/partition-utils</span></code></a></p></li>
+<li><p>Kernel customization:
+Follow <a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-hwe/tree/scarthgap/recipes-kernel/linux"><code class="docutils literal notranslate"><span class="pre">linux-qcom-base</span></code></a>
+or <code class="docutils literal notranslate"><span class="pre">linux-qcom-custom</span></code> guidelines.</p>
+<ul>
+<li><p>Machine-specific patches via <code class="docutils literal notranslate"><span class="pre">.bbappend</span></code>.</p></li>
+<li><p>Custom kernel recipe forks only with maintainer consent.</p></li>
+</ul>
+</li>
+<li><p>Firmware additions:
+Extend <a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-hwe/tree/scarthgap/recipes-firmware/firmware"><code class="docutils literal notranslate"><span class="pre">linux-firmware</span></code> recipes</a> as needed.</p></li>
+<li><p>Hardware-specific enablement should <strong>live entirely within this layer</strong>, not in external “extras” layers or manifests.</p></li>
+<li><p>Vendor-specific distro features / demo content belong in a <strong>separate distro layer</strong> maintained by the vendor.</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="integration-expectations">
+<h2>5  Integration Expectations<a class="headerlink" href="#integration-expectations" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>The repository should maintain <strong>CI / CD</strong> pipelines (GitHub Actions with kas) to validate new submissions.
+Reference: <a class="reference external" href="https://kas.readthedocs.io/en/latest/userguide.html">kas Documentation</a></p></li>
+<li><p>Vendors may optionally integrate with <strong>LAVA</strong> for runtime testing (get in contact with the project maintainers or raise an issue).
+Reference: <a class="reference external" href="https://docs.lavasoftware.org/lava/index.html">LAVA Framework</a></p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="machine-example-thundercomm-rubik-pi-3">
+<h2>6  Machine Example – Thundercomm RUBIK Pi 3<a class="headerlink" href="#machine-example-thundercomm-rubik-pi-3" title="Link to this heading">¶</a></h2>
+<p>The <a class="reference external" href="https://www.thundercomm.com/product/rubik-pi/">Thundercomm RUBIK Pi 3</a> (QCS6490 SoC) is the reference example for how a new board is integrated in this layer.
+The following subsections walk through each required component.</p>
+<section id="machine-configuration">
+<h3>6.1  Machine Configuration<a class="headerlink" href="#machine-configuration" title="Link to this heading">¶</a></h3>
+<p>File: <a class="reference external" href="https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/contributor-reference/conf/machine/rubikpi3.conf">conf/machine/rubikpi3.conf</a></p>
+<p>Every machine must have a configuration file under <code class="docutils literal notranslate"><span class="pre">conf/machine/</span></code>.
+Key elements to include:</p>
+<ul>
+<li><p><strong>Kernel provider</strong> — set it <em>before</em> the SoC include. <code class="docutils literal notranslate"><span class="pre">qcom-base.inc</span></code>
+applies a weak default and the first <code class="docutils literal notranslate"><span class="pre">?=</span></code> wins, so a later assignment would
+be silently ignored:</p>
+<div class="highlight-bitbake notranslate"><div class="highlight"><pre><span></span>PREFERRED_PROVIDER_virtual/kernel<span class="w"> </span>?=<span class="w"> </span>"linux-qcom-next"
+</pre></div>
+</div>
+</li>
+<li><p><strong>SoC include</strong> — pull in the common SoC baseline from <code class="docutils literal notranslate"><span class="pre">meta-qcom</span></code>:</p>
+<div class="highlight-bitbake notranslate"><div class="highlight"><pre><span></span><span class="kn">require</span><span class="w"> </span><span class="s">conf/machine/include/qcom-qcs6490.inc</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Machine features</strong> — extend the SoC defaults with the board’s hardware
+capabilities:</p>
+<div class="highlight-bitbake notranslate"><div class="highlight"><pre><span></span><span class="nv">MACHINE_FEATURES</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s2">"efi pci"</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Device tree</strong> — declare the DTB name(s) used at build and boot time:</p>
+<div class="highlight-bitbake notranslate"><div class="highlight"><pre><span></span><span class="nv">KERNEL_DEVICETREE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"qcom/qcs6490-thundercomm-rubikpi3.dtb"</span>
+<span class="nv">QCOM_DTB_DEFAULT</span><span class="w"> </span><span class="o">?=</span><span class="w"> </span><span class="s2">"qcs6490-thundercomm-rubikpi3"</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Boot firmware, partitions and CDT</strong> — align with the layout expected by
+the <code class="docutils literal notranslate"><span class="pre">qcom-common</span></code> image helpers. The partition layout itself comes from
+<code class="docutils literal notranslate"><span class="pre">qcom-ptool</span></code> via <code class="docutils literal notranslate"><span class="pre">qcom-partition-conf</span></code>, not from this layer:</p>
+<div class="highlight-bitbake notranslate"><div class="highlight"><pre><span></span><span class="nv">QCOM_BOOT_FIRMWARE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"firmware-qcom-boot-rubikpi3"</span>
+<span class="nv">QCOM_BOOT_FILES_SUBDIR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"rubikpi3"</span>
+<span class="nv">QCOM_PARTITION_FILES_SUBDIR</span><span class="w"> </span><span class="o">?=</span><span class="w"> </span><span class="s2">"partitions/qcs6490-thundercomm-rubikpi3/ufs"</span>
+<span class="nv">QCOM_CDT_FILE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"RubikPi3_CDT"</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Packagegroups</strong> — pull in the SoC essentials and the board firmware at
+image level:</p>
+<div class="highlight-bitbake notranslate"><div class="highlight"><pre><span></span><span class="nv">MACHINE_ESSENTIAL_EXTRA_RRECOMMENDS</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s2">" </span><span class="se">\</span>
+<span class="s2">    packagegroup-qcom-boot-essential </span><span class="se">\</span>
+<span class="s2">    packagegroup-machine-essential-qcom-qcs6490-soc </span><span class="se">\</span>
+<span class="s2">    packagegroup-rubikpi3-firmware </span><span class="se">\</span>
+<span class="s2">"</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="packagegroup">
+<h3>6.2  Packagegroup<a class="headerlink" href="#packagegroup" title="Link to this heading">¶</a></h3>
+<p>File: <a class="reference external" href="https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/contributor-reference/recipes-bsp/packagegroups/packagegroup-rubikpi3.bb">recipes-bsp/packagegroups/packagegroup-rubikpi3.bb</a></p>
+<p>Create a machine-specific packagegroup for the board firmware.
+Conditional inclusion based on <code class="docutils literal notranslate"><span class="pre">DISTRO_FEATURES</span></code> avoids pulling in unnecessary
+blobs:</p>
+<div class="highlight-bitbake notranslate"><div class="highlight"><pre><span></span><span class="nv">PACKAGES</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">PN</span><span class="si">}</span><span class="s2">-firmware"</span>
+
+<span class="nv">RRECOMMENDS</span><span class="nd">:${PN}-firmware</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">" </span><span class="se">\</span>
+<span class="s2">    </span><span class="si">${@</span><span class="n">bb</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">contains_any</span><span class="p">(</span><span class="s1">'DISTRO_FEATURES'</span><span class="p">,</span> <span class="s1">'opencl opengl vulkan'</span><span class="p">,</span> \
+        <span class="s1">'linux-firmware-qcom-adreno-a660 linux-firmware-qcom-qcm6490-adreno'</span><span class="p">,</span> <span class="s1">''</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span><span class="si">}</span><span class="s2"> </span><span class="se">\</span>
+<span class="s2">    linux-firmware-qcom-qcm6490-qupv3fw </span><span class="se">\</span>
+<span class="s2">    linux-firmware-qcom-vpu </span><span class="se">\</span>
+<span class="s2">    linux-firmware-qcom-qcs6490-thundercomm-rubikpi3-audio </span><span class="se">\</span>
+<span class="s2">    linux-firmware-qcom-qcs6490-compute </span><span class="se">\</span>
+<span class="s2">"</span>
+</pre></div>
+</div>
+<p>Boards that ship Hexagon DSP binaries add a separate <code class="docutils literal notranslate"><span class="pre">${PN}-hexagon-dsp-binaries</span></code>
+sub-package, as <code class="docutils literal notranslate"><span class="pre">packagegroup-radxa-dragon-q6a.bb</span></code> does, so images can pick
+the firmware without the DSP blobs.</p>
+</section>
+<section id="kernel">
+<h3>6.3  Kernel<a class="headerlink" href="#kernel" title="Link to this heading">¶</a></h3>
+<p>Prefer the <code class="docutils literal notranslate"><span class="pre">linux-qcom-next</span></code> kernel from <code class="docutils literal notranslate"><span class="pre">meta-qcom</span></code>; <code class="docutils literal notranslate"><span class="pre">rubikpi3</span></code> uses it
+unchanged. Board-specific <code class="docutils literal notranslate"><span class="pre">Kconfig</span></code> fragments or revision pins go into a
+<code class="docutils literal notranslate"><span class="pre">.bbappend</span></code> with machine overrides, never into a copied recipe:</p>
+<div class="highlight-bitbake notranslate"><div class="highlight"><pre><span></span><span class="c1"># recipes-kernel/linux/linux-qcom-next_git.bbappend</span>
+<span class="nv">FILESEXTRAPATHS</span><span class="nd">:prepend:radxa-dragon-q6a</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">THISDIR</span><span class="si">}</span><span class="s2">/radxa-dragon-q6a:"</span>
+
+<span class="nv">SRC_URI</span><span class="nd">:append:radxa-dragon-q6a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">" file://realtek-eth-8169.cfg"</span>
+</pre></div>
+</div>
+<p>Only when the board needs a different kernel tree is a dedicated
+<code class="docutils literal notranslate"><span class="pre">recipes-kernel/linux/linux-&lt;vendor&gt;_&lt;ver&gt;.bb</span></code> recipe acceptable. Always
+restrict its applicability with <code class="docutils literal notranslate"><span class="pre">COMPATIBLE_MACHINE</span> <span class="pre">=</span> <span class="pre">&quot;(&lt;machine&gt;)&quot;</span></code> and keep
+the board-specific options in a <code class="docutils literal notranslate"><span class="pre">configs/&lt;board&gt;.cfg</span></code> fragment merged on top
+of the upstream <code class="docutils literal notranslate"><span class="pre">defconfig</span></code>.</p>
+</section>
+<section id="boot-firmware-recipe">
+<h3>6.4  Boot Firmware Recipe<a class="headerlink" href="#boot-firmware-recipe" title="Link to this heading">¶</a></h3>
+<p>Reuse the SoC boot firmware recipe from <code class="docutils literal notranslate"><span class="pre">meta-qcom</span></code> whenever the board is
+covered by it. Only add a recipe here when the board needs binaries <code class="docutils literal notranslate"><span class="pre">meta-qcom</span></code>
+does not provide, such as a vendor-signed firmware set or the board-specific CDT.</p>
+<p>File: <a class="reference external" href="https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/contributor-reference/recipes-bsp/firmware-boot/firmware-qcom-boot-rubikpi3_20260621.bb">recipes-bsp/firmware-boot/firmware-qcom-boot-rubikpi3_20260621.bb</a></p>
+<p>Closed-source boot binaries must be hosted on a <strong>public, no-login mirror</strong>
+managed by the vendor (the <code class="docutils literal notranslate"><span class="pre">rubikpi-ai/boot-assets</span></code> git repository in this
+case) and fetched via <code class="docutils literal notranslate"><span class="pre">SRC_URI</span></code>. Never commit binaries to the repository:</p>
+<div class="highlight-bitbake notranslate"><div class="highlight"><pre><span></span><span class="nv">LICENSE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"LicenseRef-LICENSE.qcom-2"</span>
+<span class="nv">LIC_FILES_CHKSUM</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"file://LICENSE.txt;md5=165287851294f2fb8ac8cbc5e24b02b0"</span>
+
+<span class="nv">SRC_URI</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"git://github.com/rubikpi-ai/boot-assets;protocol=https;branch=main;destsuffix=</span><span class="si">${</span><span class="nv">BP</span><span class="si">}</span><span class="s2">"</span>
+<span class="nv">SRCREV</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"10b868574aa4d06fb3836399d10eb5c792765504"</span>
+
+<span class="kn">inherit</span><span class="w"> </span><span class="s">allarch</span><span class="w"> </span><span class="s">deploy</span>
+
+<span class="nv">QCOM_BOOT_IMG_SUBDIR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"rubikpi3"</span>
+
+<span class="nv">COMPATIBLE_MACHINE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"(rubikpi3)"</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">do_deploy</span></code> installs the boot binaries under <code class="docutils literal notranslate"><span class="pre">${QCOM_BOOT_IMG_SUBDIR}</span></code>,
+including the CDT named by <code class="docutils literal notranslate"><span class="pre">QCOM_CDT_FILE</span></code>, where the <code class="docutils literal notranslate"><span class="pre">qcomflash</span></code> class picks
+them up.</p>
+<p>Vendor firmware under a license the distro lists as incompatible needs an
+exception for the images that ship it, confined to the machine and kept under
+<code class="docutils literal notranslate"><span class="pre">dynamic-layers/qcom-distro/</span></code> so it only applies with <code class="docutils literal notranslate"><span class="pre">meta-qcom-distro</span></code>:</p>
+<div class="highlight-bitbake notranslate"><div class="highlight"><pre><span></span><span class="c1"># dynamic-layers/qcom-distro/recipes-products/images/qcom-multimedia-image.bbappend</span>
+<span class="nv">INCOMPATIBLE_LICENSE_EXCEPTIONS</span><span class="nd">:append:rubikpi3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">" firmware-qcom-boot-rubikpi3:LicenseRef-LICENSE.qcom-2"</span>
+</pre></div>
+</div>
+</section>
+<section id="ci-integration">
+<h3>6.5  CI Integration<a class="headerlink" href="#ci-integration" title="Link to this heading">¶</a></h3>
+<p>File: <a class="reference external" href="https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/contributor-reference/ci/rubikpi3.yml">ci/rubikpi3.yml</a></p>
+<p>Add a <a class="reference external" href="https://kas.readthedocs.io/en/latest/userguide.html">kas</a> machine
+fragment that extends <code class="docutils literal notranslate"><span class="pre">ci/base.yml</span></code>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">header</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">14</span>
+<span class="w">  </span><span class="nt">includes</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ci/base.yml</span>
+
+<span class="nt">machine</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rubikpi3</span>
+</pre></div>
+</div>
+<p>Then register the machine in the build matrix inside
+<code class="docutils literal notranslate"><span class="pre">.github/workflows/build-yocto.yml</span></code> so that every pull request triggers a
+<code class="docutils literal notranslate"><span class="pre">nodistro</span></code> and a <code class="docutils literal notranslate"><span class="pre">qcom-distro</span></code> build for the new board:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">matrix</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">machine</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rubikpi3</span>
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="summary-checklist">
+<h3>6.6  Summary Checklist<a class="headerlink" href="#summary-checklist" title="Link to this heading">¶</a></h3>
+<p>When adding a new board, ensure the following files are present:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>File</p></th>
+<th class="head"><p>Purpose</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">conf/machine/&lt;machine&gt;.conf</span></code></p></td>
+<td><p>Machine definition</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">recipes-bsp/packagegroups/packagegroup-&lt;machine&gt;.bb</span></code></p></td>
+<td><p>Firmware (and DSP) packagegroup</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">recipes-bsp/firmware-boot/firmware-qcom-boot-&lt;machine&gt;_&lt;ver&gt;.bb</span></code></p></td>
+<td><p>Board firmware recipe, when not already covered by <code class="docutils literal notranslate"><span class="pre">meta-qcom</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">recipes-kernel/linux/linux-qcom-next_git.bbappend</span></code> (or <code class="docutils literal notranslate"><span class="pre">linux-&lt;vendor&gt;_&lt;ver&gt;.bb</span></code>)</p></td>
+<td><p>Kernel fragments / revision override, or dedicated kernel recipe</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ci/&lt;machine&gt;.yml</span></code></p></td>
+<td><p>KAS machine fragment</p></td>
+</tr>
+<tr class="row-odd"><td><p>Entry in <code class="docutils literal notranslate"><span class="pre">.github/workflows/build-yocto.yml</span></code> matrix</p></td>
+<td><p>CI build registration</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<hr class="docutils" />
+<section id="additional-references">
+<h2>7  Additional References<a class="headerlink" href="#additional-references" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.yoctoproject.org/dev/contributor-guide/index.html">Yocto Project Contributor Guide</a></p></li>
+<li><p><a class="reference external" href="https://docs.yoctoproject.org/dev/contributor-guide/submit-changes.html">OpenEmbedded Core Contributor Guide</a></p></li>
+<li><p><a class="reference external" href="https://docs.yoctoproject.org/dev-manual/layers.html">Yocto Layer Model and Compatibility</a></p></li>
+<li><p><a class="reference external" href="https://docs.yoctoproject.org/bitbake/">BitBake User Manual</a></p></li>
+</ul>
+<hr class="docutils" />
+<p><strong>SPDX-License-Identifier:</strong> MIT</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../README.html">meta-qcom-3rdparty</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="README.html">Contribution procedures, development setup, agent instructions, and generated native reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="README.html#files">Files</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="README.html#function-reference">Function reference</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href=".generated/.github-native_reference.py.html">Documentation reference tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href=".generated/ci-yocto-buildstats.sh.html">ci/yocto-buildstats.sh</a></li>
+<li class="toctree-l3"><a class="reference internal" href=".generated/ci-yocto-check-layer.sh.html">ci/yocto-check-layer.sh</a></li>
+<li class="toctree-l3"><a class="reference internal" href=".generated/ci-yocto-patchreview.sh.html">ci/yocto-patchreview.sh</a></li>
+<li class="toctree-l3"><a class="reference internal" href=".generated/recipes-bsp-firmware-boot-firmware-qcom-boot-rubikpi3_20260621.bb.html">recipes-bsp/firmware-boot/firmware-qcom-boot-rubikpi3_20260621.bb</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Contributing to meta-qcom-3rdparty</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#purpose-of-this-repository">1  Purpose of this Repository</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#goals">Goals</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#general-contribution-guidelines">2  General Contribution Guidelines</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#pull-request-workflow">2.1  Pull-Request Workflow</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#machine-specific-isolation">2.2  Machine-Specific Isolation</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#repository-organization">2.3  Repository Organization</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#no-recipe-forks">2.4  No Recipe Forks</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#scope-of-changes">2.5  Scope of Changes</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#maintainer-expectations">2.6  Maintainer Expectations</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#upstream-baseline">3  Upstream Baseline</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#expected-contribution-types">3.1  Expected Contribution Types</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#downstream-baseline-qualcomm-linux-1-x">4  Downstream Baseline – Qualcomm Linux 1.x</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#id1">4.1  Expected Contribution Types</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#integration-expectations">5  Integration Expectations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#machine-example-thundercomm-rubik-pi-3">6  Machine Example – Thundercomm RUBIK Pi 3</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#machine-configuration">6.1  Machine Configuration</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#packagegroup">6.2  Packagegroup</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#kernel">6.3  Kernel</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#boot-firmware-recipe">6.4  Boot Firmware Recipe</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#ci-integration">6.5  CI Integration</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#summary-checklist">6.6  Summary Checklist</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#additional-references">7  Additional References</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="DEVELOPMENT.html">Development environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AGENTS.html">Agent Guide for meta-qcom-3rdparty</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../user/README.html">User tutorial and configuration reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../README.html">Documentation overview</a><ul>
+  <li><a href="README.html">Contribution procedures, development setup, agent instructions, and generated native reference</a><ul>
+      <li>Previous: <a href=".generated/recipes-bsp-firmware-boot-firmware-qcom-boot-rubikpi3_20260621.bb.html" title="previous chapter">recipes-bsp/firmware-boot/firmware-qcom-boot-rubikpi3_20260621.bb</a></li>
+      <li>Next: <a href="DEVELOPMENT.html" title="next chapter">Development environment</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/contributing/CONTRIBUTING.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
