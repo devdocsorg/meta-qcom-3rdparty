@@ -260,7 +260,7 @@ image level:</p>
 </section>
 <section id="packagegroup">
 <h3>6.2  Packagegroup<a class="headerlink" href="#packagegroup" title="Link to this heading">¶</a></h3>
-<p>File: <code class="docutils literal notranslate"><span class="pre">recipes-bsp/packagegroups/packagegroup-rubikpi3.bb</span></code></p>
+<p>File: <a class="reference external" href="https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/contributor-reference/recipes-bsp/packagegroups/packagegroup-rubikpi3.bb">recipes-bsp/packagegroups/packagegroup-rubikpi3.bb</a></p>
 <p>Create a machine-specific packagegroup for the board firmware.
 Conditional inclusion based on <code class="docutils literal notranslate"><span class="pre">DISTRO_FEATURES</span></code> avoids pulling in unnecessary
 blobs:</p>
@@ -302,7 +302,7 @@ of the upstream <code class="docutils literal notranslate"><span class="pre">def
 <p>Reuse the SoC boot firmware recipe from <code class="docutils literal notranslate"><span class="pre">meta-qcom</span></code> whenever the board is
 covered by it. Only add a recipe here when the board needs binaries <code class="docutils literal notranslate"><span class="pre">meta-qcom</span></code>
 does not provide, such as a vendor-signed firmware set or the board-specific CDT.</p>
-<p>File: <code class="docutils literal notranslate"><span class="pre">recipes-bsp/firmware-boot/firmware-qcom-boot-rubikpi3_20260621.bb</span></code></p>
+<p>File: <a class="reference external" href="https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/contributor-reference/recipes-bsp/firmware-boot/firmware-qcom-boot-rubikpi3_20260621.bb">recipes-bsp/firmware-boot/firmware-qcom-boot-rubikpi3_20260621.bb</a></p>
 <p>Closed-source boot binaries must be hosted on a <strong>public, no-login mirror</strong>
 managed by the vendor (the <code class="docutils literal notranslate"><span class="pre">rubikpi-ai/boot-assets</span></code> git repository in this
 case) and fetched via <code class="docutils literal notranslate"><span class="pre">SRC_URI</span></code>. Never commit binaries to the repository:</p>
@@ -332,7 +332,7 @@ exception for the images that ship it, confined to the machine and kept under
 </section>
 <section id="ci-integration">
 <h3>6.5  CI Integration<a class="headerlink" href="#ci-integration" title="Link to this heading">¶</a></h3>
-<p>File: <code class="docutils literal notranslate"><span class="pre">ci/rubikpi3.yml</span></code></p>
+<p>File: <a class="reference external" href="https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/contributor-reference/ci/rubikpi3.yml">ci/rubikpi3.yml</a></p>
 <p>Add a <a class="reference external" href="https://kas.readthedocs.io/en/latest/userguide.html">kas</a> machine
 fragment that extends <code class="docutils literal notranslate"><span class="pre">ci/base.yml</span></code>:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">header</span><span class="p">:</span>

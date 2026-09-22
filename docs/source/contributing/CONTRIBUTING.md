@@ -214,7 +214,7 @@ Key elements to include:
 
 ### 6.2  Packagegroup
 
-File: `recipes-bsp/packagegroups/packagegroup-rubikpi3.bb`
+File: [recipes-bsp/packagegroups/packagegroup-rubikpi3.bb](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/contributor-reference/recipes-bsp/packagegroups/packagegroup-rubikpi3.bb)
 
 Create a machine-specific packagegroup for the board firmware.
 Conditional inclusion based on `DISTRO_FEATURES` avoids pulling in unnecessary
@@ -262,7 +262,7 @@ Reuse the SoC boot firmware recipe from `meta-qcom` whenever the board is
 covered by it. Only add a recipe here when the board needs binaries `meta-qcom`
 does not provide, such as a vendor-signed firmware set or the board-specific CDT.
 
-File: `recipes-bsp/firmware-boot/firmware-qcom-boot-rubikpi3_20260621.bb`
+File: [recipes-bsp/firmware-boot/firmware-qcom-boot-rubikpi3_20260621.bb](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/contributor-reference/recipes-bsp/firmware-boot/firmware-qcom-boot-rubikpi3_20260621.bb)
 
 Closed-source boot binaries must be hosted on a **public, no-login mirror**
 managed by the vendor (the `rubikpi-ai/boot-assets` git repository in this
@@ -297,7 +297,7 @@ INCOMPATIBLE_LICENSE_EXCEPTIONS:append:rubikpi3 = " firmware-qcom-boot-rubikpi3:
 
 ### 6.5  CI Integration
 
-File: `ci/rubikpi3.yml`
+File: [ci/rubikpi3.yml](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/contributor-reference/ci/rubikpi3.yml)
 
 Add a [kas](https://kas.readthedocs.io/en/latest/userguide.html) machine
 fragment that extends `ci/base.yml`:
