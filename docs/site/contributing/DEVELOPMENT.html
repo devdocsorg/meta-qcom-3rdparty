@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Development environment &#8212; meta-qcom-3rdparty  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=27fed22d" />
+    <script src="../_static/documentation_options.js?v=748769dd"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Agent Guide for meta-qcom-3rdparty" href="AGENTS.html" />
+    <link rel="prev" title="Contributing to meta-qcom-3rdparty" href="CONTRIBUTING.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="development-environment">
+<h1>Development environment<a class="headerlink" href="#development-environment" title="Link to this heading">¶</a></h1>
+<section id="check-out-this-proposal">
+<h2>1. Check out this proposal<a class="headerlink" href="#check-out-this-proposal" title="Link to this heading">¶</a></h2>
+<p>The documentation tools in this walkthrough are on the fork’s review branch:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>--branch<span class="w"> </span>docs/offline-layer-guides<span class="w"> </span>https://github.com/devdocsorg/meta-qcom-3rdparty.git
+<span class="nb">cd</span><span class="w"> </span>meta-qcom-3rdparty
+</pre></div>
+</div>
+<p>Use this directory for all commands below. Upstream layer changes still follow the
+<a class="reference internal" href="CONTRIBUTING.html"><span class="std std-doc">Qualcomm Linux contribution procedure</span></a>; the fork is the runnable
+checkout for this documentation proposal.</p>
+</section>
+<section id="prepare-tools">
+<h2>2. Prepare tools<a class="headerlink" href="#prepare-tools" title="Link to this heading">¶</a></h2>
+<p>Use Git, GNU Make, GNU awk (<code class="docutils literal notranslate"><span class="pre">gawk</span></code>), and uv 0.12.3. <code class="docutils literal notranslate"><span class="pre">setup</span></code> installs Python 3.12,
+Sphinx 9.1.0, MyST 5.1.0, Playwright 1.62.0, and the locked dependencies into
+<code class="docutils literal notranslate"><span class="pre">.venv</span></code>. It installs shdoc at commit
+<code class="docutils literal notranslate"><span class="pre">52917b2f3471fe77c745ede115494d2d5c9168d1</span></code> into <code class="docutils literal notranslate"><span class="pre">.tools/shdoc</span></code>.
+Python AST and bashlex independently inventory definitions; shdoc and autodoc
+produce their references. No build task is executed by extraction.
+Use the <a class="reference external" href="https://docs.astral.sh/uv/getting-started/installation/">uv installation instructions</a>
+if uv is absent; install Git, Make, and GNU awk through your host’s package manager.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>-f<span class="w"> </span>docs/source/Makefile<span class="w"> </span>setup
+</pre></div>
+</div>
+<p>Expected result: <code class="docutils literal notranslate"><span class="pre">.venv/bin/sphinx-build</span> <span class="pre">--version</span></code> reports Sphinx 9.1.0 and
+<code class="docutils literal notranslate"><span class="pre">.tools/shdoc/shdoc</span></code> exists at the pinned revision. System Chromium is used when
+available. Otherwise install the user-local test browser:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>-f<span class="w"> </span>docs/source/Makefile<span class="w"> </span>browser
+</pre></div>
+</div>
+<p>For layer checks and image builds, use kas-container 4.8.2 with Docker or Podman.
+The <a class="reference internal" href="AGENTS.html#prerequisites"><span class="std std-ref">agent prerequisites</span></a> provide the container smoke
+tests in required order: Docker first, then Podman if installed.
+A user-local installation is available with <code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">tool</span> <span class="pre">install</span> <span class="pre">'kas==4.8.2'</span></code>;
+put its binary directory on PATH or export <code class="docutils literal notranslate"><span class="pre">KAS_CONTAINER</span></code> to the absolute path.
+Hosted Yocto CI resolves the latest kas-container release; 4.8.2 is the tested
+local version, not a change to the project’s CI policy.</p>
+</section>
+<section id="configure-external-build-storage">
+<h2>3. Configure external build storage<a class="headerlink" href="#configure-external-build-storage" title="Link to this heading">¶</a></h2>
+<p><a class="reference internal" href="../user/CONFIGURATION.html"><span class="std std-doc">Configuration</span></a> explains precedence and defaults.
+The project does not automatically load <code class="docutils literal notranslate"><span class="pre">.env</span></code>. Start with the safe
+<a class="reference download internal" download="" href="../_downloads/c2a8075a3734ec07189764b943def8aa/.env.example"><code class="xref download docutils literal notranslate"><span class="pre">environment</span> <span class="pre">example</span></code></a>, set paths for your host, and export
+them explicitly. Preserve settings already supplied by your environment:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">REPO_DIR</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="s2">"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">KAS_WORK_DIR</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">KAS_WORK_DIR</span><span class="k">:-</span><span class="nv">$HOME</span><span class="p">/.cache/meta-qcom-3rdparty/work</span><span class="si">}</span><span class="s2">"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">DL_DIR</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">DL_DIR</span><span class="k">:-</span><span class="nv">$HOME</span><span class="p">/.cache/meta-qcom-3rdparty/downloads</span><span class="si">}</span><span class="s2">"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">SSTATE_DIR</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">SSTATE_DIR</span><span class="k">:-</span><span class="nv">$HOME</span><span class="p">/.cache/meta-qcom-3rdparty/sstate-cache</span><span class="si">}</span><span class="s2">"</span>
+mkdir<span class="w"> </span>-p<span class="w"> </span><span class="s2">"</span><span class="nv">$KAS_WORK_DIR</span><span class="s2">"</span><span class="w"> </span><span class="s2">"</span><span class="nv">$DL_DIR</span><span class="s2">"</span><span class="w"> </span><span class="s2">"</span><span class="nv">$SSTATE_DIR</span><span class="s2">"</span>
+</pre></div>
+</div>
+<p>These directories must remain outside the checkout. No secrets are needed for
+public source fetches. Retain network access for setup and kas source fetching;
+the generated documentation itself works offline.</p>
+</section>
+<section id="build-and-validate-documentation">
+<h2>4. Build and validate documentation<a class="headerlink" href="#build-and-validate-documentation" title="Link to this heading">¶</a></h2>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>-f<span class="w"> </span>docs/source/Makefile<span class="w"> </span>html
+</pre></div>
+</div>
+<p>Open <code class="docutils literal notranslate"><span class="pre">docs/site/index.html</span></code> directly. Expect contributor and user navigation,
+search results, and native function references, including <code class="docutils literal notranslate"><span class="pre">_is_dir</span></code> and <code class="docutils literal notranslate"><span class="pre">do_deploy</span></code>.
+Every changed source file with functions needs native comments with purpose,
+parameter and return types, examples, and failure behaviour. Adding embedded Python
+or another unsupported language requires configuring its extractor before building.</p>
+<p>After reviewing and staging regenerated output, commit sources and output together
+with the <a class="reference internal" href="AGENTS.html#commit-message-best-practices-project-style"><span class="std std-ref">required sign-off</span></a>,
+then run:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>-f<span class="w"> </span>docs/source/Makefile<span class="w"> </span>check
+</pre></div>
+</div>
+<p>Expected result: native coverage and mutation checks pass, copied-site search works
+without networking, and Git reports no changed or untracked <code class="docutils literal notranslate"><span class="pre">docs/site</span></code> files.
+CI invokes these same targets. The reference, doctree, and tool caches stay ignored.
+The lockfile extends the skeleton only with bashlex 0.18 for independent shell
+parsing. Update dependency pins deliberately and regenerate <code class="docutils literal notranslate"><span class="pre">requirements.lock</span></code>
+with <code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">pip</span> <span class="pre">compile</span> <span class="pre">--python-version</span> <span class="pre">3.12</span> <span class="pre">docs/source/requirements.txt</span> <span class="pre">-o</span> <span class="pre">docs/source/requirements.lock</span></code>.</p>
+</section>
+<section id="run-repository-checks">
+<h2>5. Run repository checks<a class="headerlink" href="#run-repository-checks" title="Link to this heading">¶</a></h2>
+<p>Run the <a class="reference internal" href="AGENTS.html#run-routine-checks-via-ci-helper-scripts"><span class="std std-ref">routine patch review</span></a>.
+Before every PR opening or update, run the two
+<a class="reference internal" href="AGENTS.html#pull-request-contribution-workflow"><span class="std std-ref">required checks in order</span></a>:
+patchreview first, then check-layer. Commit the candidate beforehand because
+check-layer internally clones the checkout. Verify that temporary clone’s HEAD
+matches the candidate commit. Documentation scope does not waive these checks.</p>
+<p>The existing Markdown workflow lints all Markdown using
+<code class="docutils literal notranslate"><span class="pre">.github/.markdownlint.yaml</span></code>. With Node.js 22 and markdownlint-cli2 installed,
+check the tracked files so local tool caches are excluded:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>ls-files<span class="w"> </span>-z<span class="w"> </span><span class="s1">'*.md'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>-0<span class="w"> </span>markdownlint-cli2<span class="w"> </span>--config<span class="w"> </span>.github/.markdownlint.yaml
+</pre></div>
+</div>
+<p>BitBake lint runs when layer metadata changes; hosted QC preflight and upstream
+Yocto builds remain in their existing workflows. Hosted builds require Qualcomm’s
+runners and hosted checks must be reported separately from local results.
+For product changes, also follow the existing build, flash, and runtime requirements
+in <a class="reference internal" href="CONTRIBUTING.html#pull-request-workflow"><span class="std std-ref">Contributing</span></a>.
+The <a class="reference internal" href="../user/USAGE.html"><span class="std std-doc">usage tutorial</span></a> exercises the actual image output.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../README.html">meta-qcom-3rdparty</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../user/README.html">User guides</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="README.html">Contributor guides</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="CONTRIBUTING.html">Contributing to meta-qcom-3rdparty</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Development environment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#check-out-this-proposal">1. Check out this proposal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#prepare-tools">2. Prepare tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configure-external-build-storage">3. Configure external build storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#build-and-validate-documentation">4. Build and validate documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#run-repository-checks">5. Run repository checks</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="AGENTS.html">Agent Guide for meta-qcom-3rdparty</a></li>
+<li class="toctree-l2"><a class="reference internal" href=".generated/ci-yocto-buildstats.sh.html">ci/yocto-buildstats.sh</a></li>
+<li class="toctree-l2"><a class="reference internal" href=".generated/ci-yocto-check-layer.sh.html">ci/yocto-check-layer.sh</a></li>
+<li class="toctree-l2"><a class="reference internal" href=".generated/ci-yocto-patchreview.sh.html">ci/yocto-patchreview.sh</a></li>
+<li class="toctree-l2"><a class="reference internal" href=".generated/recipes-bsp-firmware-boot-firmware-qcom-boot-rubikpi3_20260621.bb.html">recipes-bsp/firmware-boot/firmware-qcom-boot-rubikpi3_20260621.bb</a></li>
+<li class="toctree-l2"><a class="reference internal" href=".generated/python-reference.html">Python documentation tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="README.html#files">Files</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../README.html">Documentation overview</a><ul>
+  <li><a href="README.html">Contributor guides</a><ul>
+      <li>Previous: <a href="CONTRIBUTING.html" title="previous chapter">Contributing to meta-qcom-3rdparty</a></li>
+      <li>Next: <a href="AGENTS.html" title="next chapter">Agent Guide for meta-qcom-3rdparty</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/contributing/DEVELOPMENT.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

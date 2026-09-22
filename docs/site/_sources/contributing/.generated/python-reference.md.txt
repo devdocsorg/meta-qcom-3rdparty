@@ -1,0 +1,12 @@
+# Python documentation tools
+
+Native docstrings are rendered by Sphinx autodoc.
+
+## .github/reference.py
+
+```{eval-rst}
+.. automodule:: reference
+   :members:
+   :private-members:
+   :undoc-members:
+```

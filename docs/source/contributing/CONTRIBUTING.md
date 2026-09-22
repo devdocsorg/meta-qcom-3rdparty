@@ -22,6 +22,24 @@ References:
 
 ---
 
+## Development environment and checks
+
+Start with the [development walkthrough](DEVELOPMENT.md) and follow the
+[agent guide's routine checks and required pre-PR ordering](AGENTS.md#6-pull-request--contribution-workflow).
+Run patchreview, then check-layer before opening or updating every PR.
+Product changes also require the build, flash, and runtime validation below.
+Documentation-only validation does not establish image or hardware behaviour.
+
+Submit project changes to [upstream main with the PR template selected](https://github.com/qualcomm-linux/meta-qcom-3rdparty/compare/main...devdocsorg:meta-qcom-3rdparty:docs/offline-layer-guides?expand=1&template=pr_template.md).
+For this documentation proposal, [review in the fork](https://github.com/devdocsorg/meta-qcom-3rdparty/compare/upstream...docs/offline-layer-guides?expand=1&template=pr_template.md).
+Follow the [Code of Conduct](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/offline-layer-guides/CODE_OF_CONDUCT.md),
+and use the [private security route](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/offline-layer-guides/SECURITY.md)
+for undisclosed vulnerabilities.
+
+Documentation follows the [canonical repository specification](https://github.com/devdocsorg/qli2-example-repo/blob/main/SPECIFICATION.md).
+Update the nearby README map through the [shared dataset maintenance procedure](https://github.com/devdocsorg/qualcomm-repository-map/blob/main/data/README.md);
+map export is separate from Sphinx and requires access to that repository.
+
 ## 2  General Contribution Guidelines
 
 Our process mirrors the official Yocto Project contribution flow — see
@@ -32,7 +50,7 @@ Our process mirrors the official Yocto Project contribution flow — see
 - **Fork and propose changes** via GitHub Pull Requests.
   Use **draft mode** for work-in-progress patches.
 - **Create clean commits:** one logical change per commit.
-  Follow [Yocto commit style](https://docs.yoctoproject.org/dev/contributor-guide/submit-changes.html#writing-good-commit-messages).
+  Follow [Yocto commit style](https://docs.yoctoproject.org/dev/contributor-guide/submit-changes.html#implement-and-commit-changes).
 - **Explain _why_** the change is needed in the commit message.
 - **Add a Signed-off-by line** to certify compliance with the [Developer’s Certificate of Origin](https://developercertificate.org/).
 - **Validate locally** before submission: build with `bitbake`, flash, and verify runtime.
@@ -47,7 +65,7 @@ Because this layer expects to host multiple vendor platforms:
 - Avoid cross-contamination between machines or with upstream `meta-qcom`.
 - Do not introduce SoC-generic behavior under a machine-specific path. Such SoC-generic behavior must be sent/upstreamed to `meta-qcom` instead.
 
-Reference: [BitBake Overrides](https://docs.yoctoproject.org/ref-manual/variables.html#var-OVERRIDES)
+Reference: [BitBake Overrides](https://docs.yoctoproject.org/bitbake/dev/bitbake-user-manual/bitbake-user-manual-ref-variables.html#term-OVERRIDES)
 
 ### 2.3  Repository Organization
 
@@ -77,7 +95,7 @@ Preferred test distros:
 ### 2.6  Maintainer Expectations
 
 - Each contributor acts as the **maintainer** of their changes, upstream and downstream.
-- Vendors must appoint a **point-of-contact (PoC)** to review and triage vendor-specific PRs and issues promptly, which will be incorporated as part of the repository CODEOWNERS file.
+- Vendors must appoint a **point-of-contact (PoC)** to review and triage vendor-specific PRs and issues promptly, which will be incorporated as part of the repository [CODEOWNERS file](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/offline-layer-guides/.github/CODEOWNERS).
 
 ---
 
@@ -153,7 +171,7 @@ The following subsections walk through each required component.
 
 ### 6.1  Machine Configuration
 
-File: `conf/machine/rubikpi3.conf`
+File: [conf/machine/rubikpi3.conf](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/offline-layer-guides/conf/machine/rubikpi3.conf)
 
 Every machine must have a configuration file under `conf/machine/`.
 Key elements to include:
@@ -210,7 +228,7 @@ Key elements to include:
 
 ### 6.2  Packagegroup
 
-File: `recipes-bsp/packagegroups/packagegroup-rubikpi3.bb`
+File: [recipes-bsp/packagegroups/packagegroup-rubikpi3.bb](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/offline-layer-guides/recipes-bsp/packagegroups/packagegroup-rubikpi3.bb)
 
 Create a machine-specific packagegroup for the board firmware.
 Conditional inclusion based on `DISTRO_FEATURES` avoids pulling in unnecessary
@@ -258,7 +276,7 @@ Reuse the SoC boot firmware recipe from `meta-qcom` whenever the board is
 covered by it. Only add a recipe here when the board needs binaries `meta-qcom`
 does not provide, such as a vendor-signed firmware set or the board-specific CDT.
 
-File: `recipes-bsp/firmware-boot/firmware-qcom-boot-rubikpi3_20260621.bb`
+File: [recipes-bsp/firmware-boot/firmware-qcom-boot-rubikpi3_20260621.bb](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/offline-layer-guides/recipes-bsp/firmware-boot/firmware-qcom-boot-rubikpi3_20260621.bb)
 
 Closed-source boot binaries must be hosted on a **public, no-login mirror**
 managed by the vendor (the `rubikpi-ai/boot-assets` git repository in this
@@ -293,7 +311,7 @@ INCOMPATIBLE_LICENSE_EXCEPTIONS:append:rubikpi3 = " firmware-qcom-boot-rubikpi3:
 
 ### 6.5  CI Integration
 
-File: `ci/rubikpi3.yml`
+File: [ci/rubikpi3.yml](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/offline-layer-guides/ci/rubikpi3.yml)
 
 Add a [kas](https://kas.readthedocs.io/en/latest/userguide.html) machine
 fragment that extends `ci/base.yml`:

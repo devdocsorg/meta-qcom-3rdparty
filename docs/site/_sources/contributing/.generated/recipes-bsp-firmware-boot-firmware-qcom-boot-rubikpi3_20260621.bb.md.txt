@@ -1,0 +1,31 @@
+# recipes-bsp/firmware-boot/firmware-qcom-boot-rubikpi3_20260621.bb
+
+## Overview
+
+Deploy RUBIK Pi boot firmware and its CDT; takes no positional arguments.
+
+## Index
+
+* [do_deploy](#do_deploy)
+
+### do_deploy
+
+Deploy RUBIK Pi boot firmware and its CDT; takes no positional arguments.
+
+#### Example
+
+```bash
+bitbake firmware-qcom-boot-rubikpi3 -c deploy
+```
+
+#### Variables set
+
+* **S** (string): Unpacked firmware source directory supplied by BitBake.
+* **DEPLOYDIR** (string): Task output directory supplied by the deploy class.
+* **QCOM_BOOT_IMG_SUBDIR** (string): Relative destination, set to rubikpi3 by this recipe.
+
+#### Exit codes
+
+* **0**: Boot files and RubikPi3_CDT.bin were installed.
+* **1**: A required source file or destination operation failed.
+

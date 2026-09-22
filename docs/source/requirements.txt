@@ -1,0 +1,7 @@
+# Exact documentation-package versions; independent of implementation language.
+Sphinx==9.1.0
+myst-parser==5.1.0
+# Browser validation used by the shared check target.
+playwright==1.62.0
+# Independent Bash AST discovery; extraction remains shdoc.
+bashlex==0.18

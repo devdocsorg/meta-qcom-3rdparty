@@ -18,6 +18,14 @@ QCOM_BOOT_IMG_SUBDIR = "rubikpi3"
 
 COMPATIBLE_MACHINE = "(rubikpi3)"
 
+# @description Deploy RUBIK Pi boot firmware and its CDT; takes no positional arguments.
+# @set S string Unpacked firmware source directory supplied by BitBake.
+# @set DEPLOYDIR string Task output directory supplied by the deploy class.
+# @set QCOM_BOOT_IMG_SUBDIR string Relative destination, set to rubikpi3 by this recipe.
+# @exitcode 0 Boot files and RubikPi3_CDT.bin were installed.
+# @exitcode 1 A required source file or destination operation failed.
+# @example
+#   bitbake firmware-qcom-boot-rubikpi3 -c deploy
 do_deploy() {
     install -d ${DEPLOYDIR}/${QCOM_BOOT_IMG_SUBDIR}
 

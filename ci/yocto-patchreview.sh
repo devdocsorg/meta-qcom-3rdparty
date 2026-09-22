@@ -12,6 +12,13 @@ fi
 REPO_DIR="$1"
 WORK_DIR="$2"
 
+# @description Require an existing directory, terminating the caller when it is missing.
+# @arg $1 string Directory path to validate.
+# @exitcode 0 The directory exists.
+# @exitcode 1 The path is not a directory; the script exits.
+# @stdout Diagnostic naming the missing directory on failure.
+# @example
+#   _is_dir /work
 _is_dir(){
     test -d "$1" && return
     echo "The '$1' is not a directory."

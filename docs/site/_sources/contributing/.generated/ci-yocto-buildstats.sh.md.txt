@@ -1,0 +1,33 @@
+# ci/yocto-buildstats.sh
+
+## Overview
+
+Require an existing directory, terminating the caller when it is missing.
+
+## Index
+
+* [_is_dir](#_is_dir)
+
+### _is_dir
+
+Require an existing directory, terminating the caller when it is missing.
+
+#### Example
+
+```bash
+_is_dir /work
+```
+
+#### Arguments
+
+* **$1** (string): Directory path to validate.
+
+#### Exit codes
+
+* **0**: The directory exists.
+* **1**: The path is not a directory; the script exits.
+
+#### Output on stdout
+
+* Diagnostic naming the missing directory on failure.
+

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Python documentation tools &#8212; meta-qcom-3rdparty  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=27fed22d" />
+    <script src="../../_static/documentation_options.js?v=748769dd"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="recipes-bsp/firmware-boot/firmware-qcom-boot-rubikpi3_20260621.bb" href="recipes-bsp-firmware-boot-firmware-qcom-boot-rubikpi3_20260621.bb.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="python-documentation-tools">
+<h1>Python documentation tools<a class="headerlink" href="#python-documentation-tools" title="Link to this heading">¶</a></h1>
+<p>Native docstrings are rendered by Sphinx autodoc.</p>
+<section id="module-reference">
+<span id="github-reference-py"></span><h2>.github/reference.py<a class="headerlink" href="#module-reference" title="Link to this heading">¶</a></h2>
+<p>Inventory definitions independently, then generate and check native references.</p>
+<p>Shell and BitBake task comments are rendered by pinned shdoc. Python modules use
+Sphinx autodoc; AST parsing never imports product code or executes build tasks.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="reference.check_rendered">
+<span class="sig-prename descclassname"><span class="pre">reference.</span></span><span class="sig-name descname"><span class="pre">check_rendered</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">site</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#reference.check_rendered" title="Link to this definition">¶</a></dt>
+<dd><p>Require actual native-domain HTML entries for every discovered function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root</strong> – Repository root Path, for example <code class="docutils literal notranslate"><span class="pre">Path.cwd()</span></code>.</p></li>
+<li><p><strong>site</strong> – Generated site Path, for example <code class="docutils literal notranslate"><span class="pre">root</span> <span class="pre">/</span> <span class="pre">'docs/site'</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Source-path strings mapped to documented function-name lists.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – A rendered reference entry is missing or documentation is invalid.</p>
+</dd>
+</dl>
+<p>Example: <code class="docutils literal notranslate"><span class="pre">check_rendered(Path.cwd(),</span> <span class="pre">Path('docs/site'))</span></code> validates the built reference.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="reference.generate">
+<span class="sig-prename descclassname"><span class="pre">reference.</span></span><span class="sig-name descname"><span class="pre">generate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#reference.generate" title="Link to this definition">¶</a></dt>
+<dd><p>Generate native-reference source pages without executing product functions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>root</strong> – Repository root Path; <code class="docutils literal notranslate"><span class="pre">generate(Path.cwd())</span></code> is used by Sphinx.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None; writes ignored intermediate Markdown under the contributor area.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ValueError</strong> – Inventory or extraction misses documented definitions.</p></li>
+<li><p><strong>subprocess.CalledProcessError</strong> – Pinned shdoc fails.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Example: <code class="docutils literal notranslate"><span class="pre">generate(Path.cwd())</span></code> creates the shell task and Python reference pages.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="reference.inventory">
+<span class="sig-prename descclassname"><span class="pre">reference.</span></span><span class="sig-name descname"><span class="pre">inventory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#reference.inventory" title="Link to this definition">¶</a></dt>
+<dd><p>Validate native comments and discover all shell, BitBake, and Python definitions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>root</strong> – Repository root Path, for example <code class="docutils literal notranslate"><span class="pre">Path.cwd()</span></code>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Mapping from relative source Path to discovered qualified function names.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – Documentation is missing or a definition needs extractor support.</p>
+</dd>
+</dl>
+<p>Example: <code class="docutils literal notranslate"><span class="pre">inventory(Path.cwd())[Path('ci/yocto-buildstats.sh')]</span></code> is <code class="docutils literal notranslate"><span class="pre">['_is_dir']</span></code>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="reference.shell_functions">
+<span class="sig-prename descclassname"><span class="pre">reference.</span></span><span class="sig-name descname"><span class="pre">shell_functions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#reference.shell_functions" title="Link to this definition">¶</a></dt>
+<dd><p>Discover shell function names and positions with bashlex’s independent AST.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>text</strong> – Shell source string, such as <code class="docutils literal notranslate"><span class="pre">'f()</span> <span class="pre">{</span> <span class="pre">:;</span> <span class="pre">}'</span></code>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of (name string, character offset integer) pairs, including helpers.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – Shell syntax cannot be parsed; update parser support explicitly.</p>
+</dd>
+</dl>
+<p>Example: <code class="docutils literal notranslate"><span class="pre">shell_functions('f()</span> <span class="pre">{</span> <span class="pre">:;</span> <span class="pre">}')</span></code> returns <code class="docutils literal notranslate"><span class="pre">[('f',</span> <span class="pre">0)]</span></code>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="reference.source_files">
+<span class="sig-prename descclassname"><span class="pre">reference.</span></span><span class="sig-name descname"><span class="pre">source_files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#reference.source_files" title="Link to this definition">¶</a></dt>
+<dd><p>Return maintained source paths using Git’s tracked and unignored inventory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>root</strong> – Repository root (Path), for example <code class="docutils literal notranslate"><span class="pre">Path.cwd()</span></code>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Sorted list of repository-relative Paths, excluding generated HTML.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>subprocess.CalledProcessError</strong> – Git cannot enumerate the repository.</p>
+</dd>
+</dl>
+<p>Example: <code class="docutils literal notranslate"><span class="pre">source_files(Path.cwd())</span></code> includes <code class="docutils literal notranslate"><span class="pre">Path('ci/yocto-check-layer.sh')</span></code>.</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../README.html">meta-qcom-3rdparty</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../user/README.html">User guides</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../README.html">Contributor guides</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../CONTRIBUTING.html">Contributing to meta-qcom-3rdparty</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../DEVELOPMENT.html">Development environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AGENTS.html">Agent Guide for meta-qcom-3rdparty</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ci-yocto-buildstats.sh.html">ci/yocto-buildstats.sh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ci-yocto-check-layer.sh.html">ci/yocto-check-layer.sh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ci-yocto-patchreview.sh.html">ci/yocto-patchreview.sh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="recipes-bsp-firmware-boot-firmware-qcom-boot-rubikpi3_20260621.bb.html">recipes-bsp/firmware-boot/firmware-qcom-boot-rubikpi3_20260621.bb</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Python documentation tools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-reference">.github/reference.py</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#reference.check_rendered"><code class="docutils literal notranslate"><span class="pre">check_rendered()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#reference.generate"><code class="docutils literal notranslate"><span class="pre">generate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#reference.inventory"><code class="docutils literal notranslate"><span class="pre">inventory()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#reference.shell_functions"><code class="docutils literal notranslate"><span class="pre">shell_functions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#reference.source_files"><code class="docutils literal notranslate"><span class="pre">source_files()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../README.html#files">Files</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../README.html">Documentation overview</a><ul>
+  <li><a href="../README.html">Contributor guides</a><ul>
+      <li>Previous: <a href="recipes-bsp-firmware-boot-firmware-qcom-boot-rubikpi3_20260621.bb.html" title="previous chapter">recipes-bsp/firmware-boot/firmware-qcom-boot-rubikpi3_20260621.bb</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../../_sources/contributing/.generated/python-reference.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
