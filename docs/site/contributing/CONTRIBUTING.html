@@ -68,7 +68,7 @@ It follows the same conventions used by the Yocto Project and OpenEmbedded upstr
 <li><p><strong>Fork and propose changes</strong> via GitHub Pull Requests.
 Use <strong>draft mode</strong> for work-in-progress patches.</p></li>
 <li><p><strong>Create clean commits:</strong> one logical change per commit.
-Follow <a class="reference external" href="https://docs.yoctoproject.org/dev/contributor-guide/submit-changes.html#writing-good-commit-messages">Yocto commit style</a>.</p></li>
+Follow <a class="reference external" href="https://docs.yoctoproject.org/dev/contributor-guide/submit-changes.html#implement-and-commit-changes">Yocto commit style</a>.</p></li>
 <li><p><strong>Explain <em>why</em></strong> the change is needed in the commit message.</p></li>
 <li><p><strong>Add a Signed-off-by line</strong> to certify compliance with the <a class="reference external" href="https://developercertificate.org/">Developer’s Certificate of Origin</a>.</p></li>
 <li><p><strong>Validate locally</strong> before submission: build with <code class="docutils literal notranslate"><span class="pre">bitbake</span></code>, flash, and verify runtime.</p></li>
@@ -84,7 +84,7 @@ Use <code class="docutils literal notranslate"><span class="pre">git</span> <spa
 <li><p>Avoid cross-contamination between machines or with upstream <code class="docutils literal notranslate"><span class="pre">meta-qcom</span></code>.</p></li>
 <li><p>Do not introduce SoC-generic behavior under a machine-specific path. Such SoC-generic behavior must be sent/upstreamed to <code class="docutils literal notranslate"><span class="pre">meta-qcom</span></code> instead.</p></li>
 </ul>
-<p>Reference: <a class="reference external" href="https://docs.yoctoproject.org/ref-manual/variables.html#var-OVERRIDES">BitBake Overrides</a></p>
+<p>Reference: <a class="reference external" href="https://docs.yoctoproject.org/ref-manual/variables.html#term-OVERRIDES">BitBake Overrides</a></p>
 </section>
 <section id="repository-organization">
 <h3>2.3  Repository Organization<a class="headerlink" href="#repository-organization" title="Link to this heading">¶</a></h3>
