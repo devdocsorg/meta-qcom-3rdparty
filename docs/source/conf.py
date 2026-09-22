@@ -1,4 +1,5 @@
-# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 DevDocs
+# SPDX-License-Identifier: BSD-3-Clause
 """Configure strict Markdown and native Python reference generation for file browsing."""
 from pathlib import Path
 import sys
