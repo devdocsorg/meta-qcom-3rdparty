@@ -64,5 +64,5 @@ Pull requests will be discussed within the GitHub pull-request infrastructure.
 
 ## License
 
-This layer is licensed under the MIT license. Check out [COPYING.MIT](COPYING.MIT)
+This layer is licensed under the MIT license. Check out [LICENSE](LICENSE)
 for more details.
