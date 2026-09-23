@@ -1,0 +1,27 @@
+# RUBIK Pi boot firmware
+
+[Source: recipes-bsp/firmware-boot/firmware-qcom-boot-rubikpi3_20260621.bb](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/offline-contributor-guides/recipes-bsp/firmware-boot/firmware-qcom-boot-rubikpi3_20260621.bb)
+
+## Index
+
+* [do_deploy](#do_deploy)
+
+### do_deploy
+
+Stage RUBIK Pi 3 firmware and CDT for the image packaging tasks.
+Reads string S (unpacked source directory), DEPLOYDIR (deploy staging),
+and QCOM_BOOT_IMG_SUBDIR (board directory, rubikpi3) from BitBake.
+
+#### Example
+
+```bash
+bitbake firmware-qcom-boot-rubikpi3 -c deploy
+```
+
+_Function has no arguments._
+
+#### Exit codes
+
+* **0**: Firmware files were installed successfully.
+* **1**: A required file or output directory could not be read or written.
+

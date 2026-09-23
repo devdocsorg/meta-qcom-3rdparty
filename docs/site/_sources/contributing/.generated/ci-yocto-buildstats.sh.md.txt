@@ -1,0 +1,31 @@
+# yocto-buildstats.sh
+
+[Source: ci/yocto-buildstats.sh](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/offline-contributor-guides/ci/yocto-buildstats.sh)
+
+## Index
+
+* [_is_dir](#_is_dir)
+
+### _is_dir
+
+Require an existing directory before running the CI tool.
+
+#### Example
+
+```bash
+_is_dir /work
+```
+
+#### Arguments
+
+* **$1** (string): Path to a directory, such as /work.
+
+#### Exit codes
+
+* **0**: The directory exists.
+* **1**: The path is absent or is not a directory; exits the script.
+
+#### Output on stdout
+
+* Diagnostic naming an invalid path.
+

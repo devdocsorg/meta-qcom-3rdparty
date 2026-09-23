@@ -12,6 +12,14 @@ fi
 REPO_DIR="$1"
 WORK_DIR="$2"
 
+# @description Require an existing directory before running the CI tool.
+# @arg $1 string Path to a directory, such as /work.
+# @example
+#   _is_dir /work
+#
+# @exitcode 0 The directory exists.
+# @exitcode 1 The path is absent or is not a directory; exits the script.
+# @stdout Diagnostic naming an invalid path.
 _is_dir(){
     test -d "$1" && return
     echo "The '$1' is not a directory."

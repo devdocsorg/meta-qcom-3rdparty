@@ -18,6 +18,15 @@ QCOM_BOOT_IMG_SUBDIR = "rubikpi3"
 
 COMPATIBLE_MACHINE = "(rubikpi3)"
 
+# @description Stage RUBIK Pi 3 firmware and CDT for the image packaging tasks.
+# Reads string S (unpacked source directory), DEPLOYDIR (deploy staging),
+# and QCOM_BOOT_IMG_SUBDIR (board directory, rubikpi3) from BitBake.
+# @noargs
+# @example
+#   bitbake firmware-qcom-boot-rubikpi3 -c deploy
+#
+# @exitcode 0 Firmware files were installed successfully.
+# @exitcode 1 A required file or output directory could not be read or written.
 do_deploy() {
     install -d ${DEPLOYDIR}/${QCOM_BOOT_IMG_SUBDIR}
 

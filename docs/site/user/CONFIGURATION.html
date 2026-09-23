@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Configuration &#8212; meta-qcom-3rdparty  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=27fed22d" />
+    <script src="../_static/documentation_options.js?v=748769dd"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Contributing" href="../contributing/README.html" />
+    <link rel="prev" title="Build a RUBIK Pi 3 image" href="USAGE.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="configuration">
+<h1>Configuration<a class="headerlink" href="#configuration" title="Link to this heading">¶</a></h1>
+<section id="loading-and-syntax">
+<h2>Loading and syntax<a class="headerlink" href="#loading-and-syntax" title="Link to this heading">¶</a></h2>
+<p>kas merges included YAML depth-first, with later files and the including file
+winning conflicting values. Its <a class="reference external" href="https://kas.readthedocs.io/en/4.8.2/userguide/project-configuration.html#configuration-reference">4.8.2 configuration reference</a>
+owns field types, optional fields, and inherited defaults. Local fragments are
+listed below; their omitted fields inherit from meta-qcom’s selected branch.</p>
+<p>BitBake loads <code class="docutils literal notranslate"><span class="pre">conf/layer.conf</span></code>, then the selected machine and its required SoC
+include; recipes inherit the named classes. Its <a class="reference external" href="https://docs.yoctoproject.org/bitbake/dev/bitbake-user-manual/bitbake-user-manual-metadata.html">assignment and override rules</a>
+apply: <code class="docutils literal notranslate"><span class="pre">=</span></code> sets a string, <code class="docutils literal notranslate"><span class="pre">?=</span></code> supplies the first unset default, <code class="docutils literal notranslate"><span class="pre">+=</span></code> appends a
+space-separated value, <code class="docutils literal notranslate"><span class="pre">:append</span></code> appends literally, and <code class="docutils literal notranslate"><span class="pre">:=</span></code> expands immediately.
+Machine overrides confine board changes. The <a class="reference external" href="https://docs.yoctoproject.org/ref-manual/variables.html">Yocto variable glossary</a>
+owns standard variable definitions and inherited defaults. Values below are safe
+repository examples, not secret credentials.</p>
+</section>
+<section id="environment">
+<h2>Environment<a class="headerlink" href="#environment" title="Link to this heading">¶</a></h2>
+<p>The layer has no automatic dotenv loader. The commented
+<a class="reference download internal" download="" href="../_downloads/c2a8075a3734ec07189764b943def8aa/.env.example"><code class="xref download docutils literal notranslate"><span class="pre">.env.example</span></code></a>
+explains every environment setting used by the local build guidance, including
+path types and unset behaviour. Export settings explicitly or source a trusted
+copy; existing work/cache values take precedence in the agent guide’s examples.
+<code class="docutils literal notranslate"><span class="pre">ci/*.sh</span></code> accept repository and work directories as positional strings, except
+<code class="docutils literal notranslate"><span class="pre">kas-container-shell-helper.sh</span></code>, which accepts the script path and supplies both
+directories inside the container. Missing paths terminate the scripts.</p>
+</section>
+<section id="kas-compositions">
+<h2>Kas compositions<a class="headerlink" href="#kas-compositions" title="Link to this heading">¶</a></h2>
+<p>All local YAML files require integer <code class="docutils literal notranslate"><span class="pre">header.version:</span> <span class="pre">14</span></code>. <code class="docutils literal notranslate"><span class="pre">header.includes</span></code>
+contains optional repository-relative paths or <code class="docutils literal notranslate"><span class="pre">{repo,</span> <span class="pre">file}</span></code> mappings; omitting
+it leaves only that file’s settings. The selected paths are the safe examples.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Fragment</p></th>
+<th class="head"><p>Local values and purpose</p></th>
+<th class="head"><p>Behaviour when omitted</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ci/base.yml</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">repos.meta-qcom.url</span></code> is the canonical HTTPS layer URL; <code class="docutils literal notranslate"><span class="pre">branch:</span> <span class="pre">master</span></code> selects development; <code class="docutils literal notranslate"><span class="pre">includes</span></code> loads its <code class="docutils literal notranslate"><span class="pre">ci/base.yml</span></code>; empty <code class="docutils literal notranslate"><span class="pre">repos.meta-qcom-3rdparty</span></code> includes the current checkout.</p></td>
+<td><p>A machine fragment needs this base for layers, target, and distro.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ci/meta-qcom.yml</span></code></p></td>
+<td><p>Declares the same URL/branch for fragments requiring that external repository.</p></td>
+<td><p>External includes cannot resolve without a repository declaration.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ci/rubikpi3.yml</span></code></p></td>
+<td><p>Includes the local base; string <code class="docutils literal notranslate"><span class="pre">machine:</span> <span class="pre">rubikpi3</span></code> selects the board.</p></td>
+<td><p>Base machine is <code class="docutils literal notranslate"><span class="pre">unset</span></code>; explicitly choose a supported machine.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ci/radxa-dragon-q6a.yml</span></code></p></td>
+<td><p>Includes the local base; string <code class="docutils literal notranslate"><span class="pre">machine:</span> <span class="pre">radxa-dragon-q6a</span></code> selects the board.</p></td>
+<td><p>As above.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ci/qcom-distro.yml</span></code></p></td>
+<td><p>Includes the repository declaration and meta-qcom’s <code class="docutils literal notranslate"><span class="pre">ci/qcom-distro.yml</span></code>.</p></td>
+<td><p>Base uses <code class="docutils literal notranslate"><span class="pre">nodistro</span></code> and <code class="docutils literal notranslate"><span class="pre">core-image-base</span></code>; this optional fragment chooses Qualcomm distro targets.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ci/ci.yml</span></code></p></td>
+<td><p>Includes the repository declaration and parent CI settings.</p></td>
+<td><p>CI-specific mirrors, package settings, and build tuning are not added.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ci/mirror.yml</span></code></p></td>
+<td><p>Includes the repository declaration and parent mirror settings.</p></td>
+<td><p>Normal fetch and sstate defaults apply.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ci/linux-qcom-next.yml</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">local_conf_header.kernelprovider</span></code> is a multiline string setting <code class="docutils literal notranslate"><span class="pre">PREFERRED_PROVIDER_virtual/kernel</span> <span class="pre">=</span> <span class="pre">&quot;linux-qcom-next&quot;</span></code>.</p></td>
+<td><p>Machine/provider defaults apply.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ci/world.yml</span></code></p></td>
+<td><p>Multiline <code class="docutils literal notranslate"><span class="pre">local_conf_header.world_build</span></code> sets string <code class="docutils literal notranslate"><span class="pre">EXCLUDE_FROM_WORLD</span> <span class="pre">=</span> <span class="pre">&quot;1&quot;</span></code>, then overrides <code class="docutils literal notranslate"><span class="pre">layer-qcom</span></code> and <code class="docutils literal notranslate"><span class="pre">layer-qcom-3rdparty</span></code> to <code class="docutils literal notranslate"><span class="pre">&quot;0&quot;</span></code>; list <code class="docutils literal notranslate"><span class="pre">target:</span> <span class="pre">[world]</span></code> selects world.</p></td>
+<td><p>Base target remains <code class="docutils literal notranslate"><span class="pre">core-image-base</span></code>; ordinary recipe world participation applies.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Parent <code class="docutils literal notranslate"><span class="pre">ci/base.yml</span></code> supplies OpenEmbedded Core, BitBake, <code class="docutils literal notranslate"><span class="pre">nodistro</span></code>, build history,
+cleanup, disk monitoring, mirrors, image features, and the image target. The distro
+fragment adds meta-qcom-distro, meta-openembedded, meta-ai, meta-audioreach,
+meta-virtualization, meta-selinux, meta-updater, and meta-security. Inspect the
+<a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom/blob/master/ci/base.yml">upstream base</a>
+and <a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom/blob/master/ci/qcom-distro.yml">distro fragment</a>
+at your resolved revision for inherited values; this layer does not duplicate them.</p>
+</section>
+<section id="layer-registration">
+<h2>Layer registration<a class="headerlink" href="#layer-registration" title="Link to this heading">¶</a></h2>
+<p>These required strings in <code class="docutils literal notranslate"><span class="pre">conf/layer.conf</span></code> register this layer. Keep the examples
+unless intentionally changing layer identity or compatibility.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Setting</p></th>
+<th class="head"><p>Local purpose and safe value</p></th>
+<th class="head"><p>Unset behaviour</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">BBPATH</span></code></p></td>
+<td><p>Append <code class="docutils literal notranslate"><span class="pre">:${LAYERDIR}</span></code> so BitBake can find layer configuration.</p></td>
+<td><p>Configuration lookup omits this layer.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">BBFILES</span></code></p></td>
+<td><p>Append <code class="docutils literal notranslate"><span class="pre">${LAYERDIR}/recipes-*/*/*.bb</span></code> and <code class="docutils literal notranslate"><span class="pre">*.bbappend</span></code> globs.</p></td>
+<td><p>Recipes are not discovered by these patterns.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">BBFILE_COLLECTIONS</span></code></p></td>
+<td><p>Add collection <code class="docutils literal notranslate"><span class="pre">qcom-3rdparty</span></code>.</p></td>
+<td><p>Collection-specific declarations cannot identify this layer.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">BBFILE_PATTERN_qcom-3rdparty</span></code></p></td>
+<td><p>Immediately expanded regex <code class="docutils literal notranslate"><span class="pre">^${LAYERDIR}/</span></code> matches recipes.</p></td>
+<td><p>Recipes cannot be associated with this collection.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">BBFILE_PRIORITY_qcom-3rdparty</span></code></p></td>
+<td><p>Integer string <code class="docutils literal notranslate"><span class="pre">5</span></code> orders recipe selection.</p></td>
+<td><p>BitBake derives priority from dependencies.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">LAYERDEPENDS_qcom-3rdparty</span></code></p></td>
+<td><p>Space-separated collections <code class="docutils literal notranslate"><span class="pre">core</span> <span class="pre">qcom</span></code> are required.</p></td>
+<td><p>Dependency checks cannot enforce those layers.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">LAYERSERIES_COMPAT_qcom-3rdparty</span></code></p></td>
+<td><p>Release list <code class="docutils literal notranslate"><span class="pre">wrynose</span></code> declares tested compatibility.</p></td>
+<td><p>BitBake warns about missing compatibility.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">BBFILES_DYNAMIC</span></code></p></td>
+<td><p>Optional <code class="docutils literal notranslate"><span class="pre">qcom-distro:</span></code> patterns under <code class="docutils literal notranslate"><span class="pre">dynamic-layers/qcom-distro/*/*/</span></code> activate recipes/appends only with that collection.</p></td>
+<td><p>The distro-specific licence exception is not applied.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="machine-settings">
+<h2>Machine settings<a class="headerlink" href="#machine-settings" title="Link to this heading">¶</a></h2>
+<p>Both machine files require <code class="docutils literal notranslate"><span class="pre">conf/machine/include/qcom-qcs6490.inc</span></code> from meta-qcom.
+All values are BitBake strings; lists use spaces. Empty boot values are intentional
+overrides, not missing settings. Defaults come from the SoC include unless a local
+<code class="docutils literal notranslate"><span class="pre">?=</span></code> default is listed.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Setting</p></th>
+<th class="head"><p>RUBIK Pi 3 example and purpose</p></th>
+<th class="head"><p>Radxa Dragon Q6A example and purpose</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">MACHINE_FEATURES</span></code></p></td>
+<td><p>Add <code class="docutils literal notranslate"><span class="pre">efi</span> <span class="pre">pci</span></code> capabilities.</p></td>
+<td><p>Add <code class="docutils literal notranslate"><span class="pre">efi</span> <span class="pre">pci</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">PREFERRED_PROVIDER_virtual/kernel</span></code></p></td>
+<td><p>Optional default <code class="docutils literal notranslate"><span class="pre">linux-qcom-next</span></code>, set before the include so it wins the first <code class="docutils literal notranslate"><span class="pre">?=</span></code>.</p></td>
+<td><p>Optional <code class="docutils literal notranslate"><span class="pre">linux-qcom-next</span></code> default after the include; an earlier inherited assignment may win.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">KERNEL_CMDLINE_EXTRA:append</span></code></p></td>
+<td><p>Optional <code class="docutils literal notranslate"><span class="pre">deferred_probe_timeout=30</span></code> (with a leading space) allows HDMI bridge probing.</p></td>
+<td><p>No local addition.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">KERNEL_DEVICETREE</span></code></p></td>
+<td><p>Required <code class="docutils literal notranslate"><span class="pre">qcom/qcs6490-thundercomm-rubikpi3.dtb</span></code>.</p></td>
+<td><p>Required <code class="docutils literal notranslate"><span class="pre">qcom/qcs6490-radxa-dragon-q6a.dtb</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">QCOM_DTB_DEFAULT</span></code></p></td>
+<td><p>Optional default <code class="docutils literal notranslate"><span class="pre">qcs6490-thundercomm-rubikpi3</span></code>.</p></td>
+<td><p>Optional default <code class="docutils literal notranslate"><span class="pre">qcs6490-radxa-dragon-q6a</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">QCOM_BOOT_FIRMWARE</span></code></p></td>
+<td><p>Recipe name <code class="docutils literal notranslate"><span class="pre">firmware-qcom-boot-rubikpi3</span></code> supplies signed assets.</p></td>
+<td><p>Empty string disables packaged boot firmware.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">QCOM_BOOT_FILES_SUBDIR</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">rubikpi3</span></code> selects the boot asset directory.</p></td>
+<td><p>Empty; SPI NOR firmware is managed separately.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">QCOM_PARTITION_FILES_SUBDIR</span></code></p></td>
+<td><p>Optional default <code class="docutils literal notranslate"><span class="pre">partitions/qcs6490-thundercomm-rubikpi3/ufs</span></code>.</p></td>
+<td><p>Empty, because this builds an OS disk image.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">QCOM_CDT_FILE</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">RubikPi3_CDT</span></code> selects the board CDT.</p></td>
+<td><p>Empty; not packaged.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">QCOM_PARTITION_FILES_SUBDIR_SPINOR</span></code>, <code class="docutils literal notranslate"><span class="pre">QCOM_PARTITION_CONF</span></code></p></td>
+<td><p>No local setting; inherited partition choices apply.</p></td>
+<td><p>Empty strings disable parent partition packaging.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">WKS_FILE</span></code></p></td>
+<td><p>No local override.</p></td>
+<td><p>Required <code class="docutils literal notranslate"><span class="pre">efi-uki-bootdisk.wks.in</span></code> selects ESP and UKI layout.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">QCOM_ESP_IMAGE</span></code></p></td>
+<td><p>Inherited default.</p></td>
+<td><p>Empty disables the separate ESP image recipe.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">QCOM_VFAT_SECTOR_SIZE</span></code></p></td>
+<td><p>Inherited default.</p></td>
+<td><p>Optional integer string <code class="docutils literal notranslate"><span class="pre">512</span></code> for SD; use <code class="docutils literal notranslate"><span class="pre">4096</span></code> for UFS.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">QCOM_BOOTIMG_ROOTFS</span></code></p></td>
+<td><p>Inherited default.</p></td>
+<td><p>Optional string <code class="docutils literal notranslate"><span class="pre">PARTLABEL=root</span></code> identifies the root partition.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">IMAGE_FSTYPES</span></code></p></td>
+<td><p>Inherited image formats.</p></td>
+<td><p>Add <code class="docutils literal notranslate"><span class="pre">wic</span> <span class="pre">wic.gz</span> <span class="pre">wic.bmap</span></code> disk image formats.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MACHINE_ESSENTIAL_EXTRA_RRECOMMENDS</span></code></p></td>
+<td><p>Add <code class="docutils literal notranslate"><span class="pre">packagegroup-qcom-boot-essential</span></code>, <code class="docutils literal notranslate"><span class="pre">packagegroup-machine-essential-qcom-qcs6490-soc</span></code>, and <code class="docutils literal notranslate"><span class="pre">packagegroup-rubikpi3-firmware</span></code>.</p></td>
+<td><p>Add the same SoC groups, <code class="docutils literal notranslate"><span class="pre">packagegroup-radxa-dragon-q6a-firmware</span></code>, <code class="docutils literal notranslate"><span class="pre">packagegroup-radxa-dragon-q6a-hexagon-dsp-binaries</span></code>, and <code class="docutils literal notranslate"><span class="pre">qairt-sdk-hexagon-v68</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="recipes-and-kernel-fragment">
+<h2>Recipes and kernel fragment<a class="headerlink" href="#recipes-and-kernel-fragment" title="Link to this heading">¶</a></h2>
+<p>The <a class="reference internal" href="../contributing/CONTRIBUTING.html"><span class="std std-doc">board contribution example</span></a>
+explains how these settings fit together. The table covers each local recipe field;
+standard defaults and operator syntax follow the references above.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Files/settings</p></th>
+<th class="head"><p>Purpose, type, and local example</p></th>
+<th class="head"><p>Default or omission</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>All recipes: <code class="docutils literal notranslate"><span class="pre">SUMMARY</span></code>; firmware: <code class="docutils literal notranslate"><span class="pre">DESCRIPTION</span></code></p></td>
+<td><p>Human-readable strings naming the platform and firmware contents.</p></td>
+<td><p>BitBake supplies generic package metadata.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Firmware: <code class="docutils literal notranslate"><span class="pre">LICENSE</span></code>, <code class="docutils literal notranslate"><span class="pre">LIC_FILES_CHKSUM</span></code></p></td>
+<td><p>Required licence expression <code class="docutils literal notranslate"><span class="pre">LicenseRef-LICENSE.qcom-2</span></code> and <code class="docutils literal notranslate"><span class="pre">file://LICENSE.txt;md5=165287851294f2fb8ac8cbc5e24b02b0</span></code>.</p></td>
+<td><p>Licence QA fails without valid metadata.</p></td>
+</tr>
+<tr class="row-even"><td><p>Firmware: <code class="docutils literal notranslate"><span class="pre">SRC_URI</span></code>, <code class="docutils literal notranslate"><span class="pre">SRCREV</span></code></p></td>
+<td><p>Git URI <code class="docutils literal notranslate"><span class="pre">git://github.com/rubikpi-ai/boot-assets;protocol=https;branch=main;destsuffix=${BP}</span></code> and fixed commit <code class="docutils literal notranslate"><span class="pre">10b868574aa4d06fb3836399d10eb5c792765504</span></code>.</p></td>
+<td><p>No vendor assets are fetched; moving revisions need explicit policy.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Firmware: <code class="docutils literal notranslate"><span class="pre">INHIBIT_DEFAULT_DEPS</span></code></p></td>
+<td><p>Boolean string <code class="docutils literal notranslate"><span class="pre">1</span></code> skips unnecessary compiler/libc dependencies for binary assets.</p></td>
+<td><p>Default dependencies remain enabled.</p></td>
+</tr>
+<tr class="row-even"><td><p>Firmware: <code class="docutils literal notranslate"><span class="pre">do_configure[noexec]</span></code>, <code class="docutils literal notranslate"><span class="pre">do_compile[noexec]</span></code></p></td>
+<td><p>Boolean strings <code class="docutils literal notranslate"><span class="pre">1</span></code> disable unused build stages.</p></td>
+<td><p>Inherited configure/compile behaviour runs.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Firmware: <code class="docutils literal notranslate"><span class="pre">inherit</span> <span class="pre">allarch</span> <span class="pre">deploy</span></code></p></td>
+<td><p>Class names mark architecture-independent packaging and provide deploy staging.</p></td>
+<td><p>Those class tasks and defaults are absent.</p></td>
+</tr>
+<tr class="row-even"><td><p>Firmware: <code class="docutils literal notranslate"><span class="pre">QCOM_BOOT_IMG_SUBDIR</span></code>, <code class="docutils literal notranslate"><span class="pre">COMPATIBLE_MACHINE</span></code></p></td>
+<td><p>Required directory string <code class="docutils literal notranslate"><span class="pre">rubikpi3</span></code> and regex <code class="docutils literal notranslate"><span class="pre">(rubikpi3)</span></code> select output location and compatible machine.</p></td>
+<td><p>Recipe lacks board isolation/output location.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Firmware: <code class="docutils literal notranslate"><span class="pre">addtask</span> <span class="pre">deploy</span> <span class="pre">before</span> <span class="pre">do_build</span> <span class="pre">after</span> <span class="pre">do_install</span></code></p></td>
+<td><p>Required task ordering schedules deployment after install and before build completion.</p></td>
+<td><p>Deploy is not linked into that task order.</p></td>
+</tr>
+<tr class="row-even"><td><p>Packagegroups: <code class="docutils literal notranslate"><span class="pre">inherit</span> <span class="pre">packagegroup</span></code>, <code class="docutils literal notranslate"><span class="pre">PACKAGES</span></code></p></td>
+<td><p>Class and package-name list; RUBIK Pi has <code class="docutils literal notranslate"><span class="pre">${PN}-firmware</span></code>, Radxa also <code class="docutils literal notranslate"><span class="pre">${PN}-hexagon-dsp-binaries</span></code>.</p></td>
+<td><p>Generic packaging defaults do not express the intended groups.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Packagegroups: <code class="docutils literal notranslate"><span class="pre">RRECOMMENDS:${PN}-firmware</span></code></p></td>
+<td><p>Space-separated firmware packages; GPU packages are conditional on any <code class="docutils literal notranslate"><span class="pre">opencl</span> <span class="pre">opengl</span> <span class="pre">vulkan</span></code> distro feature through <code class="docutils literal notranslate"><span class="pre">bb.utils.contains_any</span></code>.</p></td>
+<td><p>Recommended firmware is absent; exact lists remain in the linked recipe files.</p></td>
+</tr>
+<tr class="row-even"><td><p>Radxa: <code class="docutils literal notranslate"><span class="pre">RDEPENDS:${PN}-hexagon-dsp-binaries</span></code></p></td>
+<td><p>Required package names <code class="docutils literal notranslate"><span class="pre">hexagon-dsp-binaries-radxa-dragon-q6a-adsp</span></code> and <code class="docutils literal notranslate"><span class="pre">...-cdsp</span></code>.</p></td>
+<td><p>DSP binaries are not installed by that group.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Kernel append: <code class="docutils literal notranslate"><span class="pre">FILESEXTRAPATHS:prepend</span></code> and <code class="docutils literal notranslate"><span class="pre">:prepend:radxa-dragon-q6a</span></code></p></td>
+<td><p>Immediately expanded paths <code class="docutils literal notranslate"><span class="pre">${THISDIR}/${BPN}:</span></code> and <code class="docutils literal notranslate"><span class="pre">${THISDIR}/radxa-dragon-q6a:</span></code> locate fragments.</p></td>
+<td><p>Search uses inherited paths.</p></td>
+</tr>
+<tr class="row-even"><td><p>Kernel append: <code class="docutils literal notranslate"><span class="pre">SRC_URI:append:radxa-dragon-q6a</span></code></p></td>
+<td><p>Optional URI <code class="docutils literal notranslate"><span class="pre">file://realtek-eth-8169.cfg</span></code> adds Radxa Ethernet settings.</p></td>
+<td><p>Kernel defaults apply.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Dynamic image append: <code class="docutils literal notranslate"><span class="pre">INCOMPATIBLE_LICENSE_EXCEPTIONS:append:rubikpi3</span></code></p></td>
+<td><p>Optional package/licence pair <code class="docutils literal notranslate"><span class="pre">firmware-qcom-boot-rubikpi3:LicenseRef-LICENSE.qcom-2</span></code> permits vendor boot assets for that image/machine.</p></td>
+<td><p>Distro incompatibility policy rejects them.</p></td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal notranslate"><span class="pre">realtek-eth-8169.cfg</span></code> sets boolean Kconfig symbols to <code class="docutils literal notranslate"><span class="pre">y</span></code> for <code class="docutils literal notranslate"><span class="pre">CONFIG_NET_SELFTESTS</span></code>
+(network tests), <code class="docutils literal notranslate"><span class="pre">CONFIG_R8169</span></code> (Realtek Ethernet), <code class="docutils literal notranslate"><span class="pre">CONFIG_MDIO_BUS</span></code> (MDIO bus),
+<code class="docutils literal notranslate"><span class="pre">CONFIG_PHYLIB</span></code> (PHY support), <code class="docutils literal notranslate"><span class="pre">CONFIG_FIXED_PHY</span></code> (fixed PHY), <code class="docutils literal notranslate"><span class="pre">CONFIG_REALTEK_PHY</span></code>
+(Realtek PHY), <code class="docutils literal notranslate"><span class="pre">CONFIG_FWNODE_MDIO</span></code> (firmware-node MDIO), <code class="docutils literal notranslate"><span class="pre">CONFIG_OF_MDIO</span></code> (device-tree
+MDIO), and <code class="docutils literal notranslate"><span class="pre">CONFIG_ACPI_MDIO</span></code> (ACPI MDIO). <code class="docutils literal notranslate"><span class="pre">CONFIG_REALTEK_PHY_HWMON</span></code> is explicitly
+unset (<code class="docutils literal notranslate"><span class="pre">n</span></code>) to disable PHY hardware monitoring. Omitting a symbol retains the
+selected kernel’s default or other fragments; dependency resolution may still
+change the final <code class="docutils literal notranslate"><span class="pre">.config</span></code>. See the <a class="reference external" href="https://www.kernel.org/doc/html/latest/kbuild/kconfig-language.html">kernel Kconfig language</a>.</p>
+</section>
+<section id="ci-and-documentation-settings">
+<h2>CI and documentation settings<a class="headerlink" href="#ci-and-documentation-settings" title="Link to this heading">¶</a></h2>
+<p>The <a class="reference external" href="https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax">GitHub Actions syntax reference</a>
+owns standard <code class="docutils literal notranslate"><span class="pre">on</span></code>, <code class="docutils literal notranslate"><span class="pre">permissions</span></code>, <code class="docutils literal notranslate"><span class="pre">jobs</span></code>, <code class="docutils literal notranslate"><span class="pre">steps</span></code>, <code class="docutils literal notranslate"><span class="pre">uses</span></code>, matrices, conditions,
+concurrency, environments, and reusable-workflow inputs. The local workflow YAML
+keeps its field-level comments, defaults, and input descriptions; no deployment
+credentials belong in the checkout.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Local setting</p></th>
+<th class="head"><p>Type, example, and behaviour</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Build <code class="docutils literal notranslate"><span class="pre">profile</span></code>, <code class="docutils literal notranslate"><span class="pre">skip_if_github_cached</span></code></p></td>
+<td><p>Optional string <code class="docutils literal notranslate"><span class="pre">full</span></code> (<code class="docutils literal notranslate"><span class="pre">pr</span></code> also accepted) and boolean <code class="docutils literal notranslate"><span class="pre">false</span></code>; callers choose scope and successful-build-cache skipping.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Build <code class="docutils literal notranslate"><span class="pre">CACHE_DIR</span></code>, <code class="docutils literal notranslate"><span class="pre">KAS_CLONE_DEPTH</span></code></p></td>
+<td><p>Runner path <code class="docutils literal notranslate"><span class="pre">/efsx/qli/meta-qcom</span></code> and integer string <code class="docutils literal notranslate"><span class="pre">1</span></code>; the former is runner-specific, the latter limits cloned history. Local work uses the environment guide.</p></td>
+</tr>
+<tr class="row-even"><td><p>Build machine/distro matrix</p></td>
+<td><p>Required lists select both boards and <code class="docutils literal notranslate"><span class="pre">nodistro</span></code>/<code class="docutils literal notranslate"><span class="pre">qcom-distro</span></code>; <code class="docutils literal notranslate"><span class="pre">world</span></code> is enabled only for nodistro.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Test <code class="docutils literal notranslate"><span class="pre">build_id</span></code>, <code class="docutils literal notranslate"><span class="pre">pr_number</span></code>, <code class="docutils literal notranslate"><span class="pre">pr_url</span></code></p></td>
+<td><p>Required workflow-run string and optional PR strings; omitted PR values are empty.</p></td>
+</tr>
+<tr class="row-even"><td><p>Test <code class="docutils literal notranslate"><span class="pre">LAVA_TEST_PLANS_REF</span></code>, <code class="docutils literal notranslate"><span class="pre">TESTKIT_REF</span></code></p></td>
+<td><p>Pinned commit <code class="docutils literal notranslate"><span class="pre">95c77fdf4c202ccbfd50c2d449760ebb151287a0</span></code> and tag <code class="docutils literal notranslate"><span class="pre">testkit-2026.07.19</span></code>; no environment fallback.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Test distro inputs</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">build_id</span></code>, <code class="docutils literal notranslate"><span class="pre">devices</span></code>, <code class="docutils literal notranslate"><span class="pre">project_name</span></code>, <code class="docutils literal notranslate"><span class="pre">distro_name</span></code>, <code class="docutils literal notranslate"><span class="pre">lava_test_plans_ref</span></code>, and <code class="docutils literal notranslate"><span class="pre">testkit_ref</span></code> are required strings; <code class="docutils literal notranslate"><span class="pre">distro_suffix</span></code>, <code class="docutils literal notranslate"><span class="pre">devices_premerge</span></code>, <code class="docutils literal notranslate"><span class="pre">pr_number</span></code>, and <code class="docutils literal notranslate"><span class="pre">pr_url</span></code> are optional strings with empty defaults. Empty device lists submit no jobs.</p></td>
+</tr>
+<tr class="row-even"><td><p>Publish inputs</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">commit</span></code>, <code class="docutils literal notranslate"><span class="pre">event_file</span></code>, <code class="docutils literal notranslate"><span class="pre">event_name</span></code>, and <code class="docutils literal notranslate"><span class="pre">workflow_id</span></code> are required strings identifying the tested revision and artifact context.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Secrets</p></td>
+<td><p>GitHub supplies <code class="docutils literal notranslate"><span class="pre">GITHUB_TOKEN</span></code>; maintainers supply <code class="docutils literal notranslate"><span class="pre">QUIC_YOCTO_BACKPORT_PAT</span></code> for backports and <code class="docutils literal notranslate"><span class="pre">LAVATOKEN</span></code> for lab submission. They are required only by the corresponding active operation, with no safe credential default.</p></td>
+</tr>
+<tr class="row-even"><td><p>Preflight switches</p></td>
+<td><p>Booleans enable repolinter and disable semgrep, dependency review, copyright-specific scanning, email/message scanning, and armor checks. Source header rules still apply through repolinter.</p></td>
+</tr>
+<tr class="row-odd"><td><p>BitBake lint</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">diff_only:</span> <span class="pre">true</span></code>, <code class="docutils literal notranslate"><span class="pre">hide:</span> <span class="pre">info</span></code>, inferred <code class="docutils literal notranslate"><span class="pre">release</span></code>, and <code class="docutils literal notranslate"><span class="pre">exit_zero:</span> <span class="pre">true</span></code> limit reporting to changed metadata and make it advisory.</p></td>
+</tr>
+<tr class="row-even"><td><p>Markdown lint</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MD013:</span> <span class="pre">false</span></code> permits long lines; <code class="docutils literal notranslate"><span class="pre">MD024.siblings_only:</span> <span class="pre">true</span></code> checks duplicate sibling headings; <code class="docutils literal notranslate"><span class="pre">MD033:</span> <span class="pre">false</span></code> permits HTML; <code class="docutils literal notranslate"><span class="pre">MD041:</span> <span class="pre">true</span></code> requires a title. Other rules keep upstream defaults.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Sphinx settings</p></td>
+<td><p>Each setting in <code class="docutils literal notranslate"><span class="pre">conf.py</span></code> documents its type, default, and chosen value inline; <code class="docutils literal notranslate"><span class="pre">root_doc</span> <span class="pre">=</span> <span class="pre">&quot;README&quot;</span></code> and bundled search avoid server-only navigation.</p></td>
+</tr>
+<tr class="row-even"><td><p>Documentation setup</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.github/setup_tools.sh</span></code> pins required strings <code class="docutils literal notranslate"><span class="pre">GAWK_VERSION</span></code>, <code class="docutils literal notranslate"><span class="pre">GAWK_SHA256</span></code>, <code class="docutils literal notranslate"><span class="pre">SHDOC_REV</span></code>, and <code class="docutils literal notranslate"><span class="pre">SHDOC_SHA256</span></code>; its <code class="docutils literal notranslate"><span class="pre">TOOLS</span></code> path is derived from the checkout. Python 3.12.13 and the requirements lock select tooling. No runtime environment configuration is required for reading the site.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Scheduler settings are cron strings: main nightly builds use <code class="docutils literal notranslate"><span class="pre">22</span> <span class="pre">0</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">*</span></code>,
+wrynose builds use their workflow’s schedule, and stale maintenance uses
+<code class="docutils literal notranslate"><span class="pre">30</span> <span class="pre">1</span> <span class="pre">*</span> <span class="pre">*</span> <span class="pre">*</span></code>. Backports match the regex <code class="docutils literal notranslate"><span class="pre">^backport</span> <span class="pre">(wrynose)$</span></code> and create
+<code class="docutils literal notranslate"><span class="pre">backport/&lt;number&gt;-to-&lt;branch&gt;</span></code> topics. Stale maintenance uses integer day counts
+30/5, disables issue auto-close with <code class="docutils literal notranslate"><span class="pre">-1</span></code>, exempts <code class="docutils literal notranslate"><span class="pre">bug,enhancement</span></code>, removes stale
+labels when updated (boolean <code class="docutils literal notranslate"><span class="pre">true</span></code>), and limits operations to 100 per run.
+The message strings explain those actions; unset action inputs use the pinned
+action’s defaults. See <a class="reference external" href="https://github.com/actions/stale#all-options">actions/stale inputs</a>
+and <a class="reference external" href="https://github.com/korthout/backport-action#inputs">backport-action inputs</a>.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../README.html">meta-qcom-3rdparty</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="README.html">Using the layer</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="USAGE.html">Build a RUBIK Pi 3 image</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#loading-and-syntax">Loading and syntax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#environment">Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#kas-compositions">Kas compositions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#layer-registration">Layer registration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#machine-settings">Machine settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#recipes-and-kernel-fragment">Recipes and kernel fragment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ci-and-documentation-settings">CI and documentation settings</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="README.html#files">Files</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/README.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NOTICES.html">Documentation notices</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../README.html">Documentation overview</a><ul>
+  <li><a href="README.html">Using the layer</a><ul>
+      <li>Previous: <a href="USAGE.html" title="previous chapter">Build a RUBIK Pi 3 image</a></li>
+      <li>Next: <a href="../contributing/README.html" title="next chapter">Contributing</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/user/CONFIGURATION.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

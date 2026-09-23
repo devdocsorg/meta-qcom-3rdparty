@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Build a RUBIK Pi 3 image &#8212; meta-qcom-3rdparty  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=27fed22d" />
+    <script src="../_static/documentation_options.js?v=748769dd"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Configuration" href="CONFIGURATION.html" />
+    <link rel="prev" title="Using the layer" href="README.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="build-a-rubik-pi-3-image">
+<h1>Build a RUBIK Pi 3 image<a class="headerlink" href="#build-a-rubik-pi-3-image" title="Link to this heading">¶</a></h1>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading">¶</a></h2>
+<p>Prepare the checkout, kas-container, container runtime, and external work/cache
+directories using <a class="reference internal" href="../contributing/DEVELOPMENT.html#checkout-and-prerequisites"><span class="std std-ref">development setup</span></a>.
+Use a Linux build host with enough disk space for a Yocto image build and network
+access to the configured source mirrors. No board is needed to produce artifacts.
+The <a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-3rdparty/blob/main/conf/machine/rubikpi3.conf">machine configuration</a>
+selects the QCS6490 baseline and this layer’s boot firmware.</p>
+</section>
+<section id="select-the-machine">
+<h2>1. Select the machine<a class="headerlink" href="#select-the-machine" title="Link to this heading">¶</a></h2>
+<p>From the checkout root, inspect the composition and fetch its layers:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="s2">"</span><span class="si">${</span><span class="nv">KAS_CONTAINER</span><span class="k">:-</span><span class="nv">kas</span><span class="p">-container</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span>checkout<span class="w"> </span>ci/rubikpi3.yml
+</pre></div>
+</div>
+<p>The composition adds this layer to meta-qcom, OpenEmbedded Core, and BitBake.
+The base chooses <code class="docutils literal notranslate"><span class="pre">nodistro</span></code> and <code class="docutils literal notranslate"><span class="pre">core-image-base</span></code>; the machine fragment overrides
+its unset machine with <code class="docutils literal notranslate"><span class="pre">rubikpi3</span></code>. Branches follow upstream development, so record
+the resolved revisions for a reproducible build.</p>
+</section>
+<section id="build-the-image">
+<h2>2. Build the image<a class="headerlink" href="#build-the-image" title="Link to this heading">¶</a></h2>
+<p>Use <a class="reference internal" href="../contributing/AGENTS.html#build-with-kas-container-ci-style"><span class="std std-ref">the agent guide’s kas build procedure</span></a>
+for Qualcomm distro or world builds. For a smaller base image:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="s2">"</span><span class="si">${</span><span class="nv">KAS_CONTAINER</span><span class="k">:-</span><span class="nv">kas</span><span class="p">-container</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span>build<span class="w"> </span>ci/rubikpi3.yml
+</pre></div>
+</div>
+<p>Expected result: kas and BitBake exit successfully and populate the machine’s
+deploy directory. To build the Qualcomm Linux image targets instead, append
+<code class="docutils literal notranslate"><span class="pre">:ci/qcom-distro.yml</span></code>; this adds the distro’s layers and target images. The
+<a class="reference internal" href="CONFIGURATION.html#kas-compositions"><span class="std std-ref">configuration reference</span></a> lists these choices.</p>
+</section>
+<section id="inspect-and-retain-the-output">
+<h2>3. Inspect and retain the output<a class="headerlink" href="#inspect-and-retain-the-output" title="Link to this heading">¶</a></h2>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>find<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">KAS_WORK_DIR</span><span class="si">}</span><span class="s2">/build/tmp/deploy/images/rubikpi3"</span><span class="w"> </span>-maxdepth<span class="w"> </span><span class="m">1</span><span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-printf<span class="w"> </span><span class="s1">'%f\n'</span>
+</pre></div>
+</div>
+<p>The deploy directory contains image artifacts, the selected device tree, and boot
+assets assembled by the inherited meta-qcom image classes. Keep the image, its
+manifest, and the build configuration together. File names and formats depend on
+the selected image/distro; a successful documentation build does not create them.</p>
+<p>To inspect the resolved recipe environment without compiling an image:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="s2">"</span><span class="si">${</span><span class="nv">KAS_CONTAINER</span><span class="k">:-</span><span class="nv">kas</span><span class="p">-container</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span>shell<span class="w"> </span>ci/rubikpi3.yml<span class="w"> </span>-c<span class="w"> </span><span class="s1">'bitbake-getvar -r core-image-base DEPLOY_DIR_IMAGE'</span>
+</pre></div>
+</div>
+<p>Use the reported directory if the build configuration overrides <code class="docutils literal notranslate"><span class="pre">TMPDIR</span></code>.
+Do not flash a different board’s boot firmware. Follow the board vendor’s current
+flashing procedure for hardware deployment. RUBIK Pi 3 Wi-Fi and Bluetooth blobs
+are omitted by this layer’s packagegroup; the board can boot without them.</p>
+</section>
+<section id="other-machines-and-existing-workspaces">
+<h2>Other machines and existing workspaces<a class="headerlink" href="#other-machines-and-existing-workspaces" title="Link to this heading">¶</a></h2>
+<p>Use <code class="docutils literal notranslate"><span class="pre">ci/radxa-dragon-q6a.yml</span></code> for Radxa Dragon Q6A. This configuration builds the
+OS disk image (ESP and root filesystem); Radxa manages SPI NOR firmware separately.
+Its default sector size is 512 for SD; UFS requires the documented 4096 override.
+The <a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-3rdparty/tree/main/conf/machine">machine folder</a>
+contains the complete supported-machine list.</p>
+<p>For an existing compatible Yocto workspace with <code class="docutils literal notranslate"><span class="pre">core</span></code> and <code class="docutils literal notranslate"><span class="pre">qcom</span></code> already enabled,
+clone the layer and run <code class="docutils literal notranslate"><span class="pre">bitbake-layers</span> <span class="pre">add-layer</span> <span class="pre">../meta-qcom-3rdparty</span></code> from that
+workspace’s initialised build shell. This branch declares <code class="docutils literal notranslate"><span class="pre">wrynose</span></code> compatibility;
+keep all layer release branches aligned. See the <a class="reference external" href="https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/offline-contributor-guides/BRANCHES.md">branch guide</a>.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../README.html">meta-qcom-3rdparty</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="README.html">Using the layer</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Build a RUBIK Pi 3 image</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#select-the-machine">1. Select the machine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#build-the-image">2. Build the image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inspect-and-retain-the-output">3. Inspect and retain the output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#other-machines-and-existing-workspaces">Other machines and existing workspaces</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="CONFIGURATION.html">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="README.html#files">Files</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/README.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NOTICES.html">Documentation notices</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../README.html">Documentation overview</a><ul>
+  <li><a href="README.html">Using the layer</a><ul>
+      <li>Previous: <a href="README.html" title="previous chapter">Using the layer</a></li>
+      <li>Next: <a href="CONFIGURATION.html" title="next chapter">Configuration</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/user/USAGE.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
