@@ -84,6 +84,20 @@ Preferred test distros:
 - Each contributor acts as the **maintainer** of their changes, upstream and downstream.
 - Vendors must appoint a **point-of-contact (PoC)** to review and triage vendor-specific PRs and issues promptly, which will be incorporated as part of the repository CODEOWNERS file.
 
+### 2.7  Target Branches and Submission
+
+- **main:** the target for every change unless listed below; see [Upstream Baseline](#3--upstream-baseline).
+- **wrynose:** land the change on `main` first and label its pull request `backport wrynose`; the backport pull request opens after the merge. Only changes that do not apply to `main` target `wrynose` directly.
+- **scarthgap:** Qualcomm Linux 1.x (≥ 1.4) changes; see [Downstream Baseline](#4--downstream-baseline--qualcomm-linux-1x).
+- **kirkstone:** takes no changes: Yocto Project 4.0 is end of life, and the [security policy](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/offline-layer-documentation/SECURITY.md) accepts patches only for maintained LTS releases and `main`.
+- **next:** maintainers use it to try CI workflow changes before `main`; do not target it.
+
+Set up the documentation tools with [DEVELOPMENT.md](DEVELOPMENT.md) and build
+and check the layer as the [agent guide](AGENTS.md) describes.
+[Open a pull request with the template](https://github.com/qualcomm-linux/meta-qcom-3rdparty/compare?expand=1&template=pr_template.md)
+against the target branch; [CODEOWNERS](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/offline-layer-documentation/.github/CODEOWNERS) requests
+review from the maintainers.
+
 ---
 
 ## 3  Upstream Baseline

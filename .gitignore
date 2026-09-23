@@ -1,0 +1,7 @@
+# Local environment settings; .env.example documents them.
+.env
+# Local documentation environment, build cache, and generated reference sources.
+.venv/
+docs/.doctrees/
+docs/source/contributing/.generated/
+__pycache__/

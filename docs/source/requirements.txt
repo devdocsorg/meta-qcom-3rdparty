@@ -1,0 +1,9 @@
+# Exact documentation-package versions.
+Sphinx==9.1.0
+myst-parser==5.1.0
+# Browser validation used by the shared check target.
+playwright==1.62.0
+# Function discovery in .github/test_reference_coverage.py.
+PyYAML==6.0.3
+tree-sitter==0.26.0
+tree-sitter-bash==0.25.1

@@ -20,26 +20,19 @@ The `meta-qcom-3rdparty` layer provides:
 ## Documentation Index
 
 - [Contribution Guidelines](contributing/CONTRIBUTING.md) — how to contribute patches, follow Yocto conventions, and structure vendor-specific code.
-- [Usage Guide](usage.md) — how to include and build the layer, add it to your workspace, and validate target builds (TODO).
-- [Supported Machines](supported-machines.md) — list of currently supported platforms, vendors, and hardware status (TODO).
-- [Developer Notes](developer.md) — additional details for maintainers, CI integration, and testing recommendations (TODO).
+- [Usage Guide](user/USAGE.md) — how to include and build the layer, add it to your workspace, and validate target builds.
+- [Supported Machines](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/offline-layer-documentation/conf/machine/README.md) — list of currently supported platforms, vendors, and hardware status.
+- [Developer Notes](contributing/DEVELOPMENT.md) — development environment, documentation checks, and CI integration.
+- [Configuration Reference](user/CONFIGURATION.md) — layer, machine, kas, and workflow settings.
+- [Agent Guide](contributing/AGENTS.md) — kas-container builds and the checks to run before a pull request.
+- [Function Reference](contributing/README.md#function-reference) — generated from the documentation comments in scripts and recipes.
 
 ---
 
 ## Quick Start
 
-To build a reference image using [kas](https://kas.readthedocs.io/):
-
-```bash
-kas build meta-qcom-3rdparty/ci/<machine.yml>
-```
-
-Otherwise add this layer to your existing Yocto environment:
-
-```bash
-git clone https://github.com/qualcomm-linux/meta-qcom-3rdparty.git
-bitbake-layers add-layer ../meta-qcom-3rdparty
-```
+Follow the [usage tutorial](user/USAGE.md) to build an image with kas or add
+the layer to an existing Yocto environment.
 
 ---
 
@@ -50,6 +43,27 @@ bitbake-layers add-layer ../meta-qcom-3rdparty
 - [meta-qcom-distro](https://github.com/qualcomm-linux/meta-qcom-distro)
 - [OpenEmbedded Layer Index](https://layers.openembedded.org/layerindex/)
 - [Yocto Project Documentation](https://docs.yoctoproject.org/)
+
+```{toctree}
+:hidden:
+
+user/README
+contributing/README
+```
+
+## Folders
+
+- [user/](user/README.md) — Holds the usage tutorial and the configuration reference.
+- [contributing/](contributing/README.md) — Holds the contribution, development, and agent guides and the function reference.
+- [.templates/](https://github.com/devdocsorg/meta-qcom-3rdparty/tree/docs/offline-layer-documentation/docs/source/.templates) — Supplies the generated site's entry-point redirect.
+
+## Files
+
+- [README.md](README.md) — Introduces the layer documentation and supplies the site's homepage.
+- [conf.py](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/offline-layer-documentation/docs/source/conf.py) — Configures Sphinx and MyST and generates the function reference pages.
+- [Makefile](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/offline-layer-documentation/docs/source/Makefile) — Provides the shared local and CI setup, build, and check targets.
+- [requirements.txt](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/offline-layer-documentation/docs/source/requirements.txt) — Declares the documentation packages at exact versions.
+- [requirements.lock](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/offline-layer-documentation/docs/source/requirements.lock) — Locks direct and transitive documentation packages.
 
 ---
 
