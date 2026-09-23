@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Set up your development environment &#8212; meta-qcom-3rdparty  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=27fed22d" />
+    <script src="../_static/documentation_options.js?v=dd1dafa6"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Agent Guide for meta-qcom-3rdparty" href="AGENTS.html" />
+    <link rel="prev" title="Contributing to meta-qcom-3rdparty" href="CONTRIBUTING.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="set-up-your-development-environment">
+<h1>Set up your development environment<a class="headerlink" href="#set-up-your-development-environment" title="Link to this heading">¶</a></h1>
+<p>This walkthrough installs the documentation tools, builds the site and function
+reference, and runs the same check as CI. Layer builds and the checks required
+before a pull request use kas-container; the <a class="reference internal" href="AGENTS.html"><span class="std std-doc">agent guide</span></a> owns that
+procedure.</p>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading">¶</a></h2>
+<p>Tested on Linux with Git 2.55, GNU Make 4.4, GNU Awk 5.4 (shdoc runs on it),
+curl 8, Python 3.12, and <a class="reference external" href="https://docs.astral.sh/uv/getting-started/installation/">uv</a>
+0.12. Setup needs network access. The browser check uses Chromium when it is
+installed; otherwise run <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">-f</span> <span class="pre">docs/source/Makefile</span> <span class="pre">browser</span></code> after setup to
+install Playwright’s copy. On Windows, use WSL.</p>
+</section>
+<section id="clone-and-create-a-branch">
+<h2>1. Clone and create a branch<a class="headerlink" href="#clone-and-create-a-branch" title="Link to this heading">¶</a></h2>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/qualcomm-linux/meta-qcom-3rdparty.git
+<span class="nb">cd</span><span class="w"> </span>meta-qcom-3rdparty
+git<span class="w"> </span>switch<span class="w"> </span>-c<span class="w"> </span>docs/my-change
+</pre></div>
+</div>
+<p>While this documentation is under review, clone
+<code class="docutils literal notranslate"><span class="pre">https://github.com/devdocsorg/meta-qcom-3rdparty.git</span></code> with
+<code class="docutils literal notranslate"><span class="pre">--branch</span> <span class="pre">docs/offline-layer-docs</span></code> instead. Contributions still go to <code class="docutils literal notranslate"><span class="pre">main</span></code> of
+<code class="docutils literal notranslate"><span class="pre">qualcomm-linux/meta-qcom-3rdparty</span></code>.</p>
+</section>
+<section id="install-the-documentation-tools">
+<h2>2. Install the documentation tools<a class="headerlink" href="#install-the-documentation-tools" title="Link to this heading">¶</a></h2>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>-f<span class="w"> </span>docs/source/Makefile<span class="w"> </span>setup
+</pre></div>
+</div>
+<p>This creates <code class="docutils literal notranslate"><span class="pre">.venv/</span></code> with the locked Sphinx, MyST, bashlex, and Playwright
+packages, BitBake 2.16.0 (its parser reads recipe tasks), and shdoc 1.4.
+Expected result: exit status 0 and an executable <code class="docutils literal notranslate"><span class="pre">.venv/bin/shdoc</span></code>.</p>
+</section>
+<section id="check-your-change">
+<h2>3. Check your change<a class="headerlink" href="#check-your-change" title="Link to this heading">¶</a></h2>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>-f<span class="w"> </span>docs/source/Makefile<span class="w"> </span>check
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">check</span></code> rebuilds <code class="docutils literal notranslate"><span class="pre">docs/site/</span></code>, checks the function reference, opens a copy of
+the site in headless Chromium with networking disabled, and compares the result
+with the committed site. Expected result: exit status 0 after these lines:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Reference coverage: 4 functions in 4 files documented and rendered
+{"site": ".../docs/site", "pages": 14, "search": "rubikpi3", "result": "...", "network_requests": [], "browser_errors": []}
+</pre></div>
+</div>
+<p>The check fails while regenerated output is uncommitted: commit the source and
+<code class="docutils literal notranslate"><span class="pre">docs/site/</span></code> together, then run it again. <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">-f</span> <span class="pre">docs/source/Makefile</span> <span class="pre">html</span></code>
+only rebuilds; open <code class="docutils literal notranslate"><span class="pre">docs/site/index.html</span></code> directly in a browser to read it.</p>
+</section>
+<section id="document-a-function">
+<h2>Document a function<a class="headerlink" href="#document-a-function" title="Link to this heading">¶</a></h2>
+<p>Shell functions in scripts, BitBake shell tasks, and workflow <code class="docutils literal notranslate"><span class="pre">run</span></code> steps use
+<a class="reference external" href="https://github.com/reconquest/shdoc/tree/v1.4">shdoc</a> comments:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># @description Say in one sentence what the function does.</span>
+<span class="c1"># @arg $1 string What the first argument holds.</span>
+<span class="c1"># @exitcode 0 When it succeeds.</span>
+<span class="c1"># @example</span>
+<span class="c1">#   my_function value</span>
+my_function<span class="o">()</span><span class="w"> </span><span class="o">{</span>
+</pre></div>
+</div>
+<p>Use <code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">&#64;noargs</span></code> instead of <code class="docutils literal notranslate"><span class="pre">&#64;arg</span></code> when the function reads no positional
+parameters. The build fails when a function has no such comment or no rendered
+entry, when its documented arguments do not match the parameters it reads, and
+for definitions no extractor covers, such as Python in BitBake files or a new
+language. Configure an extractor for new languages in <code class="docutils literal notranslate"><span class="pre">docs/source/conf.py</span></code> and
+<code class="docutils literal notranslate"><span class="pre">.github/test_reference_coverage.py</span></code>.</p>
+</section>
+<section id="layer-checks">
+<h2>Layer checks<a class="headerlink" href="#layer-checks" title="Link to this heading">¶</a></h2>
+<p>Run the checks the agent guide lists
+<a class="reference internal" href="AGENTS.html#pull-request-contribution-workflow"><span class="std std-ref">before opening or updating a pull request</span></a>,
+in the order given there. Pull requests also run markdownlint with
+<code class="docutils literal notranslate"><span class="pre">.github/.markdownlint.yaml</span></code> and BitBake lint; the
+<a class="reference internal" href="../user/CONFIGURATION.html#repository-automation"><span class="std std-ref">configuration reference</span></a>
+lists every workflow.</p>
+</section>
+<section id="update-pinned-tools">
+<h2>Update pinned tools<a class="headerlink" href="#update-pinned-tools" title="Link to this heading">¶</a></h2>
+<p>Python packages are pinned in <code class="docutils literal notranslate"><span class="pre">docs/source/requirements.txt</span></code>, and BitBake and
+shdoc in <code class="docutils literal notranslate"><span class="pre">docs/source/Makefile</span></code>. After changing a package version, regenerate the
+lock, then run setup and check again:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>pip<span class="w"> </span>compile<span class="w"> </span>--python-version<span class="w"> </span><span class="m">3</span>.12<span class="w"> </span>docs/source/requirements.txt<span class="w"> </span>-o<span class="w"> </span>docs/source/requirements.lock
+</pre></div>
+</div>
+<p>The repository map at the end of the root README is generated from the shared
+<a class="reference external" href="https://github.com/devdocsorg/qualcomm-repository-map">Qualcomm repository map</a>;
+updating it requires access to that repository.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../README.html">meta-qcom-3rdparty</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../user/README.html">User documentation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="README.html">Contributor documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="CONTRIBUTING.html">Contributing to meta-qcom-3rdparty</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Set up your development environment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#clone-and-create-a-branch">1. Clone and create a branch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#install-the-documentation-tools">2. Install the documentation tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#check-your-change">3. Check your change</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#document-a-function">Document a function</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#layer-checks">Layer checks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#update-pinned-tools">Update pinned tools</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="AGENTS.html">Agent Guide for meta-qcom-3rdparty</a></li>
+<li class="toctree-l2"><a class="reference internal" href="README.html#function-reference">Function reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="README.html#files">Files</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../README.html">Documentation overview</a><ul>
+  <li><a href="README.html">Contributor documentation</a><ul>
+      <li>Previous: <a href="CONTRIBUTING.html" title="previous chapter">Contributing to meta-qcom-3rdparty</a></li>
+      <li>Next: <a href="AGENTS.html" title="next chapter">Agent Guide for meta-qcom-3rdparty</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

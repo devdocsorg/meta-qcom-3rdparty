@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Build an image for a supported board &#8212; meta-qcom-3rdparty  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=27fed22d" />
+    <script src="../_static/documentation_options.js?v=dd1dafa6"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Configuration reference" href="CONFIGURATION.html" />
+    <link rel="prev" title="User documentation" href="README.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="build-an-image-for-a-supported-board">
+<h1>Build an image for a supported board<a class="headerlink" href="#build-an-image-for-a-supported-board" title="Link to this heading">¶</a></h1>
+<p>This tutorial builds <code class="docutils literal notranslate"><span class="pre">core-image-base</span></code> for the Thundercomm RUBIK Pi 3
+(<code class="docutils literal notranslate"><span class="pre">rubikpi3</span></code>) with kas and finds the image to flash. Use
+<code class="docutils literal notranslate"><span class="pre">ci/radxa-dragon-q6a.yml</span></code> instead to build for the Radxa Dragon Q6A.</p>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>A Linux host with network access that meets the Yocto Project
+<a class="reference external" href="https://docs.yoctoproject.org/wrynose/ref-manual/system-requirements.html">system requirements</a>,
+including about 140 GB of free disk space.</p></li>
+<li><p>Docker or Podman, usable without <code class="docutils literal notranslate"><span class="pre">sudo</span></code>.</p></li>
+<li><p><a class="reference external" href="https://github.com/siemens/kas/blob/master/kas-container">kas-container</a>
+4.8 or newer on <code class="docutils literal notranslate"><span class="pre">PATH</span></code>; 4.8.2 was tested.</p></li>
+</ul>
+</section>
+<section id="clone-the-layer-into-a-work-directory">
+<h2>1. Clone the layer into a work directory<a class="headerlink" href="#clone-the-layer-into-a-work-directory" title="Link to this heading">¶</a></h2>
+<p>kas uses the current directory for layer checkouts and the <code class="docutils literal notranslate"><span class="pre">build/</span></code> directory.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span>~/kas-work<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/kas-work
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/qualcomm-linux/meta-qcom-3rdparty.git
+</pre></div>
+</div>
+</section>
+<section id="keep-caches-outside-the-build">
+<h2>2. Keep caches outside the build<a class="headerlink" href="#keep-caches-outside-the-build" title="Link to this heading">¶</a></h2>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">DL_DIR</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/yocto-cache/downloads"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">SSTATE_DIR</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/yocto-cache/sstate-cache"</span>
+</pre></div>
+</div>
+<p>Later builds reuse them; the <a class="reference internal" href="CONFIGURATION.html#environment"><span class="std std-ref">configuration reference</span></a>
+describes these and the other variables in <code class="docutils literal notranslate"><span class="pre">.env.example</span></code>.</p>
+</section>
+<section id="build-the-image">
+<h2>3. Build the image<a class="headerlink" href="#build-the-image" title="Link to this heading">¶</a></h2>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>kas-container<span class="w"> </span>build<span class="w"> </span>meta-qcom-3rdparty/ci/rubikpi3.yml
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">ci/rubikpi3.yml</span></code> selects the machine and includes <code class="docutils literal notranslate"><span class="pre">ci/base.yml</span></code>, which adds
+meta-qcom, OE-Core, and BitBake and sets the target <code class="docutils literal notranslate"><span class="pre">core-image-base</span></code>. The first
+build fetches every source and can take several hours.</p>
+<p>To build with the Qualcomm Linux distribution instead of <code class="docutils literal notranslate"><span class="pre">nodistro</span></code>, append its
+fragment. It replaces the target with meta-qcom’s distribution images, such as
+<code class="docutils literal notranslate"><span class="pre">qcom-multimedia-image</span></code>, whose files are named after those images:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>kas-container<span class="w"> </span>build<span class="w"> </span>meta-qcom-3rdparty/ci/rubikpi3.yml:meta-qcom-3rdparty/ci/qcom-distro.yml
+</pre></div>
+</div>
+</section>
+<section id="expected-result">
+<h2>Expected result<a class="headerlink" href="#expected-result" title="Link to this heading">¶</a></h2>
+<p>kas exits with status 0 and the image files are in
+<code class="docutils literal notranslate"><span class="pre">build/tmp/deploy/images/rubikpi3/</span></code>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">core-image-base-rubikpi3.rootfs.qcomflash/</span></code>: the flashable package with boot
+firmware, partition tables, the EFI system partition, and the root filesystem.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">core-image-base-rubikpi3.rootfs.qcomflash.tar.gz</span></code>: the same package as one
+archive, for copying to another host.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">core-image-base-rubikpi3.rootfs.ext4</span></code>: the root filesystem on its own.</p></li>
+</ul>
+<p>Flash the <code class="docutils literal notranslate"><span class="pre">qcomflash</span></code> directory with QDL as described in meta-qcom’s
+<a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom/blob/master/docs/flashing.md">Flashing images</a>.
+For <code class="docutils literal notranslate"><span class="pre">radxa-dragon-q6a</span></code>, the directory is <code class="docutils literal notranslate"><span class="pre">build/tmp/deploy/images/radxa-dragon-q6a/</span></code>
+and <code class="docutils literal notranslate"><span class="pre">core-image-base-radxa-dragon-q6a.rootfs.wic.gz</span></code> with its <code class="docutils literal notranslate"><span class="pre">.wic.bmap</span></code> is
+the disk image to write to an SD card, UFS, or NVMe drive.</p>
+</section>
+<section id="add-the-layer-to-an-existing-build">
+<h2>Add the layer to an existing build<a class="headerlink" href="#add-the-layer-to-an-existing-build" title="Link to this heading">¶</a></h2>
+<p>In a build environment that already contains OE-Core and
+<a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom">meta-qcom</a>, which this layer
+requires:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>bitbake-layers<span class="w"> </span>add-layer<span class="w"> </span>../meta-qcom-3rdparty
+</pre></div>
+</div>
+<p>Then set <code class="docutils literal notranslate"><span class="pre">MACHINE</span> <span class="pre">=</span> <span class="pre">&quot;rubikpi3&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">MACHINE</span> <span class="pre">=</span> <span class="pre">&quot;radxa-dragon-q6a&quot;</span></code> in
+<code class="docutils literal notranslate"><span class="pre">conf/local.conf</span></code> and run <code class="docutils literal notranslate"><span class="pre">bitbake</span> <span class="pre">core-image-base</span></code>.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../README.html">meta-qcom-3rdparty</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="README.html">User documentation</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Build an image for a supported board</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#clone-the-layer-into-a-work-directory">1. Clone the layer into a work directory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#keep-caches-outside-the-build">2. Keep caches outside the build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#build-the-image">3. Build the image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#expected-result">Expected result</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#add-the-layer-to-an-existing-build">Add the layer to an existing build</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="CONFIGURATION.html">Configuration reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="README.html#files">Files</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/README.html">Contributor documentation</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../README.html">Documentation overview</a><ul>
+  <li><a href="README.html">User documentation</a><ul>
+      <li>Previous: <a href="README.html" title="previous chapter">User documentation</a></li>
+      <li>Next: <a href="CONFIGURATION.html" title="next chapter">Configuration reference</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

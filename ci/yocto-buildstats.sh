@@ -12,6 +12,13 @@ fi
 REPO_DIR="$1"
 WORK_DIR="$2"
 
+# @description Check that a path names an existing directory, exiting the script when it does not.
+# @arg $1 string Directory path to check, such as REPO_DIR or WORK_DIR.
+# @exitcode 0 The path is a directory.
+# @exitcode 1 The path is not a directory; the whole script exits with this status.
+# @stdout An error message naming the path when it is not a directory.
+# @example
+#   _is_dir "$WORK_DIR"
 _is_dir(){
     test -d "$1" && return
     echo "The '$1' is not a directory."

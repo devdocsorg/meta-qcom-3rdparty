@@ -1,0 +1,13 @@
+# Ignore local environment settings at any folder depth.
+.env
+# Ignore named environment files, such as .env.local.
+.env.*
+# Keep the documented, safe settings file in version control.
+!.env.example
+
+# Local documentation environment and build caches.
+.venv/
+docs/.doctrees/
+__pycache__/
+# Function reference pages regenerated from source comments by conf.py.
+docs/source/contributing/.generated/

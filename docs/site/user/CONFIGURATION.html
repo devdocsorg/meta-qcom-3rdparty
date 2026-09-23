@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Configuration reference &#8212; meta-qcom-3rdparty  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=27fed22d" />
+    <script src="../_static/documentation_options.js?v=dd1dafa6"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Contributor documentation" href="../contributing/README.html" />
+    <link rel="prev" title="Build an image for a supported board" href="USAGE.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="configuration-reference">
+<h1>Configuration reference<a class="headerlink" href="#configuration-reference" title="Link to this heading">¶</a></h1>
+<p>This page explains the settings this layer chooses. Standard variable meanings
+come from the <a class="reference external" href="https://docs.yoctoproject.org/wrynose/ref-manual/variables.html">Yocto Project variable glossary</a>
+for the wrynose release, <a class="reference external" href="https://docs.yoctoproject.org/bitbake/2.16/bitbake-user-manual/bitbake-user-manual-metadata.html">BitBake assignment syntax</a>,
+and the <a class="reference external" href="https://kas.readthedocs.io/en/4.8/userguide/project-configuration.html">kas project configuration format</a>.</p>
+<section id="loading-and-precedence">
+<h2>Loading and precedence<a class="headerlink" href="#loading-and-precedence" title="Link to this heading">¶</a></h2>
+<p>kas reads a chain of fragments from <code class="docutils literal notranslate"><span class="pre">ci/</span></code>, checks out the listed layers, and
+writes <code class="docutils literal notranslate"><span class="pre">local.conf</span></code> and <code class="docutils literal notranslate"><span class="pre">bblayers.conf</span></code> in its build directory. BitBake then
+parses <code class="docutils literal notranslate"><span class="pre">local.conf</span></code>, each layer’s <code class="docutils literal notranslate"><span class="pre">conf/layer.conf</span></code>, the machine file named by
+<code class="docutils literal notranslate"><span class="pre">MACHINE</span></code>, and recipes with their <code class="docutils literal notranslate"><span class="pre">.bbappend</span></code> files. A <code class="docutils literal notranslate"><span class="pre">?=</span></code> assignment only sets
+a default when nothing earlier set the variable, so a later <code class="docutils literal notranslate"><span class="pre">?=</span></code> has no effect;
+<code class="docutils literal notranslate"><span class="pre">=</span></code> and <code class="docutils literal notranslate"><span class="pre">+=</span></code> apply in parse order; <code class="docutils literal notranslate"><span class="pre">:append</span></code> is applied last. A <code class="docutils literal notranslate"><span class="pre">:rubikpi3</span></code> or
+<code class="docutils literal notranslate"><span class="pre">:radxa-dragon-q6a</span></code> override applies only when that machine is selected.</p>
+</section>
+<section id="environment">
+<h2>Environment<a class="headerlink" href="#environment" title="Link to this heading">¶</a></h2>
+<p>kas-container and the CI helper read these variables from the environment.
+<a class="reference download internal" download="" href="../_downloads/c2a8075a3734ec07189764b943def8aa/.env.example"><span class="xref download myst">.env.example</span></a> lists them with safe values; nothing loads
+it automatically. Copy it to <code class="docutils literal notranslate"><span class="pre">.env</span></code>, edit it, and run <code class="docutils literal notranslate"><span class="pre">set</span> <span class="pre">-a;</span> <span class="pre">.</span> <span class="pre">./.env;</span> <span class="pre">set</span> <span class="pre">+a</span></code>
+before the kas commands. Sourcing the file replaces values already exported in
+your shell.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Variable</p></th>
+<th class="head"><p>Purpose</p></th>
+<th class="head"><p>Type and default</p></th>
+<th class="head"><p>Example</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">KAS_CONTAINER</span></code></p></td>
+<td><p>kas-container script used by <code class="docutils literal notranslate"><span class="pre">ci/kas-container-shell-helper.sh</span></code></p></td>
+<td><p>Optional path; default is <code class="docutils literal notranslate"><span class="pre">kas-container</span></code> on <code class="docutils literal notranslate"><span class="pre">PATH</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/opt/kas/kas-container</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">KAS_WORK_DIR</span></code></p></td>
+<td><p>Directory holding layer checkouts and the <code class="docutils literal notranslate"><span class="pre">build/</span></code> directory</p></td>
+<td><p>Optional path; default is the current directory</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$HOME/kas-work</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">DL_DIR</span></code></p></td>
+<td><p>Download cache shared between builds (<a class="reference external" href="https://docs.yoctoproject.org/wrynose/ref-manual/variables.html#term-DL_DIR">DL_DIR</a>)</p></td>
+<td><p>Optional path; default is <code class="docutils literal notranslate"><span class="pre">build/downloads</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$HOME/yocto-cache/downloads</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">SSTATE_DIR</span></code></p></td>
+<td><p>Shared state cache (<a class="reference external" href="https://docs.yoctoproject.org/wrynose/ref-manual/variables.html#term-SSTATE_DIR">SSTATE_DIR</a>)</p></td>
+<td><p>Optional path; default is <code class="docutils literal notranslate"><span class="pre">build/sstate-cache</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$HOME/yocto-cache/sstate-cache</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>kas documents how it forwards these in its
+<a class="reference external" href="https://kas.readthedocs.io/en/4.8/command-line.html#environment-variables">environment variables</a> list.</p>
+</section>
+<section id="layer-configuration">
+<h2>Layer configuration<a class="headerlink" href="#layer-configuration" title="Link to this heading">¶</a></h2>
+<p><a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-3rdparty/blob/main/conf/layer.conf">conf/layer.conf</a>
+registers the layer with BitBake. All values are required for the layer to load.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Variable</p></th>
+<th class="head"><p>Local value and purpose</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">BBPATH</span></code></p></td>
+<td><p>Appends the layer directory so BitBake finds <code class="docutils literal notranslate"><span class="pre">conf/machine/*.conf</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">BBFILES</span></code></p></td>
+<td><p>Parses <code class="docutils literal notranslate"><span class="pre">recipes-*/*/*.bb</span></code> and <code class="docutils literal notranslate"><span class="pre">recipes-*/*/*.bbappend</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">BBFILE_COLLECTIONS</span></code>, <code class="docutils literal notranslate"><span class="pre">BBFILE_PATTERN_qcom-3rdparty</span></code></p></td>
+<td><p>Names the layer <code class="docutils literal notranslate"><span class="pre">qcom-3rdparty</span></code> and matches every file under it.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">BBFILE_PRIORITY_qcom-3rdparty</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">5</span></code>: the priority used when two layers provide the same recipe.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">LAYERDEPENDS_qcom-3rdparty</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">core</span> <span class="pre">qcom</span></code>: OE-Core and meta-qcom must be in the build.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">LAYERSERIES_COMPAT_qcom-3rdparty</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wrynose</span></code>: the Yocto Project release this branch supports.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">BBFILES_DYNAMIC</span></code></p></td>
+<td><p>Parses <code class="docutils literal notranslate"><span class="pre">dynamic-layers/qcom-distro/</span></code> only when meta-qcom-distro (<code class="docutils literal notranslate"><span class="pre">qcom-distro</span></code>) is present.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="machine-configuration">
+<h2>Machine configuration<a class="headerlink" href="#machine-configuration" title="Link to this heading">¶</a></h2>
+<p>Each file in <a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-3rdparty/tree/main/conf/machine">conf/machine/</a>
+starts with <code class="docutils literal notranslate"><span class="pre">#&#64;TYPE</span></code>, <code class="docutils literal notranslate"><span class="pre">#&#64;NAME</span></code>, and <code class="docutils literal notranslate"><span class="pre">#&#64;DESCRIPTION</span></code> comments that name the board,
+then requires meta-qcom’s
+<a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom/blob/master/conf/machine/include/qcom-qcs6490.inc">qcom-qcs6490.inc</a>,
+which supplies the QCS6490 defaults referred to below.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Machine</p></th>
+<th class="head"><p>Board</p></th>
+<th class="head"><p>Output</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">rubikpi3</span></code></p></td>
+<td><p>Thundercomm RUBIK Pi 3 (QCS6490)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">qcomflash</span></code> package with boot firmware, partitions, ESP, and root filesystem</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">radxa-dragon-q6a</span></code></p></td>
+<td><p>Radxa Dragon Q6A (QCS6490)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wic</span></code> disk image (ESP and root filesystem); SPI NOR boot firmware is flashed separately with Radxa’s tools</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Setting</p></th>
+<th class="head"><p>Purpose</p></th>
+<th class="head"><p>Type and default</p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">rubikpi3</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">radxa-dragon-q6a</span></code></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">PREFERRED_PROVIDER_virtual/kernel</span> <span class="pre">?=</span></code></p></td>
+<td><p>Kernel recipe</p></td>
+<td><p>Recipe name; the SoC include defaults to <code class="docutils literal notranslate"><span class="pre">linux-qcom-next</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">linux-qcom-next</span></code>, set before the SoC include so it takes effect</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">linux-qcom-next</span></code>, after the include, so the matching SoC default applies</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MACHINE_FEATURES</span> <span class="pre">+=</span></code></p></td>
+<td><p>Hardware features recipes may use</p></td>
+<td><p>Word list; SoC default <code class="docutils literal notranslate"><span class="pre">alsa</span> <span class="pre">bluetooth</span> <span class="pre">usbgadget</span> <span class="pre">usbhost</span> <span class="pre">wifi</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">efi</span> <span class="pre">pci</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">efi</span> <span class="pre">pci</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">KERNEL_CMDLINE_EXTRA:append</span></code></p></td>
+<td><p>Extra kernel arguments in the unified kernel image</p></td>
+<td><p>String; unset</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">deferred_probe_timeout=30</span></code>, so the display driver waits for the HDMI bridge</p></td>
+<td><p>Not set</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">KERNEL_DEVICETREE</span></code></p></td>
+<td><p>Device tree built by the kernel</p></td>
+<td><p>Path list; required</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">qcom/qcs6490-thundercomm-rubikpi3.dtb</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">qcom/qcs6490-radxa-dragon-q6a.dtb</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">QCOM_DTB_DEFAULT</span> <span class="pre">?=</span></code></p></td>
+<td><p>Device tree the boot firmware selects</p></td>
+<td><p>Name; default <code class="docutils literal notranslate"><span class="pre">multi-dtb</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">qcs6490-thundercomm-rubikpi3</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">qcs6490-radxa-dragon-q6a</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">QCOM_BOOT_FIRMWARE</span></code></p></td>
+<td><p>Recipe deploying boot firmware into <code class="docutils literal notranslate"><span class="pre">qcomflash</span></code></p></td>
+<td><p>Recipe name; default empty</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">firmware-qcom-boot-rubikpi3</span></code></p></td>
+<td><p>Empty: firmware is not built</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">QCOM_BOOT_FILES_SUBDIR</span></code></p></td>
+<td><p>Deploy subdirectory holding the boot files</p></td>
+<td><p>Path; default empty</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">rubikpi3</span></code></p></td>
+<td><p>Empty</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">QCOM_PARTITION_FILES_SUBDIR</span></code></p></td>
+<td><p>qcom-ptool partition layout to package</p></td>
+<td><p>Path; defaults to the boot files subdirectory</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">partitions/qcs6490-thundercomm-rubikpi3/ufs</span></code> (weak default)</p></td>
+<td><p>Empty</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">QCOM_PARTITION_FILES_SUBDIR_SPINOR</span></code>, <code class="docutils literal notranslate"><span class="pre">QCOM_PARTITION_CONF</span></code></p></td>
+<td><p>SPI NOR layout and partition recipe</p></td>
+<td><p>Path and recipe name; defaults empty and <code class="docutils literal notranslate"><span class="pre">qcom-partition-conf</span></code></p></td>
+<td><p>Defaults</p></td>
+<td><p>Empty: no partition package</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">QCOM_CDT_FILE</span></code></p></td>
+<td><p>Board configuration data table packaged as <code class="docutils literal notranslate"><span class="pre">cdt.bin</span></code></p></td>
+<td><p>File name without extension; default empty</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">RubikPi3_CDT</span></code></p></td>
+<td><p>Empty</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">WKS_FILE</span></code></p></td>
+<td><p>Partition layout of the <code class="docutils literal notranslate"><span class="pre">wic</span></code> image</p></td>
+<td><p>File name; unset</p></td>
+<td><p>Not set</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">efi-uki-bootdisk.wks.in</span></code>: ESP with systemd-boot and the kernel image, then root</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">QCOM_ESP_IMAGE</span></code></p></td>
+<td><p>Separate ESP image recipe</p></td>
+<td><p>Recipe name; <code class="docutils literal notranslate"><span class="pre">esp-qcom-image</span></code> when <code class="docutils literal notranslate"><span class="pre">efi</span></code> is set</p></td>
+<td><p>Default</p></td>
+<td><p>Empty: the <code class="docutils literal notranslate"><span class="pre">wic</span></code> layout creates the ESP</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">QCOM_VFAT_SECTOR_SIZE</span> <span class="pre">?=</span></code></p></td>
+<td><p>ESP sector size in bytes</p></td>
+<td><p>Integer; default <code class="docutils literal notranslate"><span class="pre">4096</span></code> for UFS</p></td>
+<td><p>Default</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">512</span></code> for SD cards; use <code class="docutils literal notranslate"><span class="pre">4096</span></code> for UFS</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">QCOM_BOOTIMG_ROOTFS</span> <span class="pre">?=</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">root=</span></code> kernel argument</p></td>
+<td><p>Device identifier; default <code class="docutils literal notranslate"><span class="pre">PARTLABEL=rootfs</span></code></p></td>
+<td><p>Default</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">PARTLABEL=root</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">IMAGE_FSTYPES</span> <span class="pre">+=</span></code></p></td>
+<td><p>Image formats written</p></td>
+<td><p>Word list; SoC default <code class="docutils literal notranslate"><span class="pre">ext4</span> <span class="pre">qcomflash</span></code></p></td>
+<td><p>Default</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wic</span> <span class="pre">wic.gz</span> <span class="pre">wic.bmap</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MACHINE_ESSENTIAL_EXTRA_RRECOMMENDS</span> <span class="pre">+=</span></code></p></td>
+<td><p>Packages installed in every image</p></td>
+<td><p>Package list</p></td>
+<td><p>SoC boot and module groups, <code class="docutils literal notranslate"><span class="pre">packagegroup-rubikpi3-firmware</span></code></p></td>
+<td><p>SoC groups, <code class="docutils literal notranslate"><span class="pre">packagegroup-radxa-dragon-q6a-firmware</span></code>, <code class="docutils literal notranslate"><span class="pre">packagegroup-radxa-dragon-q6a-hexagon-dsp-binaries</span></code>, <code class="docutils literal notranslate"><span class="pre">qairt-sdk-hexagon-v68</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>The Radxa file notes that <code class="docutils literal notranslate"><span class="pre">PREFERRED_PROVIDER_virtual/bootloader</span></code> stays unset:
+the board boots from EDK2 in its SPI NOR, so no U-Boot is built.</p>
+</section>
+<section id="kernel-and-image-additions">
+<h2>Kernel and image additions<a class="headerlink" href="#kernel-and-image-additions" title="Link to this heading">¶</a></h2>
+<p><a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-3rdparty/blob/main/recipes-kernel/linux/linux-qcom-next_git.bbappend">linux-qcom-next_git.bbappend</a>
+adds <code class="docutils literal notranslate"><span class="pre">recipes-kernel/linux/linux-qcom-next/</span></code> to the file search path, which has no
+effect while that folder does not exist, and for <code class="docutils literal notranslate"><span class="pre">radxa-dragon-q6a</span></code> adds the
+<code class="docutils literal notranslate"><span class="pre">radxa-dragon-q6a/</span></code> folder and merges its
+<a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-3rdparty/blob/main/recipes-kernel/linux/radxa-dragon-q6a/realtek-eth-8169.cfg">realtek-eth-8169.cfg</a>
+<a class="reference external" href="https://docs.yoctoproject.org/wrynose/kernel-dev/common.html#creating-configuration-fragments">configuration fragment</a>
+into the kernel configuration.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Kconfig option</p></th>
+<th class="head"><p>Value</p></th>
+<th class="head"><p>Purpose</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CONFIG_R8169</span></code>, <code class="docutils literal notranslate"><span class="pre">CONFIG_REALTEK_PHY</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">y</span></code></p></td>
+<td><p>Build the Realtek RTL8169 Ethernet driver and its PHY driver into the kernel.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CONFIG_PHYLIB</span></code>, <code class="docutils literal notranslate"><span class="pre">CONFIG_MDIO_BUS</span></code>, <code class="docutils literal notranslate"><span class="pre">CONFIG_FWNODE_MDIO</span></code>, <code class="docutils literal notranslate"><span class="pre">CONFIG_OF_MDIO</span></code>, <code class="docutils literal notranslate"><span class="pre">CONFIG_ACPI_MDIO</span></code>, <code class="docutils literal notranslate"><span class="pre">CONFIG_FIXED_PHY</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">y</span></code></p></td>
+<td><p>Build the PHY and MDIO support the driver needs, instead of loading modules.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CONFIG_NET_SELFTESTS</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">y</span></code></p></td>
+<td><p>Build the network self-tests that the driver selects.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CONFIG_REALTEK_PHY_HWMON</span></code></p></td>
+<td><p>Not set</p></td>
+<td><p>Leave out the PHY temperature sensor.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Options set to <code class="docutils literal notranslate"><span class="pre">y</span></code> are built in; an option not listed keeps the value from the
+kernel’s default configuration.</p>
+<p><a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-3rdparty/blob/main/dynamic-layers/qcom-distro/recipes-products/images/qcom-multimedia-image.bbappend">qcom-multimedia-image.bbappend</a>
+applies only with meta-qcom-distro. For <code class="docutils literal notranslate"><span class="pre">rubikpi3</span></code> it adds
+<code class="docutils literal notranslate"><span class="pre">firmware-qcom-boot-rubikpi3:LicenseRef-LICENSE.qcom-2</span></code> to
+<a class="reference external" href="https://docs.yoctoproject.org/wrynose/ref-manual/variables.html#term-INCOMPATIBLE_LICENSE_EXCEPTIONS">INCOMPATIBLE_LICENSE_EXCEPTIONS</a>,
+so that image can ship the board’s boot firmware under the distribution’s licence policy.</p>
+</section>
+<section id="kas-fragments">
+<h2>kas fragments<a class="headerlink" href="#kas-fragments" title="Link to this heading">¶</a></h2>
+<p>Every file in <a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-3rdparty/tree/main/ci">ci/</a>
+uses kas format <code class="docutils literal notranslate"><span class="pre">header.version:</span> <span class="pre">14</span></code>; the first-line
+<code class="docutils literal notranslate"><span class="pre">yaml-language-server</span></code> comment only enables editor schema checks. Combine
+fragments with colons, for example <code class="docutils literal notranslate"><span class="pre">ci/rubikpi3.yml:ci/qcom-distro.yml</span></code>; later
+fragments override earlier ones.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>File</p></th>
+<th class="head"><p>Settings and purpose</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">base.yml</span></code></p></td>
+<td><p>Includes meta-qcom’s <code class="docutils literal notranslate"><span class="pre">ci/base.yml</span></code> (OE-Core, BitBake, <code class="docutils literal notranslate"><span class="pre">nodistro</span></code>, target <code class="docutils literal notranslate"><span class="pre">core-image-base</span></code>), takes meta-qcom from its <code class="docutils literal notranslate"><span class="pre">master</span></code> branch, and adds this checkout as <code class="docutils literal notranslate"><span class="pre">meta-qcom-3rdparty</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">rubikpi3.yml</span></code>, <code class="docutils literal notranslate"><span class="pre">radxa-dragon-q6a.yml</span></code></p></td>
+<td><p>Include <code class="docutils literal notranslate"><span class="pre">base.yml</span></code> and set <code class="docutils literal notranslate"><span class="pre">machine</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">meta-qcom.yml</span></code></p></td>
+<td><p>Declares the meta-qcom repository for the fragments below.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">qcom-distro.yml</span></code></p></td>
+<td><p>Includes meta-qcom’s <code class="docutils literal notranslate"><span class="pre">ci/qcom-distro.yml</span></code>: the <code class="docutils literal notranslate"><span class="pre">qcom-distro</span></code> distribution, its layers, and its image targets.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ci.yml</span></code>, <code class="docutils literal notranslate"><span class="pre">mirror.yml</span></code></p></td>
+<td><p>Include meta-qcom’s CI settings and its Yocto Project shared state mirror.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">linux-qcom-next.yml</span></code></p></td>
+<td><p>Forces <code class="docutils literal notranslate"><span class="pre">PREFERRED_PROVIDER_virtual/kernel</span> <span class="pre">=</span> <span class="pre">&quot;linux-qcom-next&quot;</span></code> in <code class="docutils literal notranslate"><span class="pre">local.conf</span></code>, overriding the machine default.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">world.yml</span></code></p></td>
+<td><p>Builds target <code class="docutils literal notranslate"><span class="pre">world</span></code>, limited by <code class="docutils literal notranslate"><span class="pre">EXCLUDE_FROM_WORLD</span></code> to recipes from meta-qcom (<code class="docutils literal notranslate"><span class="pre">layer-qcom</span></code>) and this layer (<code class="docutils literal notranslate"><span class="pre">layer-qcom-3rdparty</span></code>).</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="repository-automation">
+<h2>Repository automation<a class="headerlink" href="#repository-automation" title="Link to this heading">¶</a></h2>
+<p><a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-3rdparty/blob/main/.github/CODEOWNERS">CODEOWNERS</a>
+assigns every path to the layer maintainers. The markdownlint rules and the
+documentation build settings are explained by comments in
+<code class="docutils literal notranslate"><span class="pre">.github/.markdownlint.yaml</span></code>, <code class="docutils literal notranslate"><span class="pre">docs/source/conf.py</span></code>, <code class="docutils literal notranslate"><span class="pre">docs/source/Makefile</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">docs/source/requirements.txt</span></code>. Each workflow in
+<a class="reference external" href="https://github.com/qualcomm-linux/meta-qcom-3rdparty/tree/main/.github/workflows">.github/workflows/</a>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">pr.yml</span></code>: pull requests to <code class="docutils literal notranslate"><span class="pre">main</span></code> that change more than Markdown; builds both machines through <code class="docutils literal notranslate"><span class="pre">build-yocto.yml</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">push.yml</span></code>: pushes to <code class="docutils literal notranslate"><span class="pre">main</span></code>; runs the same build.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nightly-build.yml</span></code>, <code class="docutils literal notranslate"><span class="pre">nightly-build-wrynose.yml</span></code>: daily build of <code class="docutils literal notranslate"><span class="pre">main</span></code> and <code class="docutils literal notranslate"><span class="pre">wrynose</span></code>, skipped when the same inputs already built successfully.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">build-yocto.yml</span></code>: reusable build; locks the layers with kas, runs <code class="docutils literal notranslate"><span class="pre">yocto-patchreview</span></code> and <code class="docutils literal notranslate"><span class="pre">yocto-check-layer</span></code>, and builds each machine with <code class="docutils literal notranslate"><span class="pre">nodistro</span></code> and <code class="docutils literal notranslate"><span class="pre">qcom-distro</span></code> (a <code class="docutils literal notranslate"><span class="pre">world</span></code> build only with <code class="docutils literal notranslate"><span class="pre">nodistro</span></code>).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bitbake-lint.yml</span></code>: pull requests changing BitBake files; reports oelint-adv findings on the changed lines without failing.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">markdownlint.yml</span></code>: pushes to <code class="docutils literal notranslate"><span class="pre">main</span></code> and pull requests changing Markdown; lints every <code class="docutils literal notranslate"><span class="pre">*.md</span></code> file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">qcom-preflight-checks.yml</span></code>: pull requests and pushes to <code class="docutils literal notranslate"><span class="pre">main</span></code>; runs Qualcomm’s preflight workflow with only the Repolinter check enabled.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">documentation.yml</span></code>: pull requests and pushes to <code class="docutils literal notranslate"><span class="pre">main</span></code>; runs <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">-f</span> <span class="pre">docs/source/Makefile</span> <span class="pre">check</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">backport.yml</span></code>: merged pull requests to <code class="docutils literal notranslate"><span class="pre">main</span></code> labelled <code class="docutils literal notranslate"><span class="pre">backport</span> <span class="pre">wrynose</span></code>; opens the backport pull request.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stales.yml</span></code>: daily; marks issues and pull requests inactive for 30 days as stale and closes stale pull requests 5 days later.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">test-pr.yml</span></code>, <code class="docutils literal notranslate"><span class="pre">test.yml</span></code>, <code class="docutils literal notranslate"><span class="pre">test-distro.yml</span></code>, <code class="docutils literal notranslate"><span class="pre">publish-results.yml</span></code>: LAVA boot tests and result publishing; disabled until a machine in this layer has a lab device.</p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../README.html">meta-qcom-3rdparty</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="README.html">User documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="USAGE.html">Build an image for a supported board</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Configuration reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#loading-and-precedence">Loading and precedence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#environment">Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#layer-configuration">Layer configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#machine-configuration">Machine configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#kernel-and-image-additions">Kernel and image additions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#kas-fragments">kas fragments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#repository-automation">Repository automation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="README.html#files">Files</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/README.html">Contributor documentation</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../README.html">Documentation overview</a><ul>
+  <li><a href="README.html">User documentation</a><ul>
+      <li>Previous: <a href="USAGE.html" title="previous chapter">Build an image for a supported board</a></li>
+      <li>Next: <a href="../contributing/README.html" title="next chapter">Contributor documentation</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

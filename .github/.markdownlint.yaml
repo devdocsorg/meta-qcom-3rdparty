@@ -1,15 +1,21 @@
 # markdownlint configuration
 # https://github.com/DavidAnson/markdownlint
+# Each key is a rule ID; true enables it, false disables it, and a mapping
+# enables it with options. Rules not listed keep markdownlint's defaults.
 
 # MD013 - Line length
+# Disabled: lines may be any length (default: 80 characters).
 MD013: false
 
 # MD024 - Multiple headings with the same content
+# Only headings with the same parent must differ (default: all headings).
 MD024:
   siblings_only: true
 
 # MD033 - Inline HTML
+# Disabled: inline HTML is allowed (default: reported).
 MD033: false
 
 # MD041 - First line in a file should be a top-level heading
+# Enabled, as by default.
 MD041: true

@@ -31,11 +31,14 @@ Our process mirrors the official Yocto Project contribution flow — see
 
 - **Fork and propose changes** via GitHub Pull Requests.
   Use **draft mode** for work-in-progress patches.
+  [Open the pull request](https://github.com/qualcomm-linux/meta-qcom-3rdparty/compare?expand=1&template=pr_template.md)
+  against `main` so it uses the pull request template.
 - **Create clean commits:** one logical change per commit.
   Follow [Yocto commit style](https://docs.yoctoproject.org/dev/contributor-guide/submit-changes.html#writing-good-commit-messages).
 - **Explain _why_** the change is needed in the commit message.
 - **Add a Signed-off-by line** to certify compliance with the [Developer’s Certificate of Origin](https://developercertificate.org/).
 - **Validate locally** before submission: build with `bitbake`, flash, and verify runtime.
+  [DEVELOPMENT.md](DEVELOPMENT.md) sets up the documentation checks and lists the layer checks.
 - **Address review feedback** and re-push to update your PR.
   Use `git rebase -i` to squash or reorder commits as needed.
 

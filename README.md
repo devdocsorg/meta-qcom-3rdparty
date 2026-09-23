@@ -15,6 +15,9 @@ This layer provides additional recipes and machine configuration files for
 Third-Party Maintained Qualcomm platforms. Reference boards that are officially
 supported by Qualcomm are available via `meta-qcom` instead.
 
+To build an image for a supported board, follow the
+[usage tutorial](docs/source/user/USAGE.md).
+
 This layer depends on:
 
 ```text
@@ -36,10 +39,28 @@ revision: HEAD
   Qualcomm Linux 2.x.
 - **scarthgap:** Qualcomm Linux >= 1.4, aligned with Yocto Project 5.0 (LTS).
 - **kirkstone:** Qualcomm Linux <= 1.3, aligned with Yocto Project 4.0 (LTS).
+- **next:** Staging branch for validating CI workflow changes; do not build
+  from it or send contributions to it.
+
+Build from `main` or from the branch matching your Qualcomm Linux release, and
+send contributions to `main`. The backport workflow creates temporary
+`backport/<number>-to-wrynose` branches for its pull requests.
+[BRANCHES.md](BRANCHES.md) describes each branch's status and maintenance.
 
 ## Machine Support
 
-See `conf/machine` for the complete list of supported devices.
+See [conf/machine](conf/machine/README.md) for the complete list of supported devices.
+
+## Documentation
+
+Open [docs/site/index.html](docs/site/index.html) directly in a browser for the
+generated documentation site; the [documentation guide](docs/README.md)
+explains where its source lives and how to rebuild it.
+
+- [Usage tutorial](docs/source/user/USAGE.md) — Build an image for a supported board and find the output.
+- [Configuration reference](docs/source/user/CONFIGURATION.md) — Layer, machine, kas, environment, and workflow settings.
+- [Development setup](docs/source/contributing/DEVELOPMENT.md) — Install the documentation tools and run the local checks.
+- [Function reference](docs/source/contributing/README.md#function-reference) — Shell functions and BitBake tasks, generated from their comments.
 
 ## Contributing
 
@@ -51,6 +72,10 @@ For some useful guidelines when submitting patches, please refer to:
 [Preparing Changes for Submission](https://docs.yoctoproject.org/dev/contributor-guide/submit-changes.html#preparing-changes-for-submission)
 
 Pull requests will be discussed within the GitHub pull-request infrastructure.
+
+Read [CONTRIBUTING.md](CONTRIBUTING.md) for the contribution guide and
+development setup, and follow the [Code of Conduct](CODE_OF_CONDUCT.md).
+Report vulnerabilities privately as described in [SECURITY.md](SECURITY.md).
 
 ## Communication
 
@@ -65,4 +90,28 @@ Pull requests will be discussed within the GitHub pull-request infrastructure.
 ## License
 
 This layer is licensed under the MIT license. Check out [LICENSE](LICENSE)
-for more details.
+for more details. [NOTICE](NOTICE) lists the licences of reused documentation
+tooling and templates.
+
+## Folders
+
+- [.github/](.github/) — Holds [CODEOWNERS](.github/CODEOWNERS), issue and pull request templates, CI workflows, the markdownlint configuration, and the documentation check scripts.
+- [ci/](ci/README.md) — Contains kas fragments and the helper scripts CI runs.
+- [conf/](conf/README.md) — Contains the layer configuration and machine definitions.
+- [docs/](docs/README.md) — Contains the documentation source and the generated site.
+- [dynamic-layers/](dynamic-layers/README.md) — Contains additions that apply only when another layer is present.
+- [recipes-bsp/](recipes-bsp/README.md) — Contains board firmware and packagegroup recipes.
+- [recipes-kernel/](recipes-kernel/README.md) — Contains kernel appends and configuration fragments.
+
+## Files
+
+- [README.md](README.md) — Introduces the layer, its branches, documentation, and maintainers.
+- [BRANCHES.md](BRANCHES.md) — Describes each long-lived branch and how it is maintained.
+- [CONTRIBUTING.md](CONTRIBUTING.md) — Points to the contribution guide and development setup.
+- [AGENTS.md](AGENTS.md) — Points automation agents to the agent guide.
+- [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) — States participation standards and how to report conduct concerns.
+- [SECURITY.md](SECURITY.md) — Explains how to report security issues and which branches receive fixes.
+- [LICENSE](LICENSE) — Contains the layer's MIT licence.
+- [NOTICE](NOTICE) — Contains the licence notices for reused documentation tooling and templates.
+- [.env.example](.env.example) — Lists the environment settings for kas-container builds with safe example values.
+- [.gitignore](.gitignore) — Keeps local environment files, the documentation environment, and build caches out of version control.
