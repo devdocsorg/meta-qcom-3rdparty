@@ -43,14 +43,8 @@ See `conf/machine` for the complete list of supported devices.
 
 ## Contributing
 
-Please submit any patches against the `meta-qcom-3rdparty` layer by using
-the GitHub pull-request feature. Fork the repo, create a branch,
-do the work, rebase from upstream, and create the pull request.
-
-For some useful guidelines when submitting patches, please refer to:
-[Preparing Changes for Submission](https://docs.yoctoproject.org/dev/contributor-guide/submit-changes.html#preparing-changes-for-submission)
-
-Pull requests will be discussed within the GitHub pull-request infrastructure.
+Read [CONTRIBUTING.md](CONTRIBUTING.md) before submitting patches, and follow the
+[Code of Conduct](CODE_OF_CONDUCT.md).
 
 ## Communication
 

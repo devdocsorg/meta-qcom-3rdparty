@@ -29,6 +29,11 @@ Our process mirrors the official Yocto Project contribution flow — see
 
 ### 2.1  Pull-Request Workflow
 
+Please submit any patches against the `meta-qcom-3rdparty` layer by using
+the GitHub pull-request feature. Fork the repo, create a branch,
+do the work, rebase from upstream, and create the pull request.
+Pull requests will be discussed within the GitHub pull-request infrastructure.
+
 - **Fork and propose changes** via GitHub Pull Requests.
   Use **draft mode** for work-in-progress patches.
 - **Create clean commits:** one logical change per commit.
