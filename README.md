@@ -115,3 +115,87 @@ tooling and templates.
 - [NOTICE](NOTICE) — Contains the licence notices for reused documentation tooling and templates.
 - [.env.example](.env.example) — Lists the environment settings for kas-container builds with safe example values.
 - [.gitignore](.gitignore) — Keeps local environment files, the documentation environment, and build caches out of version control.
+
+<!-- repository-map:start -->
+
+## Repository map
+
+```mermaid
+flowchart LR
+    r0["meta-qcom-3rdparty (you are here)"]
+    click r0 href "https://github.com/qualcomm-linux/meta-qcom-3rdparty" _blank
+    r1["meta-audioreach"]
+    click r1 href "https://github.com/AudioReach/meta-audioreach" _blank
+    r2["linux-firmware"]
+    click r2 href "https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git" _blank
+    r3["dsp-binaries"]
+    click r3 href "https://github.com/linux-msm/dsp-binaries" _blank
+    r4["qrtr"]
+    click r4 href "https://github.com/linux-msm/qrtr" _blank
+    r5["rmtfs"]
+    click r5 href "https://github.com/linux-msm/rmtfs" _blank
+    r6["tqftpserv"]
+    click r6 href "https://github.com/linux-msm/tqftpserv" _blank
+    r7["bitbake"]
+    click r7 href "https://github.com/openembedded/bitbake" _blank
+    r8["meta-openembedded"]
+    click r8 href "https://github.com/openembedded/meta-openembedded" _blank
+    r9["openembedded-core"]
+    click r9 href "https://github.com/openembedded/openembedded-core" _blank
+    r10["kernel"]
+    click r10 href "https://github.com/qualcomm-linux/kernel" _blank
+    r11["meta-ai"]
+    click r11 href "https://github.com/qualcomm-linux/meta-ai" _blank
+    r12["meta-qcom"]
+    click r12 href "https://github.com/qualcomm-linux/meta-qcom" _blank
+    r13["meta-qcom-distro"]
+    click r13 href "https://github.com/qualcomm-linux/meta-qcom-distro" _blank
+    r14["qcom-ptool"]
+    click r14 href "https://github.com/qualcomm-linux/qcom-ptool" _blank
+    r15["fastrpc"]
+    click r15 href "https://github.com/qualcomm/fastrpc" _blank
+    r16["boot-assets"]
+    click r16 href "https://github.com/rubikpi-ai/boot-assets" _blank
+    r17["kas"]
+    click r17 href "https://github.com/siemens/kas" _blank
+    r18["systemd"]
+    click r18 href "https://github.com/systemd/systemd" _blank
+    r19["meta-updater"]
+    click r19 href "https://github.com/uptane/meta-updater" _blank
+    r20["meta-security"]
+    click r20 href "https://git.yoctoproject.org/meta-security" _blank
+    r21["meta-selinux"]
+    click r21 href "https://git.yoctoproject.org/meta-selinux" _blank
+    r22["meta-virtualization"]
+    click r22 href "https://git.yoctoproject.org/meta-virtualization" _blank
+    r0 -->|"uses base Linux build recipes from"| r9
+    r0 -->|"adds third-party board support to"| r12
+    r0 -->|"can use Qualcomm Linux settings from"| r13
+    r12 -->|"gets partition tools from"| r14
+    r0 -->|"fetches RUBIK Pi boot firmware from"| r16
+    r0 -->|"sets up and runs builds with"| r17
+    r12 -->|"includes for Qualcomm Linux images"| r1
+    r12 -->|"runs build tasks with"| r7
+    r12 -->|"includes for Qualcomm Linux images"| r8
+    r12 -->|"fetches Linux kernel sources from"| r10
+    r12 -->|"includes for Qualcomm Linux images"| r11
+    r12 -->|"includes for Qualcomm Linux images"| r22
+    r12 -->|"includes for Qualcomm Linux images"| r21
+    r12 -->|"includes for Qualcomm Linux images"| r20
+    r12 -->|"includes for Qualcomm Linux images"| r19
+    r12 -->|"fetches sources from"| r4
+    r12 -->|"fetches sources from"| r5
+    r12 -->|"fetches sources from"| r6
+    r12 -->|"fetches sources from"| r15
+    r12 -->|"fetches sources from"| r3
+    r9 -->|"fetches sources from"| r2
+    r12 -->|"uses base Linux build recipes from"| r9
+    r9 -->|"fetches sources from"| r18
+    style r0 fill:#e6f3ff,stroke:#0969da,stroke-width:3px,color:#182c43
+```
+
+[Full Qualcomm repository map](https://github.com/devdocsorg/qualcomm-repository-map).
+
+<!-- Generated from https://github.com/devdocsorg/qualcomm-repository-map at 6516f060326ce5ac5708e4bd52b6eade17dd4652; dataset SHA-256: faeaa003512a56069acce7f99fbd2c42eb6d67bc29591a2f449a5e399f0b5028. -->
+
+<!-- repository-map:end -->
