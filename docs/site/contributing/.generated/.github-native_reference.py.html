@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Documentation extension &#8212; meta-qcom-3rdparty  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=27fed22d" />
+    <script src="../../_static/documentation_options.js?v=748769dd"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="yocto-buildstats.sh" href="ci-yocto-buildstats.sh.html" />
+    <link rel="prev" title="Contributor guides" href="../README.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="documentation-extension">
+<h1>Documentation extension<a class="headerlink" href="#documentation-extension" title="Link to this heading">¶</a></h1>
+<p><a class="reference external" href="https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/offline-guides-and-layer-map/.github/native_reference.py">Source</a></p>
+<p id="module-native_reference">Discover local definitions and build native shell and Python references safely.</p>
+<p>Only this side-effect-free module is imported by autodoc. BitBake metadata is
+parsed into statements, never evaluated, and shell code is never executed.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="native_reference.bitbake_units">
+<span class="sig-prename descclassname"><span class="pre">native_reference.</span></span><span class="sig-name descname"><span class="pre">bitbake_units</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#native_reference.bitbake_units" title="Link to this definition">¶</a></dt>
+<dd><p>Discover BitBake tasks using upstream statements without evaluating them.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> – Metadata file in any maintained BitBake format.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Tuples of task name, native comment, and normalized shell source.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – Embedded Python or a modified task needs extractor setup.</p>
+</dd>
+<dt class="field-even">Example<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">bitbake_units(ROOT</span> <span class="pre">/</span> <span class="pre">'conf/layer.conf')</span></code> returns an empty list.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="native_reference.check_rendered">
+<span class="sig-prename descclassname"><span class="pre">native_reference.</span></span><span class="sig-name descname"><span class="pre">check_rendered</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#native_reference.check_rendered" title="Link to this definition">¶</a></dt>
+<dd><p>Require real rendered native entries and correctly separated field sections.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>root</strong> – Checkout containing generated <code class="docutils literal notranslate"><span class="pre">docs/site</span></code> output.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None when every discovered function has a rendered signature/heading.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – An entry or field is missing or annotations leaked as text.</p>
+</dd>
+<dt class="field-even">Example<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">check_rendered(ROOT)</span></code> validates the current generated site.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="native_reference.comment_before">
+<span class="sig-prename descclassname"><span class="pre">native_reference.</span></span><span class="sig-name descname"><span class="pre">comment_before</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#native_reference.comment_before" title="Link to this definition">¶</a></dt>
+<dd><p>Read the contiguous comment immediately before a definition.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>text</strong> – Complete source text.</p></li>
+<li><p><strong>line</strong> – One-based definition line.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Comment lines in source order.</p>
+</dd>
+<dt class="field-odd">Example<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">comment_before('#</span> <span class="pre">&#64;noargs\nf()</span> <span class="pre">{}',</span> <span class="pre">2)</span></code> returns <code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">&#64;noargs</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="native_reference.generate">
+<span class="sig-prename descclassname"><span class="pre">native_reference.</span></span><span class="sig-name descname"><span class="pre">generate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sphinx</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#native_reference.generate" title="Link to this definition">¶</a></dt>
+<dd><p>Generate shdoc and safe Python autodoc pages before Sphinx reads sources.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>app</strong> – Active Sphinx application.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None; writes ignored intermediate reference pages.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – Discovered definitions lack documentation or extraction.</p>
+</dd>
+<dt class="field-even">Example<span class="colon">:</span></dt>
+<dd class="field-even"><p>Sphinx invokes <code class="docutils literal notranslate"><span class="pre">generate(app)</span></code> during <code class="docutils literal notranslate"><span class="pre">builder-inited</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="native_reference.inventory">
+<span class="sig-prename descclassname"><span class="pre">native_reference.</span></span><span class="sig-name descname"><span class="pre">inventory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#native_reference.inventory" title="Link to this definition">¶</a></dt>
+<dd><p>Independently discover and validate all maintained local definitions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>root</strong> – Root of the Git checkout.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Source-relative paths mapped to discovered function names.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – Documentation or supported extraction is missing.</p>
+</dd>
+<dt class="field-even">Example<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">inventory(ROOT)['ci/yocto-check-layer.sh']</span></code> contains <code class="docutils literal notranslate"><span class="pre">_is_dir</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="native_reference.require_shell_docs">
+<span class="sig-prename descclassname"><span class="pre">native_reference.</span></span><span class="sig-name descname"><span class="pre">require_shell_docs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">comment</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#native_reference.require_shell_docs" title="Link to this definition">¶</a></dt>
+<dd><p>Reject missing native shell fields before invoking shdoc.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>comment</strong> – Native shdoc comment preceding a function.</p></li>
+<li><p><strong>label</strong> – Source path and function name for actionable diagnostics.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None when the comment supplies purpose, arguments, status, and example.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – Required documentation is absent.</p>
+</dd>
+<dt class="field-even">Example<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">require_shell_docs('',</span> <span class="pre">'ci/helper.sh:check')</span></code> raises <code class="docutils literal notranslate"><span class="pre">ValueError</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="native_reference.setup">
+<span class="sig-prename descclassname"><span class="pre">native_reference.</span></span><span class="sig-name descname"><span class="pre">setup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sphinx</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#native_reference.setup" title="Link to this definition">¶</a></dt>
+<dd><p>Register native extraction with Sphinx.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>app</strong> – Sphinx application loading this extension.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Parallel-safety metadata; generation runs serially.</p>
+</dd>
+<dt class="field-odd">Example<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Add <code class="docutils literal notranslate"><span class="pre">native_reference</span></code> to Sphinx’s <code class="docutils literal notranslate"><span class="pre">extensions</span></code> list.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="native_reference.shell_nodes">
+<span class="sig-prename descclassname"><span class="pre">native_reference.</span></span><span class="sig-name descname"><span class="pre">shell_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#native_reference.shell_nodes" title="Link to this definition">¶</a></dt>
+<dd><p>Find every shell function through bashlex, including nested definitions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>code</strong> – Shell text with container substitutions already normalized.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Function AST nodes with source offsets.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – Shell syntax requires parser support.</p>
+</dd>
+<dt class="field-even">Example<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">shell_nodes('helper()</span> <span class="pre">{</span> <span class="pre">:;</span> <span class="pre">}')[0].name.word</span></code> is <code class="docutils literal notranslate"><span class="pre">helper</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="native_reference.tracked">
+<span class="sig-prename descclassname"><span class="pre">native_reference.</span></span><span class="sig-name descname"><span class="pre">tracked</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#native_reference.tracked" title="Link to this definition">¶</a></dt>
+<dd><p>Return tracked source paths, including staged additions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>root</strong> – Repository root directory.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Existing tracked files outside generated site output.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>subprocess.CalledProcessError</strong> – Git cannot read the index.</p>
+</dd>
+<dt class="field-even">Example<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">tracked(ROOT)</span></code> includes <code class="docutils literal notranslate"><span class="pre">ci/yocto-check-layer.sh</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="native_reference.workflow_units">
+<span class="sig-prename descclassname"><span class="pre">native_reference.</span></span><span class="sig-name descname"><span class="pre">workflow_units</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#native_reference.workflow_units" title="Link to this definition">¶</a></dt>
+<dd><p>Extract shell run values from parsed YAML, including inline values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> – GitHub Actions workflow path.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Pairs of diagnostic labels and shell code.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – A run step uses an unsupported interpreter with definitions.</p>
+</dd>
+<dt class="field-even">Example<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">workflow_units(ROOT</span> <span class="pre">/</span> <span class="pre">'.github/workflows/push.yml')</span></code> is empty.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../README.html">meta-qcom-3rdparty</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../user/README.html">User guides</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../README.html">Contributor guides</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../README.html#files">Files</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../README.html#function-reference">Function reference</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Documentation extension</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#native_reference.bitbake_units"><code class="docutils literal notranslate"><span class="pre">bitbake_units()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#native_reference.check_rendered"><code class="docutils literal notranslate"><span class="pre">check_rendered()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#native_reference.comment_before"><code class="docutils literal notranslate"><span class="pre">comment_before()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#native_reference.generate"><code class="docutils literal notranslate"><span class="pre">generate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#native_reference.inventory"><code class="docutils literal notranslate"><span class="pre">inventory()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#native_reference.require_shell_docs"><code class="docutils literal notranslate"><span class="pre">require_shell_docs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#native_reference.setup"><code class="docutils literal notranslate"><span class="pre">setup()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#native_reference.shell_nodes"><code class="docutils literal notranslate"><span class="pre">shell_nodes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#native_reference.tracked"><code class="docutils literal notranslate"><span class="pre">tracked()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#native_reference.workflow_units"><code class="docutils literal notranslate"><span class="pre">workflow_units()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ci-yocto-buildstats.sh.html">yocto-buildstats.sh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ci-yocto-check-layer.sh.html">yocto-check-layer.sh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ci-yocto-patchreview.sh.html">yocto-patchreview.sh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="recipes-bsp-firmware-boot-firmware-qcom-boot-rubikpi3_20260621.bb.html">RUBIK Pi boot firmware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../CONTRIBUTING.html">Contributing to meta-qcom-3rdparty</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../DEVELOPMENT.html">Development environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../AGENTS.html">Agent Guide for meta-qcom-3rdparty</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../NOTICES.html">Reused documentation material</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../README.html">Documentation overview</a><ul>
+  <li><a href="../README.html">Contributor guides</a><ul>
+      <li>Previous: <a href="../README.html" title="previous chapter">Contributor guides</a></li>
+      <li>Next: <a href="ci-yocto-buildstats.sh.html" title="next chapter">yocto-buildstats.sh</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../../_sources/contributing/.generated/.github-native_reference.py.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

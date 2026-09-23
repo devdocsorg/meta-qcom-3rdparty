@@ -29,10 +29,13 @@ Our process mirrors the official Yocto Project contribution flow — see
 
 ### 2.1  Pull-Request Workflow
 
+Start with the [development environment walkthrough](DEVELOPMENT.md). Submit to
+[qualcomm-linux/meta-qcom-3rdparty main](https://github.com/qualcomm-linux/meta-qcom-3rdparty/compare/main...main?expand=1&template=pr_template.md); select your fork and topic branch.
+
 - **Fork and propose changes** via GitHub Pull Requests.
   Use **draft mode** for work-in-progress patches.
 - **Create clean commits:** one logical change per commit.
-  Follow [Yocto commit style](https://docs.yoctoproject.org/dev/contributor-guide/submit-changes.html#writing-good-commit-messages).
+  Follow [Yocto commit style](https://docs.yoctoproject.org/dev/contributor-guide/submit-changes.html#implement-and-commit-changes).
 - **Explain _why_** the change is needed in the commit message.
 - **Add a Signed-off-by line** to certify compliance with the [Developer’s Certificate of Origin](https://developercertificate.org/).
 - **Validate locally** before submission: build with `bitbake`, flash, and verify runtime.
@@ -47,7 +50,7 @@ Because this layer expects to host multiple vendor platforms:
 - Avoid cross-contamination between machines or with upstream `meta-qcom`.
 - Do not introduce SoC-generic behavior under a machine-specific path. Such SoC-generic behavior must be sent/upstreamed to `meta-qcom` instead.
 
-Reference: [BitBake Overrides](https://docs.yoctoproject.org/ref-manual/variables.html#var-OVERRIDES)
+Reference: [BitBake Overrides](https://docs.yoctoproject.org/ref-manual/variables.html#term-OVERRIDES)
 
 ### 2.3  Repository Organization
 

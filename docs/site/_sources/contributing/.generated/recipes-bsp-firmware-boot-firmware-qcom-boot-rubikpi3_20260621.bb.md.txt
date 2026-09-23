@@ -1,0 +1,25 @@
+# RUBIK Pi boot firmware
+
+[Source](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/offline-guides-and-layer-map/recipes-bsp/firmware-boot/firmware-qcom-boot-rubikpi3_20260621.bb)
+
+## Index
+
+* [do_deploy](#do_deploy)
+
+### do_deploy
+
+Deploy RUBIK Pi boot binaries and the board CDT into the image staging directory.
+
+#### Example
+
+```bash
+bitbake firmware-qcom-boot-rubikpi3 -c deploy
+```
+
+_Function has no arguments._
+
+#### Exit codes
+
+* **0**: Firmware and CDT files were installed successfully.
+* **1**: File discovery or installation failed under the BitBake task shell.
+

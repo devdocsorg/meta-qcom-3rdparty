@@ -1,0 +1,9 @@
+# Documentation extension
+
+[Source](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/offline-guides-and-layer-map/.github/native_reference.py)
+
+```{eval-rst}
+.. automodule:: native_reference
+   :members:
+   :private-members:
+```

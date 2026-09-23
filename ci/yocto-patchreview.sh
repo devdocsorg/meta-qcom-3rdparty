@@ -12,6 +12,14 @@ fi
 REPO_DIR="$1"
 WORK_DIR="$2"
 
+# @description Require an existing directory before running the CI helper.
+# @arg $1 string Directory path to validate, such as /work.
+# @exitcode 0 The directory exists.
+# @exitcode 1 The path is not a directory; exits the calling script.
+# @stdout Prints the rejected path when validation fails.
+# @example
+#   _is_dir /work
+#
 _is_dir(){
     test -d "$1" && return
     echo "The '$1' is not a directory."

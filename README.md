@@ -28,6 +28,14 @@ branch: master
 revision: HEAD
 ```
 
+## First build and documentation
+
+Follow the [development setup](docs/source/contributing/DEVELOPMENT.md), then run
+`kas-container build ci/rubikpi3.yml` from the checkout root. The
+[image tutorial](docs/source/user/USAGE.md) explains how to inspect the output.
+Browse the [reference documentation](docs/site/index.html) directly from a local
+checkout, or read its [source homepage](docs/source/README.md).
+
 ## Branches
 
 - **main:** Primary development branch, with focus on upstream support and
@@ -37,9 +45,18 @@ revision: HEAD
 - **scarthgap:** Qualcomm Linux >= 1.4, aligned with Yocto Project 5.0 (LTS).
 - **kirkstone:** Qualcomm Linux <= 1.3, aligned with Yocto Project 4.0 (LTS).
 
+The upstream `next` branch integrates changes for testing before `main`; use it
+for integration validation and send normal contributions to `main`.
+The release branches above are maintained separately; choose matching layers when
+building and send release fixes to the matching branch. The fork's `upstream`
+branch retains its imported baseline, and `docs/offline-guides-and-layer-map` is
+this documentation review branch. Long-lived maintenance relationships are in
+[BRANCHES.md](BRANCHES.md); the canonical location after adoption is
+[BRANCHES.md on main](https://github.com/qualcomm-linux/meta-qcom-3rdparty/blob/main/BRANCHES.md).
+
 ## Machine Support
 
-See `conf/machine` for the complete list of supported devices.
+See [conf/machine](conf/machine/README.md) for the complete list of supported devices.
 
 ## Contributing
 
@@ -51,6 +68,8 @@ For some useful guidelines when submitting patches, please refer to:
 [Preparing Changes for Submission](https://docs.yoctoproject.org/dev/contributor-guide/submit-changes.html#preparing-changes-for-submission)
 
 Pull requests will be discussed within the GitHub pull-request infrastructure.
+
+Read the [contribution procedure](CONTRIBUTING.md) for project scope and setup.
 
 ## Communication
 
@@ -64,5 +83,28 @@ Pull requests will be discussed within the GitHub pull-request infrastructure.
 
 ## License
 
-This layer is licensed under the MIT license. Check out [COPYING.MIT](COPYING.MIT)
+This layer is licensed under the MIT license. Check out [LICENSE](LICENSE)
 for more details.
+
+## Folders
+
+- [.github](.github) — Owns workflows, issue and PR templates, review ownership, and documentation tooling.
+- [ci](ci/README.md) — Contains kas compositions and CI helper scripts.
+- [conf](conf/README.md) — Defines layer discovery and supported machines.
+- [docs](docs/README.md) — Contains documentation sources and generated output.
+- [dynamic-layers](dynamic-layers/README.md) — Activates extensions for optional distribution layers.
+- [recipes-bsp](recipes-bsp/README.md) — Supplies board firmware and packagegroups.
+- [recipes-kernel](recipes-kernel/README.md) — Extends the upstream kernel for supported boards.
+
+## Files
+
+- [.env.example](.env.example) — Documents safe optional build environment exports.
+- [.gitignore](.gitignore) — Excludes secrets and local build environments.
+- [AGENTS.md](AGENTS.md) — Directs automation to the maintained agent procedure.
+- [BRANCHES.md](BRANCHES.md) — Explains branch purposes and maintenance relationships.
+- [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) — Defines community conduct and private reporting.
+- [CONTRIBUTING.md](CONTRIBUTING.md) — Links the contribution procedure and development setup.
+- [COPYING.MIT](COPYING.MIT) — Contains the layer’s approved MIT licence text.
+- [LICENSE](LICENSE) — Exposes the approved licence through the required discovery filename.
+- [README.md](README.md) — Orients readers and indexes this folder.
+- [SECURITY.md](SECURITY.md) — Explains private vulnerability reporting and supported branches.

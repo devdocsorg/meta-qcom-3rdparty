@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Development environment &#8212; meta-qcom-3rdparty  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=27fed22d" />
+    <script src="../_static/documentation_options.js?v=748769dd"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Agent Guide for meta-qcom-3rdparty" href="AGENTS.html" />
+    <link rel="prev" title="Contributing to meta-qcom-3rdparty" href="CONTRIBUTING.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="development-environment">
+<h1>Development environment<a class="headerlink" href="#development-environment" title="Link to this heading">¶</a></h1>
+<section id="checkout-and-prerequisites">
+<h2>Checkout and prerequisites<a class="headerlink" href="#checkout-and-prerequisites" title="Link to this heading">¶</a></h2>
+<p>The runnable documentation proposal is in this fork and branch:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>--branch<span class="w"> </span>docs/offline-guides-and-layer-map<span class="w"> </span>https://github.com/devdocsorg/meta-qcom-3rdparty.git
+<span class="nb">cd</span><span class="w"> </span>meta-qcom-3rdparty
+</pre></div>
+</div>
+<p>Contributions to the BSP still go to the upstream project through the
+<a class="reference internal" href="CONTRIBUTING.html"><span class="std std-doc">contribution procedure</span></a>. Use Linux, Git, Make, GNU Awk
+(tested with 5.4.1), and <a class="reference external" href="https://docs.astral.sh/uv/getting-started/installation/">uv 0.12.3</a>.
+The documentation setup installs Python 3.12.13 and the locked Python tools locally.
+It fetches pinned shdoc and BitBake parsers into <code class="docutils literal notranslate"><span class="pre">.docs-tools/</span></code>; neither executes
+build tasks. Internet access is needed for setup, not for browsing the built site.</p>
+<p>For image builds and layer checks, use kas-container 4.8.2 and Docker or Podman.
+Follow the <a class="reference internal" href="AGENTS.html#prerequisites"><span class="std std-ref">agent guide’s prerequisites and runtime smoke tests</span></a>
+in their stated order, then its <a class="reference internal" href="AGENTS.html#recommended-environment"><span class="std std-ref">external work/cache directory setup</span></a>.
+The environment settings are explained in <a class="reference internal" href="../user/CONFIGURATION.html#environment"><span class="std std-ref">Configuration</span></a>.</p>
+</section>
+<section id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Link to this heading">¶</a></h2>
+<p>From the checkout root:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>-f<span class="w"> </span>docs/source/Makefile<span class="w"> </span>setup
+<span class="c1"># Only when Chromium is not already installed:</span>
+make<span class="w"> </span>-f<span class="w"> </span>docs/source/Makefile<span class="w"> </span>browser
+make<span class="w"> </span>-f<span class="w"> </span>docs/source/Makefile<span class="w"> </span>check
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">check</span></code> rebuilds strictly, verifies native reference coverage, opens a copied site
+with networking disabled, exercises search and navigation, and checks generated
+output against Git. A clean checkout should finish without changes.
+For documentation edits, build with <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">-f</span> <span class="pre">docs/source/Makefile</span> <span class="pre">html</span></code>, inspect
+<code class="docutils literal notranslate"><span class="pre">docs/site/index.html</span></code> directly in a browser, and commit sources and regenerated
+output before running <code class="docutils literal notranslate"><span class="pre">check</span></code>. The browser test is headless and starts no server.</p>
+<p>The shell comments use <a class="reference external" href="https://github.com/reconquest/shdoc/tree/52917b2f3471fe77c745ede115494d2d5c9168d1#features">shdoc annotations</a>.
+Give each function a description, typed arguments or <code class="docutils literal notranslate"><span class="pre">&#64;noargs</span></code>, exit status, and
+example. Blank comment lines separate examples from subsequent annotations.
+Python helpers use typed signatures and standard docstrings with examples;
+Sphinx autodoc imports the safe documentation extension itself. New unsupported
+source languages or embedded Python tasks stop the build with extractor setup
+instructions. BitBake statement parsing covers <code class="docutils literal notranslate"><span class="pre">.bb</span></code>, <code class="docutils literal notranslate"><span class="pre">.bbappend</span></code>, <code class="docutils literal notranslate"><span class="pre">.bbclass</span></code>,
+<code class="docutils literal notranslate"><span class="pre">.inc</span></code>, and <code class="docutils literal notranslate"><span class="pre">.conf</span></code>, including modified task names, without evaluating metadata.</p>
+</section>
+<section id="layer-checks">
+<h2>Layer checks<a class="headerlink" href="#layer-checks" title="Link to this heading">¶</a></h2>
+<p>Run the <a class="reference internal" href="AGENTS.html#run-routine-checks-via-ci-helper-scripts"><span class="std std-ref">routine patch review</span></a>.
+Before opening or updating every pull request, run the
+<a class="reference internal" href="AGENTS.html#pull-request-contribution-workflow"><span class="std std-ref">two CI helpers in order</span></a>:
+patch review, then layer checking. This also applies to documentation proposals.
+Both return success on completion; the layer checker uses a temporary build and
+clones the committed checkout, so commit changes before validating the candidate.
+Full image and hardware validation remain necessary for BSP changes; the
+<a class="reference internal" href="../user/USAGE.html"><span class="std std-doc">image tutorial</span></a> explains the output to inspect.</p>
+</section>
+<section id="repository-map">
+<h2>Repository map<a class="headerlink" href="#repository-map" title="Link to this heading">¶</a></h2>
+<p>The map is maintained by DevDocs in the private
+<a class="reference external" href="https://github.com/devdocsorg/qualcomm-repository-map">shared repository</a>.
+Request access from its maintainers, follow <code class="docutils literal notranslate"><span class="pre">data/README.md</span></code> there, and run its
+coverage and source checks before exporting the canonical
+<code class="docutils literal notranslate"><span class="pre">qualcomm-linux/meta-qcom-3rdparty</span></code> view at a committed revision to the root README.
+Map export is independent of Sphinx. The README export comment records the exact
+revision and digest needed to reproduce it.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../README.html">meta-qcom-3rdparty</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../user/README.html">User guides</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="README.html">Contributor guides</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="README.html#files">Files</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="README.html#function-reference">Function reference</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href=".generated/.github-native_reference.py.html">Documentation extension</a></li>
+<li class="toctree-l3"><a class="reference internal" href=".generated/ci-yocto-buildstats.sh.html">yocto-buildstats.sh</a></li>
+<li class="toctree-l3"><a class="reference internal" href=".generated/ci-yocto-check-layer.sh.html">yocto-check-layer.sh</a></li>
+<li class="toctree-l3"><a class="reference internal" href=".generated/ci-yocto-patchreview.sh.html">yocto-patchreview.sh</a></li>
+<li class="toctree-l3"><a class="reference internal" href=".generated/recipes-bsp-firmware-boot-firmware-qcom-boot-rubikpi3_20260621.bb.html">RUBIK Pi boot firmware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CONTRIBUTING.html">Contributing to meta-qcom-3rdparty</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Development environment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#checkout-and-prerequisites">Checkout and prerequisites</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#documentation">Documentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#layer-checks">Layer checks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#repository-map">Repository map</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="AGENTS.html">Agent Guide for meta-qcom-3rdparty</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NOTICES.html">Reused documentation material</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../README.html">Documentation overview</a><ul>
+  <li><a href="README.html">Contributor guides</a><ul>
+      <li>Previous: <a href="CONTRIBUTING.html" title="previous chapter">Contributing to meta-qcom-3rdparty</a></li>
+      <li>Next: <a href="AGENTS.html" title="next chapter">Agent Guide for meta-qcom-3rdparty</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/contributing/DEVELOPMENT.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

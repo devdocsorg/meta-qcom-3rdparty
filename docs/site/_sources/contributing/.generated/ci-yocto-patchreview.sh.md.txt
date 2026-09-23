@@ -1,0 +1,31 @@
+# yocto-patchreview.sh
+
+[Source](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/offline-guides-and-layer-map/ci/yocto-patchreview.sh)
+
+## Index
+
+* [_is_dir](#_is_dir)
+
+### _is_dir
+
+Require an existing directory before running the CI helper.
+
+#### Example
+
+```bash
+_is_dir /work
+```
+
+#### Arguments
+
+* **$1** (string): Directory path to validate, such as /work.
+
+#### Exit codes
+
+* **0**: The directory exists.
+* **1**: The path is not a directory; exits the calling script.
+
+#### Output on stdout
+
+* Prints the rejected path when validation fails.
+
