@@ -77,3 +77,26 @@ the [Code of Conduct](CODE_OF_CONDUCT.md).
 This layer is licensed under the MIT license. Check out [LICENSE](LICENSE)
 for more details. [NOTICE](NOTICE) retains the licences of the adapted
 documentation tooling and templates.
+
+## Folders
+
+- [ci/](ci/README.md) — Contains the kas build fragments and the CI helper scripts.
+- [conf/](conf/README.md) — Contains the layer configuration and the machine definitions.
+- [docs/](docs/README.md) — Contains the documentation source, the generated site, and its build entry point.
+- [dynamic-layers/](dynamic-layers/README.md) — Contains metadata that applies only when an optional layer is present.
+- [recipes-bsp/](recipes-bsp/README.md) — Contains the board firmware and packagegroup recipes.
+- [recipes-kernel/](recipes-kernel/README.md) — Contains the kernel recipe append and its configuration fragment.
+- [.github/](.github/) — Holds [CODEOWNERS](.github/CODEOWNERS), [issue templates](.github/ISSUE_TEMPLATE/), the [pull request template](.github/PULL_REQUEST_TEMPLATE/pr_template.md), [CI workflows](.github/workflows/), the [Markdown lint settings](.github/.markdownlint.yaml), and the documentation helpers [finalise_site.py](.github/finalise_site.py), [check_offline.py](.github/check_offline.py), and [test_reference_coverage.py](.github/test_reference_coverage.py).
+
+## Files
+
+- [README.md](README.md) — Introduces the layer, its branches, and its contents.
+- [AGENTS.md](AGENTS.md) — Points automation agents to the agent guide.
+- [BRANCHES.md](BRANCHES.md) — Describes how each long-lived branch is maintained.
+- [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) — States participation standards and how to report conduct concerns.
+- [CONTRIBUTING.md](CONTRIBUTING.md) — Points to the contribution guide and development setup.
+- [LICENSE](LICENSE) — Contains the layer's MIT licence.
+- [NOTICE](NOTICE) — Retains the licences of the adapted documentation tooling and templates.
+- [SECURITY.md](SECURITY.md) — Explains how to report vulnerabilities privately.
+- [.env.example](.env.example) — Documents the environment variables the build helpers read.
+- [.gitignore](.gitignore) — Keeps local environment files, the documentation environment, and build caches out of version control.
