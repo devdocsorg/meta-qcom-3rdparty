@@ -1,0 +1,9 @@
+# Exact documentation-package versions; independent of implementation language.
+Sphinx==9.1.0
+myst-parser==5.1.0
+# Browser validation used by the shared check target.
+playwright==1.62.0
+# Function discovery and rendered-entry matching for the reference coverage check.
+bashlex==0.18
+docutils==0.22.4
+PyYAML==6.0.3

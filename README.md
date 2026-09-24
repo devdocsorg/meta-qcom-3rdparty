@@ -41,16 +41,21 @@ revision: HEAD
 
 See `conf/machine` for the complete list of supported devices.
 
+## Documentation
+
+Open [docs/site/index.html](docs/site/index.html) directly in a browser for the
+generated documentation. The [documentation guide](docs/README.md) explains
+where its source lives and how to rebuild it.
+
+- [Build tutorial](docs/source/user/USAGE.md) — Build a first image for a board in this layer.
+- [Configuration reference](docs/source/user/CONFIGURATION.md) — Understand the layer, machine, kas, recipe, and CI settings.
+- [Development setup](docs/source/contributing/DEVELOPMENT.md) — Prepare a checkout, run the checks, and rebuild the documentation.
+- [Function reference](docs/site/contributing/README.html) — Browse the generated reference for the shell functions and BitBake tasks.
+
 ## Contributing
 
-Please submit any patches against the `meta-qcom-3rdparty` layer by using
-the GitHub pull-request feature. Fork the repo, create a branch,
-do the work, rebase from upstream, and create the pull request.
-
-For some useful guidelines when submitting patches, please refer to:
-[Preparing Changes for Submission](https://docs.yoctoproject.org/dev/contributor-guide/submit-changes.html#preparing-changes-for-submission)
-
-Pull requests will be discussed within the GitHub pull-request infrastructure.
+Read [CONTRIBUTING.md](CONTRIBUTING.md) before submitting a change, and follow
+the [Code of Conduct](CODE_OF_CONDUCT.md).
 
 ## Communication
 
@@ -65,4 +70,5 @@ Pull requests will be discussed within the GitHub pull-request infrastructure.
 ## License
 
 This layer is licensed under the MIT license. Check out [LICENSE](LICENSE)
-for more details.
+for more details. [NOTICE](NOTICE) retains the licences of the adapted
+documentation tooling.
