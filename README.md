@@ -13,7 +13,7 @@ platforms.
 
 This layer provides additional recipes and machine configuration files for
 Third-Party Maintained Qualcomm platforms. Reference boards that are officially
-supported by Qualcomm are available via `meta-qcom` instead.
+supported by Qualcomm are available via [meta-qcom](https://github.com/qualcomm-linux/meta-qcom) instead.
 
 This layer depends on:
 
@@ -30,16 +30,21 @@ revision: HEAD
 
 ## Branches
 
-- **main:** Primary development branch, with focus on upstream support and
-  compatibility with the most recent Yocto Project release.
-- **wrynose:** LTS branch based on the Yocto Project 6.0 release, used by
-  Qualcomm Linux 2.x.
-- **scarthgap:** Qualcomm Linux >= 1.4, aligned with Yocto Project 5.0 (LTS).
-- **kirkstone:** Qualcomm Linux <= 1.3, aligned with Yocto Project 4.0 (LTS).
+| Branch | Purpose | Status | Build from it | Contributions |
+| --- | --- | --- | --- | --- |
+| `main` | Primary development branch, with focus on upstream support and compatibility with the most recent Yocto Project release. | Active | Yes | [Submit here](docs/source/contributing/CONTRIBUTING.md#27--branches-and-pull-requests) |
+| `wrynose` | LTS branch based on the Yocto Project 6.0 release, used by Qualcomm Linux 2.x. | Maintained LTS | Yes, for Qualcomm Linux 2.x | [Backported from `main`](docs/source/contributing/CONTRIBUTING.md#27--branches-and-pull-requests) |
+| `scarthgap` | Qualcomm Linux >= 1.4, aligned with Yocto Project 5.0 (LTS). | LTS, last changed September 2025 | No: layer and CI configuration only, no machines | [Qualcomm Linux 1.x board support](docs/source/contributing/CONTRIBUTING.md#27--branches-and-pull-requests) |
+| `kirkstone` | Qualcomm Linux <= 1.3, aligned with Yocto Project 4.0 (LTS). | LTS, last changed April 2025 | No: layer and CI configuration only, no machines | [No documented target](docs/source/contributing/CONTRIBUTING.md#27--branches-and-pull-requests) |
+| `next` | Staging branch that CI builds on push. | Inactive since August 2026; behind `main` | No: it still carries boards that moved to [meta-qcom-arduino](https://github.com/qualcomm-linux/meta-qcom-arduino) | [Not a target](docs/source/contributing/CONTRIBUTING.md#27--branches-and-pull-requests) |
+| `backport/<PR>-to-<branch>` | Temporary branches opened by the backport workflow. | Temporary | No | [Reviewed in the backport pull request](docs/source/contributing/CONTRIBUTING.md#27--branches-and-pull-requests) |
+
+This table lists every current branch.
+[BRANCHES.md](BRANCHES.md) describes how the long-lived branches are maintained.
 
 ## Machine Support
 
-See `conf/machine` for the complete list of supported devices.
+See [conf/machine](conf/machine/README.md) for the complete list of supported devices.
 
 ## Documentation
 
@@ -71,4 +76,4 @@ the [Code of Conduct](CODE_OF_CONDUCT.md).
 
 This layer is licensed under the MIT license. Check out [LICENSE](LICENSE)
 for more details. [NOTICE](NOTICE) retains the licences of the adapted
-documentation tooling.
+documentation tooling and templates.
