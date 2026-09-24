@@ -100,3 +100,41 @@ documentation tooling and templates.
 - [SECURITY.md](SECURITY.md) — Explains how to report vulnerabilities privately.
 - [.env.example](.env.example) — Documents the environment variables the build helpers read.
 - [.gitignore](.gitignore) — Keeps local environment files, the documentation environment, and build caches out of version control.
+
+<!-- repository-map:start -->
+
+## Repository map
+
+```mermaid
+flowchart LR
+    r0["meta-qcom-3rdparty (you are here)"]
+    click r0 href "https://github.com/qualcomm-linux/meta-qcom-3rdparty" _blank
+    r1["kernel"]
+    click r1 href "https://github.com/qualcomm-linux/kernel" _blank
+    r2["meta-ai"]
+    click r2 href "https://github.com/qualcomm-linux/meta-ai" _blank
+    r3["meta-qcom"]
+    click r3 href "https://github.com/qualcomm-linux/meta-qcom" _blank
+    r4["meta-qcom-distro"]
+    click r4 href "https://github.com/qualcomm-linux/meta-qcom-distro" _blank
+    r5["meta-qcom-hwe"]
+    click r5 href "https://github.com/qualcomm-linux/meta-qcom-hwe" _blank
+    r6["qcom-ptool"]
+    click r6 href "https://github.com/qualcomm-linux/qcom-ptool" _blank
+    r7["fastrpc"]
+    click r7 href "https://github.com/qualcomm/fastrpc" _blank
+    r0 -->|"adds third-party board support to"| r3
+    r0 -->|"builds on (scarthgap, kirkstone)"| r5
+    r0 -->|"can use Qualcomm Linux settings from"| r4
+    r3 -->|"gets partition tools from"| r6
+    r3 -->|"fetches Linux kernel sources from"| r1
+    r3 -->|"includes for Qualcomm Linux images"| r2
+    r3 -->|"fetches sources from"| r7
+    style r0 fill:#e6f3ff,stroke:#0969da,stroke-width:3px,color:#182c43
+```
+
+[Full Qualcomm repository map](https://github.com/devdocsorg/qualcomm-repository-map).
+
+<!-- Generated from https://github.com/devdocsorg/qualcomm-repository-map at 6607f3ed96df695c7b6c393a4c7fde21e0a89e80; dataset SHA-256: e31bc2e3c37c6daebc112fc3f6c5c0b013d6f10727403fa360cb7b15678ee329. -->
+
+<!-- repository-map:end -->
