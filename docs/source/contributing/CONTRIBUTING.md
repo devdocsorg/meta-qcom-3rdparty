@@ -79,6 +79,39 @@ Preferred test distros:
 - Each contributor acts as the **maintainer** of their changes, upstream and downstream.
 - Vendors must appoint a **point-of-contact (PoC)** to review and triage vendor-specific PRs and issues promptly, which will be incorporated as part of the repository CODEOWNERS file.
 
+### 2.7  Submitting Changes
+
+Please submit any patches against the `meta-qcom-3rdparty` layer by using
+the GitHub pull-request feature. Fork the repo, create a branch,
+do the work, rebase from upstream, and create the pull request.
+
+[Open a pull request with the template](https://github.com/qualcomm-linux/meta-qcom-3rdparty/compare?expand=1&template=pr_template.md)
+against the branch that matches the change:
+
+- **main:** all new work, as described in [Upstream Baseline](#3--upstream-baseline).
+- **wrynose:** land the change on `main` first and label its pull request
+  `backport wrynose`; the
+  [backport workflow](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/layer-documentation/.github/workflows/backport.yml)
+  opens the backport pull request once it merges. The branch's
+  [BACKPORTING.md](https://github.com/qualcomm-linux/meta-qcom-3rdparty/blob/wrynose/BACKPORTING.md)
+  covers conflicts and wrynose-only changes.
+- **scarthgap:** Qualcomm Linux 1.x support, as described in
+  [Downstream Baseline](#4--downstream-baseline--qualcomm-linux-1x).
+- **kirkstone:** no contribution policy is documented;
+  [SECURITY.md](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/layer-documentation/SECURITY.md)
+  accepts patches only for current LTS releases and `main`, and Yocto Project
+  4.0 is end of life.
+- **next:** no contribution policy is documented.
+
+Before opening or updating a pull request, run the checks in
+[development setup](DEVELOPMENT.md). Pull requests will be discussed within the
+GitHub pull-request infrastructure.
+[CODEOWNERS](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/layer-documentation/.github/CODEOWNERS)
+identifies the reviewers. Follow the
+[Code of Conduct](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/layer-documentation/CODE_OF_CONDUCT.md)
+and report vulnerabilities through
+[SECURITY.md](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/layer-documentation/SECURITY.md).
+
 ---
 
 ## 3  Upstream Baseline
