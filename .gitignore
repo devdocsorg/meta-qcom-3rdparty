@@ -1,0 +1,5 @@
+# Local documentation environment, build caches, and generated reference pages.
+.venv/
+docs/.doctrees/
+docs/source/contributing/.generated/
+__pycache__/
