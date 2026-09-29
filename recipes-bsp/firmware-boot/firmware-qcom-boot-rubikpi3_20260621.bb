@@ -18,6 +18,12 @@ QCOM_BOOT_IMG_SUBDIR = "rubikpi3"
 
 COMPATIBLE_MACHINE = "(rubikpi3)"
 
+# @description Deploy the boot binaries and CDT for the qcomflash image class.
+# @noargs
+# @exitcode 0 The files are in ${DEPLOYDIR}/${QCOM_BOOT_IMG_SUBDIR}.
+# @exitcode 1 An install step failed, so BitBake fails the task.
+# @example
+#   bitbake firmware-qcom-boot-rubikpi3 -c deploy
 do_deploy() {
     install -d ${DEPLOYDIR}/${QCOM_BOOT_IMG_SUBDIR}
 
