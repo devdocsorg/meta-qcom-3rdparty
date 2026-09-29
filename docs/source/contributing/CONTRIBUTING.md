@@ -79,6 +79,31 @@ Preferred test distros:
 - Each contributor acts as the **maintainer** of their changes, upstream and downstream.
 - Vendors must appoint a **point-of-contact (PoC)** to review and triage vendor-specific PRs and issues promptly, which will be incorporated as part of the repository CODEOWNERS file.
 
+### 2.7  Submitting Patches
+
+Please submit any patches against the `meta-qcom-3rdparty` layer by using
+the GitHub pull-request feature. Fork the repo, create a branch,
+do the work, rebase from upstream, and create the pull request.
+
+For some useful guidelines when submitting patches, please refer to:
+[Preparing Changes for Submission](https://docs.yoctoproject.org/dev/contributor-guide/submit-changes.html#preparing-changes-for-submission)
+
+Pull requests will be discussed within the GitHub pull-request infrastructure.
+
+Prepare and check the change with the
+[development environment walkthrough](DEVELOPMENT.md), then
+[open the pull request with the template](https://github.com/qualcomm-linux/meta-qcom-3rdparty/compare?expand=1&template=pr_template.md).
+
+### 2.8  Branch Destinations
+
+| Branch | Where contributions go |
+| --- | --- |
+| `main` | Pull requests against `main`, as described in [Upstream Baseline](#3--upstream-baseline). |
+| `wrynose` | Land the change on `main` first and label its pull request `backport wrynose`; the [backport workflow](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/layer-documentation/.github/workflows/backport.yml) opens the `wrynose` pull request after the merge. [BACKPORTING.md on `wrynose`](https://github.com/qualcomm-linux/meta-qcom-3rdparty/blob/wrynose/BACKPORTING.md) covers conflicts and `wrynose`-only changes. |
+| `scarthgap` | Qualcomm Linux 1.x (≥ 1.4) changes, as described in [Downstream Baseline](#4--downstream-baseline--qualcomm-linux-1x). |
+| `kirkstone` | None: [SECURITY.md](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/layer-documentation/SECURITY.md#branches-maintained-with-security-fixes) accepts patches only for the LTS releases and `main`, and Yocto Project 4.0 is [end of life](https://wiki.yoctoproject.org/wiki/Releases). |
+| `next` | [SECURITY.md](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/layer-documentation/SECURITY.md#branches-maintained-with-security-fixes) accepts patches only for the LTS releases and `main`. |
+
 ---
 
 ## 3  Upstream Baseline

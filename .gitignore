@@ -1,0 +1,7 @@
+# Local documentation environment, build caches, and generated output: the site
+# is built locally with make -f docs/source/Makefile setup html.
+.venv/
+docs/.doctrees/
+docs/site/
+docs/source/contributing/.generated/
+__pycache__/
