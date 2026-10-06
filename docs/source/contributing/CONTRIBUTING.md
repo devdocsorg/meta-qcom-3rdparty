@@ -13,7 +13,7 @@ The `meta-qcom-3rdparty` layer provides a **common OpenEmbedded / Yocto BSP** fo
 
 - **Common layer for non-Qualcomm EVKs:** consolidate enablement for boards not officially maintained by Qualcomm.
 - **Clean BSP implementation:** a shared source of truth that vendors can reuse without divergence.
-- **Extend the Qualcomm Linux ecosystem:** encourage community participation and long-term maintainability aligned with `meta-qcom`.
+- **Extend the Qualcomm Linux ecosystem:** encourage community participation and long-term maintainability aligned with [`meta-qcom`](https://github.com/qualcomm-linux/meta-qcom).
 
 References:
 
@@ -29,12 +29,20 @@ Our process mirrors the official Yocto Project contribution flow — see
 
 ### 2.1  Pull-Request Workflow
 
+Please submit any patches against the `meta-qcom-3rdparty` layer by using
+the GitHub pull-request feature. Fork the repo, create a branch,
+do the work, rebase from upstream, and create the pull request.
+[Open the pull request with the template](https://github.com/qualcomm-linux/meta-qcom-3rdparty/compare?expand=1&template=pr_template.md).
+Follow the [Code of Conduct](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/upgrade-test-1006c/CODE_OF_CONDUCT.md),
+and report vulnerabilities privately as [SECURITY.md](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/upgrade-test-1006c/SECURITY.md) describes.
+
 - **Fork and propose changes** via GitHub Pull Requests.
   Use **draft mode** for work-in-progress patches.
 - **Create clean commits:** one logical change per commit, with the subject
   and message described in section 2.2.
 - **Sign off every commit** and add the trailers described in section 2.3.
 - **Validate locally** before submission: build with `bitbake`, flash, and verify runtime.
+  [Development setup](DEVELOPMENT.md) lists the checks to run before opening a pull request.
 - **Address review feedback** and re-push to update your PR.
   Use `git rebase -i` to squash or reorder commits as needed.
 
@@ -116,7 +124,7 @@ All vendor boards live together in a single layer:
 
 ### 2.6  No Recipe Forks
 
-- Forks of recipes from `meta-qcom`, `meta-qcom-hwe`, or base OE / Yocto layers are **not accepted**.
+- Forks of recipes from `meta-qcom`, [`meta-qcom-hwe`](https://github.com/qualcomm-linux/meta-qcom-hwe), or base OE / Yocto layers are **not accepted**.
 - Use `.bbappend` files for vendor-specific patching.
 - Keep upstream recipes authoritative.
 
@@ -137,6 +145,21 @@ Preferred test distros:
 - Each contributor acts as the **maintainer** of their changes, upstream and downstream.
 - Vendors must appoint a **point-of-contact (PoC)** to review and triage vendor-specific PRs and issues promptly, which will be incorporated as part of the repository CODEOWNERS file.
 
+### 2.9  Target Branches
+
+- `main`: upstream-aligned changes, as section 3 describes.
+- `wrynose`: changes land on `main` first. Label the merged pull request
+  `backport wrynose` and the
+  [backport workflow](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/upgrade-test-1006c/.github/workflows/backport.yml)
+  opens the backport pull request; for conflicts or changes that apply only to
+  `wrynose`, follow [Backporting to a release branch](AGENTS.md#8-backporting-to-a-release-branch).
+- `scarthgap`: Qualcomm Linux 1.x changes, as section 4 describes.
+- `kirkstone` and `next`: the repository does not document where their
+  contributions go.
+
+[BRANCHES.md](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/upgrade-test-1006c/BRANCHES.md)
+describes how each branch is maintained.
+
 ---
 
 ## 3  Upstream Baseline
@@ -156,7 +179,7 @@ Preferred test distros:
 - **Partition definitions:**
   Use [`qcom-ptool`](https://github.com/qualcomm-linux/qcom-ptool) to manage partition layouts.
 - **Kernel enablement:**
-  - Align with `linux-yocto-dev` and `linux-qcom-next`.
+  - Align with [`linux-yocto-dev`](https://git.yoctoproject.org/linux-yocto-dev/) and `linux-qcom-next`.
   - Patches should be **submitted upstream to the Linux kernel** first.
   - Temporary backports or in-flight patches are acceptable if tracked.
   References:
@@ -165,7 +188,7 @@ Preferred test distros:
 - **Firmware:**
   Custom firmware must be contributed to [`linux-firmware`](https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/) whenever possible.
 - **External layer recipes:**
-  Changes targeting `oe-core` or `meta-openembedded` should be sent directly upstream.
+  Changes targeting [`oe-core`](https://github.com/openembedded/openembedded-core) or [`meta-openembedded`](https://github.com/openembedded/meta-openembedded) should be sent directly upstream.
 
 ---
 
@@ -319,7 +342,7 @@ does not provide, such as a vendor-signed firmware set or the board-specific CDT
 File: `recipes-bsp/firmware-boot/firmware-qcom-boot-rubikpi3_20260915.bb`
 
 Closed-source boot binaries must be hosted on a **public, no-login mirror**
-managed by the vendor (the `rubikpi-ai/boot-assets` git repository in this
+managed by the vendor (the [`rubikpi-ai/boot-assets`](https://github.com/rubikpi-ai/boot-assets) git repository in this
 case) and fetched via `SRC_URI`. Never commit binaries to the repository:
 
 ```bitbake
