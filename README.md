@@ -56,7 +56,7 @@ describes how the long-lived branches relate to `main`.
 
 ## Machine Support
 
-See `conf/machine` for the complete list of supported devices.
+See [`conf/machine`](conf/machine/README.md) for the complete list of supported devices.
 
 ## Documentation
 
@@ -93,3 +93,27 @@ Report vulnerabilities privately through [SECURITY.md](SECURITY.md).
 This layer is licensed under the MIT license. Check out [LICENSE](LICENSE)
 for more details. [NOTICE](NOTICE) keeps the licence notices for the
 documentation tools and templates adapted from other projects.
+
+## Folders
+
+- [.github/](.github/) — Holds [CODEOWNERS](.github/CODEOWNERS), the [issue templates](.github/ISSUE_TEMPLATE/), the [pull request template](.github/PULL_REQUEST_TEMPLATE/pr_template.md), the CI workflows, and the documentation helper scripts.
+- [ci/](ci/README.md) — Holds the kas build fragments and the scripts CI runs for layer checks.
+- [conf/](conf/README.md) — Holds the layer configuration and the machine definitions.
+- [docs/](docs/README.md) — Contains the documentation source and explains how to build the site.
+- [dynamic-layers/](dynamic-layers/README.md) — Holds appends that apply only when another layer is present.
+- [recipes-bsp/](recipes-bsp/README.md) — Holds board firmware and package group recipes.
+- [recipes-kernel/](recipes-kernel/README.md) — Holds the kernel append and its configuration fragments.
+
+## Files
+
+- [README.md](README.md) — Introduces the layer, its branches, and its contents.
+- [AGENTS.md](AGENTS.md) — Points automation agents to the agent guide.
+- [CLAUDE.md](CLAUDE.md) — Links to `AGENTS.md` for tools that read this name.
+- [BRANCHES.md](BRANCHES.md) — Describes how each long-lived branch is maintained and relates to `main`.
+- [CONTRIBUTING.md](CONTRIBUTING.md) — Points to the contribution guide.
+- [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) — States participation standards and how to report conduct concerns.
+- [SECURITY.md](SECURITY.md) — Explains how to report vulnerabilities and which branches receive security fixes.
+- [LICENSE](LICENSE) — Contains the layer's MIT licence.
+- [NOTICE](NOTICE) — Keeps the licence notices for adapted documentation tools and templates.
+- [.env.example](.env.example) — Documents the environment settings for kas builds and how to load them.
+- [.gitignore](.gitignore) — Keeps local environment files, the documentation tools, and the generated site out of version control.
