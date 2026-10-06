@@ -13,7 +13,7 @@ platforms.
 
 This layer provides additional recipes and machine configuration files for
 Third-Party Maintained Qualcomm platforms. Reference boards that are officially
-supported by Qualcomm are available via `meta-qcom` instead.
+supported by Qualcomm are available via [`meta-qcom`](https://github.com/qualcomm-linux/meta-qcom) instead.
 
 This layer depends on:
 
@@ -27,6 +27,18 @@ URI: https://github.com/qualcomm-linux/meta-qcom.git
 branch: master
 revision: HEAD
 ```
+
+## Build an image
+
+Build a RUBIK Pi 3 image with [kas-container](https://github.com/siemens/kas)
+from the directory that contains your clone, which also receives the build:
+
+```sh
+kas-container build meta-qcom-3rdparty/ci/rubikpi3.yml
+```
+
+The [build tutorial](docs/source/user/USAGE.md) lists the prerequisites, the
+files the build produces, and how long the build takes.
 
 ## Branches
 
@@ -43,13 +55,26 @@ See `conf/machine` for the complete list of supported devices.
 
 ## Contributing
 
-Please submit any patches against the `meta-qcom-3rdparty` layer by using
-the GitHub pull-request feature. Fork the repo, create a branch,
-do the work, rebase from upstream, and create the pull request.
-
-Please read [docs/contributing.md](docs/contributing.md) for the contribution
+Please read [docs/source/contributing/CONTRIBUTING.md](docs/source/contributing/CONTRIBUTING.md) for the contribution
 workflow, the layer scope rules and the commit subject and message
 requirements before opening a pull request.
+
+## Documentation
+
+Build the documentation site from the repository root, then open
+`docs/site/index.html` directly in a browser:
+
+```sh
+make -f docs/source/Makefile setup html
+```
+
+The [documentation guide](docs/README.md) lists the build prerequisites and where
+the source lives.
+
+- [Build tutorial](docs/source/user/USAGE.md) — Build an image for a supported board.
+- [Configuration reference](docs/source/user/CONFIGURATION.md) — Settings in the layer, machine, kas, and kernel files.
+- [Development setup](docs/source/contributing/DEVELOPMENT.md) — Prepare a checkout, run the layer checks, and build the documentation.
+- [Agent guide](docs/source/contributing/AGENTS.md) — Run builds and checks the same way CI does.
 
 ## Communication
 
@@ -64,4 +89,5 @@ requirements before opening a pull request.
 ## License
 
 This layer is licensed under the MIT license. Check out [LICENSE](LICENSE)
-for more details.
+for more details. [NOTICE](NOTICE) holds the licences of the documentation
+tooling adapted from other projects.

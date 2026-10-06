@@ -13,7 +13,7 @@ The `meta-qcom-3rdparty` layer provides a **common OpenEmbedded / Yocto BSP** fo
 
 - **Common layer for non-Qualcomm EVKs:** consolidate enablement for boards not officially maintained by Qualcomm.
 - **Clean BSP implementation:** a shared source of truth that vendors can reuse without divergence.
-- **Extend the Qualcomm Linux ecosystem:** encourage community participation and long-term maintainability aligned with `meta-qcom`.
+- **Extend the Qualcomm Linux ecosystem:** encourage community participation and long-term maintainability aligned with [`meta-qcom`](https://github.com/qualcomm-linux/meta-qcom).
 
 References:
 
@@ -28,6 +28,10 @@ Our process mirrors the official Yocto Project contribution flow — see
 [Preparing Changes for Submission](https://docs.yoctoproject.org/dev/contributor-guide/submit-changes.html#preparing-changes-for-submission).
 
 ### 2.1  Pull-Request Workflow
+
+Please submit any patches against the `meta-qcom-3rdparty` layer by using
+the GitHub pull-request feature. Fork the repo, create a branch,
+do the work, rebase from upstream, and create the pull request.
 
 - **Fork and propose changes** via GitHub Pull Requests.
   Use **draft mode** for work-in-progress patches.
@@ -47,7 +51,7 @@ must be logically coherent, self-contained, and independently buildable, and
 the tree must remain in a functional state after every commit.
 
 Each commit must contain a well-formed commit subject and message, following
-the [Yocto commit style](https://docs.yoctoproject.org/dev/contributor-guide/submit-changes.html#writing-good-commit-messages).
+the [Yocto commit style](https://docs.yoctoproject.org/dev/contributor-guide/submit-changes.html#implement-and-commit-changes).
 
 The commit subject must follow the form `recipe-name: summary of the changes`,
 where `recipe-name` identifies the recipe or component being touched and the
@@ -105,7 +109,7 @@ Because this layer expects to host multiple vendor platforms:
 - Avoid cross-contamination between machines or with upstream `meta-qcom`.
 - Do not introduce SoC-generic behavior under a machine-specific path. Such SoC-generic behavior must be sent/upstreamed to `meta-qcom` instead.
 
-Reference: [BitBake Overrides](https://docs.yoctoproject.org/ref-manual/variables.html#var-OVERRIDES)
+Reference: [BitBake Overrides](https://docs.yoctoproject.org/ref-manual/variables.html#term-OVERRIDES)
 
 ### 2.5  Repository Organization
 
@@ -116,7 +120,7 @@ All vendor boards live together in a single layer:
 
 ### 2.6  No Recipe Forks
 
-- Forks of recipes from `meta-qcom`, `meta-qcom-hwe`, or base OE / Yocto layers are **not accepted**.
+- Forks of recipes from `meta-qcom`, [`meta-qcom-hwe`](https://github.com/qualcomm-linux/meta-qcom-hwe), or base OE / Yocto layers are **not accepted**.
 - Use `.bbappend` files for vendor-specific patching.
 - Keep upstream recipes authoritative.
 
@@ -137,6 +141,26 @@ Preferred test distros:
 - Each contributor acts as the **maintainer** of their changes, upstream and downstream.
 - Vendors must appoint a **point-of-contact (PoC)** to review and triage vendor-specific PRs and issues promptly, which will be incorporated as part of the repository CODEOWNERS file.
 
+### 2.10  Documentation
+
+- Update the README index of every folder a change adds files to or removes them
+  from: each `README.md` links every immediate file and subfolder with a
+  one-sentence purpose. Folders whose files the build finds by name, such as
+  kernel configuration fragments, take no README.
+- Document every new shell function or task with a shdoc comment block directly
+  above it, and update the [configuration reference](../user/CONFIGURATION.md)
+  when a setting changes. Run the documentation check from the
+  [development setup](DEVELOPMENT.md) before submitting.
+- Check the wording against the requirement it serves and the repository's
+  actual state, walk through changed instructions, and check local links.
+- Preserve guide content and notices when moving pages, keeping one home for
+  each procedure.
+- Confirm that owner teams in `CODEOWNERS` and private reporting routes stay
+  correct when a change touches them.
+- When a change adds or removes a connection to another Qualcomm repository,
+  update the [repository map](https://github.com/devdocsorg/qualcomm-repository-map)
+  and regenerate the map at the end of the README from it.
+
 ---
 
 ## 3  Upstream Baseline
@@ -156,7 +180,7 @@ Preferred test distros:
 - **Partition definitions:**
   Use [`qcom-ptool`](https://github.com/qualcomm-linux/qcom-ptool) to manage partition layouts.
 - **Kernel enablement:**
-  - Align with `linux-yocto-dev` and `linux-qcom-next`.
+  - Align with [`linux-yocto-dev`](https://git.yoctoproject.org/linux-yocto-dev/) and `linux-qcom-next`.
   - Patches should be **submitted upstream to the Linux kernel** first.
   - Temporary backports or in-flight patches are acceptable if tracked.
   References:
@@ -165,7 +189,7 @@ Preferred test distros:
 - **Firmware:**
   Custom firmware must be contributed to [`linux-firmware`](https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/) whenever possible.
 - **External layer recipes:**
-  Changes targeting `oe-core` or `meta-openembedded` should be sent directly upstream.
+  Changes targeting [`oe-core`](https://github.com/openembedded/openembedded-core) or [`meta-openembedded`](https://github.com/openembedded/meta-openembedded) should be sent directly upstream.
 
 ---
 
@@ -319,7 +343,7 @@ does not provide, such as a vendor-signed firmware set or the board-specific CDT
 File: `recipes-bsp/firmware-boot/firmware-qcom-boot-rubikpi3_20260915.bb`
 
 Closed-source boot binaries must be hosted on a **public, no-login mirror**
-managed by the vendor (the `rubikpi-ai/boot-assets` git repository in this
+managed by the vendor (the [`rubikpi-ai/boot-assets`](https://github.com/rubikpi-ai/boot-assets) git repository in this
 case) and fetched via `SRC_URI`. Never commit binaries to the repository:
 
 ```bitbake
