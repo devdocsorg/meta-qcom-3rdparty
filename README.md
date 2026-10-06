@@ -55,7 +55,7 @@ long-lived branches are maintained.
 
 ## Machine Support
 
-See `conf/machine` for the complete list of supported devices.
+See [conf/machine](conf/machine/README.md) for the complete list of supported devices.
 
 ## Contributing
 
@@ -95,3 +95,27 @@ the source lives.
 This layer is licensed under the MIT license. Check out [LICENSE](LICENSE)
 for more details. [NOTICE](NOTICE) holds the licences of the documentation
 tooling and templates adapted from other projects.
+
+## Folders
+
+- [.github/](.github/) — Holds [CODEOWNERS](.github/CODEOWNERS), the [issue templates](.github/ISSUE_TEMPLATE/), the [pull request template](.github/PULL_REQUEST_TEMPLATE/pr_template.md), the CI workflows, and the documentation build helpers.
+- [ci/](ci/README.md) — Holds the kas build configurations and the layer check scripts that CI runs.
+- [conf/](conf/README.md) — Holds the layer configuration and the machine definitions.
+- [docs/](docs/README.md) — Holds the documentation source and explains how to build the site.
+- [dynamic-layers/](dynamic-layers/README.md) — Holds recipes that apply only when another layer is present.
+- [recipes-bsp/](recipes-bsp/README.md) — Holds the board firmware and package group recipes.
+- [recipes-kernel/](recipes-kernel/README.md) — Holds the kernel recipe append and its configuration fragment.
+
+## Files
+
+- [.env.example](.env.example) — Documents the environment settings the kas build commands read.
+- [.gitignore](.gitignore) — Keeps local environment files and documentation build output out of version control.
+- [AGENTS.md](AGENTS.md) — Points automation agents to the agent guide.
+- [BRANCHES.md](BRANCHES.md) — Describes how each long-lived branch is maintained.
+- [CLAUDE.md](CLAUDE.md) — Links to `AGENTS.md` for agents that read this file name.
+- [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) — States the participation standards and how to report conduct concerns.
+- [CONTRIBUTING.md](CONTRIBUTING.md) — Points to the contribution guide.
+- [LICENSE](LICENSE) — Contains the layer's MIT licence.
+- [NOTICE](NOTICE) — Contains the licences of the documentation tooling and templates adapted from other projects.
+- [README.md](README.md) — Introduces the layer, its branches, and its contents.
+- [SECURITY.md](SECURITY.md) — Explains how to report vulnerabilities.
