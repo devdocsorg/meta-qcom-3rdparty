@@ -12,6 +12,12 @@ fi
 REPO_DIR="$1"
 WORK_DIR="$2"
 
+# @description Check that a path is a directory, or stop the script.
+# @arg $1 string Path to check.
+# @exitcode 0 The path is a directory.
+# @exitcode 1 The path is not a directory; the script prints a message and exits.
+# @example
+#   _is_dir "$REPO_DIR"
 _is_dir(){
     test -d "$1" && return
     echo "The '$1' is not a directory."
