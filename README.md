@@ -90,4 +90,4 @@ the source lives.
 
 This layer is licensed under the MIT license. Check out [LICENSE](LICENSE)
 for more details. [NOTICE](NOTICE) holds the licences of the documentation
-tooling adapted from other projects.
+tooling and templates adapted from other projects.
