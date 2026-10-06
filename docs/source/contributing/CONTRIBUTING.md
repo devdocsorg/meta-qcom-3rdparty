@@ -13,7 +13,7 @@ The `meta-qcom-3rdparty` layer provides a **common OpenEmbedded / Yocto BSP** fo
 
 - **Common layer for non-Qualcomm EVKs:** consolidate enablement for boards not officially maintained by Qualcomm.
 - **Clean BSP implementation:** a shared source of truth that vendors can reuse without divergence.
-- **Extend the Qualcomm Linux ecosystem:** encourage community participation and long-term maintainability aligned with `meta-qcom`.
+- **Extend the Qualcomm Linux ecosystem:** encourage community participation and long-term maintainability aligned with [`meta-qcom`](https://github.com/qualcomm-linux/meta-qcom).
 
 References:
 
@@ -28,6 +28,12 @@ Our process mirrors the official Yocto Project contribution flow — see
 [Preparing Changes for Submission](https://docs.yoctoproject.org/dev/contributor-guide/submit-changes.html#preparing-changes-for-submission).
 
 ### 2.1  Pull-Request Workflow
+
+Please submit any patches against the `meta-qcom-3rdparty` layer by using
+the GitHub pull-request feature. Fork the repo, create a branch,
+do the work, rebase from upstream, and create the pull request.
+[Open the pull request with the template](https://github.com/qualcomm-linux/meta-qcom-3rdparty/compare?expand=1&template=pr_template.md).
+[DEVELOPMENT.md](DEVELOPMENT.md) sets up the documentation build and checks.
 
 - **Fork and propose changes** via GitHub Pull Requests.
   Use **draft mode** for work-in-progress patches.
@@ -47,7 +53,7 @@ must be logically coherent, self-contained, and independently buildable, and
 the tree must remain in a functional state after every commit.
 
 Each commit must contain a well-formed commit subject and message, following
-the [Yocto commit style](https://docs.yoctoproject.org/dev/contributor-guide/submit-changes.html#writing-good-commit-messages).
+the [Yocto commit style](https://docs.yoctoproject.org/dev/contributor-guide/submit-changes.html#implement-and-commit-changes).
 
 The commit subject must follow the form `recipe-name: summary of the changes`,
 where `recipe-name` identifies the recipe or component being touched and the
@@ -105,7 +111,7 @@ Because this layer expects to host multiple vendor platforms:
 - Avoid cross-contamination between machines or with upstream `meta-qcom`.
 - Do not introduce SoC-generic behavior under a machine-specific path. Such SoC-generic behavior must be sent/upstreamed to `meta-qcom` instead.
 
-Reference: [BitBake Overrides](https://docs.yoctoproject.org/ref-manual/variables.html#var-OVERRIDES)
+Reference: [BitBake Overrides](https://docs.yoctoproject.org/ref-manual/variables.html#term-OVERRIDES)
 
 ### 2.5  Repository Organization
 
@@ -116,7 +122,7 @@ All vendor boards live together in a single layer:
 
 ### 2.6  No Recipe Forks
 
-- Forks of recipes from `meta-qcom`, `meta-qcom-hwe`, or base OE / Yocto layers are **not accepted**.
+- Forks of recipes from `meta-qcom`, [`meta-qcom-hwe`](https://github.com/qualcomm-linux/meta-qcom-hwe), or base OE / Yocto layers are **not accepted**.
 - Use `.bbappend` files for vendor-specific patching.
 - Keep upstream recipes authoritative.
 

@@ -13,7 +13,7 @@ platforms.
 
 This layer provides additional recipes and machine configuration files for
 Third-Party Maintained Qualcomm platforms. Reference boards that are officially
-supported by Qualcomm are available via `meta-qcom` instead.
+supported by Qualcomm are available via [`meta-qcom`](https://github.com/qualcomm-linux/meta-qcom) instead.
 
 This layer depends on:
 
@@ -28,6 +28,19 @@ branch: master
 revision: HEAD
 ```
 
+## Build an image
+
+With Docker and [kas-container](https://kas.readthedocs.io/en/latest/userguide/kas-container.html)
+installed, build `core-image-base` for the Thundercomm RUBIK Pi 3 from the
+repository root:
+
+```sh
+kas-container build ci/rubikpi3.yml
+```
+
+The [build tutorial](docs/source/user/USAGE.md) lists the prerequisites, the
+expected output, and how long the first build takes.
+
 ## Branches
 
 - **main:** Primary development branch, with focus on upstream support and
@@ -41,13 +54,21 @@ revision: HEAD
 
 See `conf/machine` for the complete list of supported devices.
 
+## Documentation
+
+Build the documentation site with `make -f docs/source/Makefile setup html` from
+the repository root, after installing its
+[prerequisites](docs/source/contributing/DEVELOPMENT.md#prerequisites), then open
+`docs/site/index.html` directly in a browser. The
+[documentation guide](docs/README.md) explains where its source lives.
+
+- [Build tutorial](docs/source/user/USAGE.md): build an image for a supported board.
+- [Configuration reference](docs/source/user/CONFIGURATION.md): the layer, machine, recipe, kas, and environment settings.
+- [Development setup](docs/source/contributing/DEVELOPMENT.md): install the documentation tools, build, and check locally.
+
 ## Contributing
 
-Please submit any patches against the `meta-qcom-3rdparty` layer by using
-the GitHub pull-request feature. Fork the repo, create a branch,
-do the work, rebase from upstream, and create the pull request.
-
-Please read [docs/contributing.md](docs/contributing.md) for the contribution
+Please read [the contribution guide](docs/source/contributing/CONTRIBUTING.md) for the contribution
 workflow, the layer scope rules and the commit subject and message
 requirements before opening a pull request.
 
@@ -55,6 +76,8 @@ requirements before opening a pull request.
 
 - **GitHub Issues:** [meta-qcom-3rdparty issues](https://github.com/qualcomm-linux/meta-qcom-3rdparty/issues)
 - **Pull Requests:** [meta-qcom-3rdparty pull requests](https://github.com/qualcomm-linux/meta-qcom-3rdparty/pulls)
+
+Report vulnerabilities privately through [SECURITY.md](SECURITY.md).
 
 ## Maintainer(s)
 
@@ -64,4 +87,5 @@ requirements before opening a pull request.
 ## License
 
 This layer is licensed under the MIT license. Check out [LICENSE](LICENSE)
-for more details.
+for more details. [NOTICE](NOTICE) keeps the licence notices for the
+documentation tools and templates adapted from other projects.
