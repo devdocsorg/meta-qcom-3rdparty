@@ -18,6 +18,13 @@ QCOM_BOOT_IMG_SUBDIR = "rubikpi3"
 
 COMPATIBLE_MACHINE = "(rubikpi3)"
 
+# @description Install the RUBIK Pi 3 boot binaries (ELF, MBN, FV, and IMG files)
+#   and the CDT into the deploy subfolder that the qcomflash image reads.
+# @noargs
+# @exitcode 0 The binaries and the CDT were installed.
+# @exitcode 1 An install failed, for example because RubikPi3_CDT.bin is missing.
+# @example
+#   bitbake firmware-qcom-boot-rubikpi3 -c deploy
 do_deploy() {
     install -d ${DEPLOYDIR}/${QCOM_BOOT_IMG_SUBDIR}
 
