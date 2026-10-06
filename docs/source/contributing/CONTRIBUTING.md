@@ -32,7 +32,8 @@ Our process mirrors the official Yocto Project contribution flow — see
 Please submit any patches against the `meta-qcom-3rdparty` layer by using
 the GitHub pull-request feature. Fork the repo, create a branch,
 do the work, rebase from upstream, and create the pull request.
-[Open the pull request with the template](https://github.com/qualcomm-linux/meta-qcom-3rdparty/compare?expand=1&template=pr_template.md).
+[Open the pull request with the template](https://github.com/qualcomm-linux/meta-qcom-3rdparty/compare?expand=1&template=pr_template.md),
+choosing the base branch from [Branches and backports](#branches-and-backports).
 [DEVELOPMENT.md](DEVELOPMENT.md) sets up the documentation build and checks.
 
 - **Fork and propose changes** via GitHub Pull Requests.
@@ -198,6 +199,25 @@ Preferred test distros:
   Extend [`linux-firmware` recipes](https://github.com/qualcomm-linux/meta-qcom-hwe/tree/scarthgap/recipes-firmware/firmware) as needed.
 - Hardware-specific enablement should **live entirely within this layer**, not in external “extras” layers or manifests.
 - Vendor-specific distro features / demo content belong in a **separate distro layer** maintained by the vendor.
+
+---
+
+## Branches and backports
+
+- **main:** pull requests for new work target `main`, as section 3 describes.
+- **wrynose:** changes land on `main` first. Label the pull request
+  `backport wrynose`, and [backport.yml](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/upgrade-test-1006b/.github/workflows/backport.yml)
+  opens the backport pull request once it is merged; the
+  [agent guide](AGENTS.md#8-backporting-to-a-release-branch) describes a manual backport.
+- **scarthgap:** Qualcomm Linux 1.x changes target `scarthgap`, as section 4 describes.
+- **kirkstone:** [SECURITY.md](https://github.com/qualcomm-linux/meta-qcom-3rdparty/blob/main/SECURITY.md)
+  accepts patches only for the LTS releases and the main branch, and
+  [Yocto Project 4.0](https://wiki.yoctoproject.org/wiki/Releases), which this
+  branch follows, is end of life.
+- **next:** the repository does not document whether this branch accepts
+  contributions; ask the maintainers before opening a pull request.
+
+[BRANCHES.md](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/upgrade-test-1006b/BRANCHES.md) describes each branch.
 
 ---
 

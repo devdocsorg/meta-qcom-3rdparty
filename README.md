@@ -43,12 +43,16 @@ expected output, and how long the first build takes.
 
 ## Branches
 
-- **main:** Primary development branch, with focus on upstream support and
-  compatibility with the most recent Yocto Project release.
-- **wrynose:** LTS branch based on the Yocto Project 6.0 release, used by
-  Qualcomm Linux 2.x.
-- **scarthgap:** Qualcomm Linux >= 1.4, aligned with Yocto Project 5.0 (LTS).
-- **kirkstone:** Qualcomm Linux <= 1.3, aligned with Yocto Project 4.0 (LTS).
+| Branch | Purpose | Status | Build from it | Contributions |
+| --- | --- | --- | --- | --- |
+| `main` | Primary development branch, with focus on upstream support and compatibility with the most recent Yocto Project release. | Development; compatible with the `blacksail` release series ([Yocto Project 6.1](https://wiki.yoctoproject.org/wiki/Releases)) | Yes: `radxa-dragon-q6a` and `rubikpi3` | [Default target](docs/source/contributing/CONTRIBUTING.md#branches-and-backports) |
+| `wrynose` | LTS branch based on the Yocto Project 6.0 release, used by Qualcomm Linux 2.x. | Long-term support; [Yocto Project 6.0](https://wiki.yoctoproject.org/wiki/Releases) is supported until April 2030 | Yes: `radxa-dragon-q6a` and `rubikpi3` | [Backports from `main`](docs/source/contributing/CONTRIBUTING.md#branches-and-backports) |
+| `scarthgap` | Qualcomm Linux >= 1.4, aligned with Yocto Project 5.0 (LTS). | [Yocto Project 5.0](https://wiki.yoctoproject.org/wiki/Releases) is supported until April 2028; [last commit](https://github.com/qualcomm-linux/meta-qcom-3rdparty/commits/scarthgap) 2025-09-03 | No board support to build: the branch holds only `conf/layer.conf` and CI configuration | [Qualcomm Linux 1.x changes](docs/source/contributing/CONTRIBUTING.md#branches-and-backports) |
+| `kirkstone` | Qualcomm Linux <= 1.3, aligned with Yocto Project 4.0 (LTS). | [Yocto Project 4.0](https://wiki.yoctoproject.org/wiki/Releases) is end of life; [last commit](https://github.com/qualcomm-linux/meta-qcom-3rdparty/commits/kirkstone) 2025-04-09 | No board support to build: the branch holds only `conf/layer.conf` and CI configuration | [SECURITY.md](SECURITY.md) accepts patches only for LTS releases and `main`; [see the guide](docs/source/contributing/CONTRIBUTING.md#branches-and-backports) |
+| `next` | Not documented | Not documented; [last commit](https://github.com/qualcomm-linux/meta-qcom-3rdparty/commits/next) 2026-08-20 | Not documented; it holds the `radxa-dragon-q6a`, `uno-q`, and `ventuno-q` machines for the `wrynose` release series | [Not documented](docs/source/contributing/CONTRIBUTING.md#branches-and-backports) |
+
+This table lists every branch. [BRANCHES.md](BRANCHES.md)
+describes how the long-lived branches relate to `main`.
 
 ## Machine Support
 
