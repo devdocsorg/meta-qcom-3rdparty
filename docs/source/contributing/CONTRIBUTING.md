@@ -142,6 +142,16 @@ Preferred test distros:
 - Each contributor acts as the **maintainer** of their changes, upstream and downstream.
 - Vendors must appoint a **point-of-contact (PoC)** to review and triage vendor-specific PRs and issues promptly, which will be incorporated as part of the repository CODEOWNERS file.
 
+### 2.9  Target Branches
+
+| Branch | Contributions |
+| --- | --- |
+| `main` | New work and fixes, following section 3. |
+| `wrynose` | Backports of changes merged to `main`; the [agent guide](AGENTS.md#8-backporting-to-a-release-branch) describes the automatic and manual backports. |
+| `scarthgap` | Third-party hardware for Qualcomm Linux 1.x (>= 1.4), following section 4. |
+| `kirkstone` | Not documented. [SECURITY.md](https://github.com/qualcomm-linux/meta-qcom-3rdparty/blob/main/SECURITY.md) accepts patches only for the main branch and LTS releases, and the [Yocto Project](https://wiki.yoctoproject.org/wiki/Releases) lists 4.0 as end of life. |
+| `next` | Not documented. |
+
 ### 2.10  Documentation
 
 - Update the README index of every folder a change adds files to or removes them

@@ -42,12 +42,16 @@ files the build produces, and how long the build takes.
 
 ## Branches
 
-- **main:** Primary development branch, with focus on upstream support and
-  compatibility with the most recent Yocto Project release.
-- **wrynose:** LTS branch based on the Yocto Project 6.0 release, used by
-  Qualcomm Linux 2.x.
-- **scarthgap:** Qualcomm Linux >= 1.4, aligned with Yocto Project 5.0 (LTS).
-- **kirkstone:** Qualcomm Linux <= 1.3, aligned with Yocto Project 4.0 (LTS).
+| Branch | Purpose and status | Build from it | Contributions |
+| --- | --- | --- | --- |
+| `main` | Primary development branch, with focus on upstream support and compatibility with the most recent Yocto Project release. Active: CI builds every push. | Yes: `rubikpi3` and `radxa-dragon-q6a`. | [New work](docs/source/contributing/CONTRIBUTING.md#29--target-branches) |
+| `wrynose` | LTS branch based on the Yocto Project 6.0 release, used by Qualcomm Linux 2.x. CI builds it nightly. The [Yocto Project](https://wiki.yoctoproject.org/wiki/Releases) supports 6.0 until April 2030. | Yes: `rubikpi3` and `radxa-dragon-q6a`. | [Backports from `main`](docs/source/contributing/CONTRIBUTING.md#29--target-branches) |
+| `scarthgap` | Qualcomm Linux >= 1.4, aligned with Yocto Project 5.0 (LTS). Maintenance status not documented. The [Yocto Project](https://wiki.yoctoproject.org/wiki/Releases) supports 5.0 until April 2028. [Last commit](https://github.com/qualcomm-linux/meta-qcom-3rdparty/commits/scarthgap): 2025-09-03. | No: it holds the layer configuration and CI files, with no machines. | [Qualcomm Linux 1.x boards](docs/source/contributing/CONTRIBUTING.md#29--target-branches) |
+| `kirkstone` | Qualcomm Linux <= 1.3, aligned with Yocto Project 4.0 (LTS). The [Yocto Project](https://wiki.yoctoproject.org/wiki/Releases) lists 4.0 as end of life. [Last commit](https://github.com/qualcomm-linux/meta-qcom-3rdparty/commits/kirkstone): 2025-04-09. | No: it holds the layer configuration and CI files, with no machines. | [Not documented](docs/source/contributing/CONTRIBUTING.md#29--target-branches) |
+| `next` | Purpose and status not documented. [Last commit](https://github.com/qualcomm-linux/meta-qcom-3rdparty/commits/next): 2026-08-20. | Not documented; its tree holds the `radxa-dragon-q6a`, `uno-q`, and `ventuno-q` machines. | [Not documented](docs/source/contributing/CONTRIBUTING.md#29--target-branches) |
+
+This table lists every branch. [BRANCHES.md](BRANCHES.md) describes how the
+long-lived branches are maintained.
 
 ## Machine Support
 
