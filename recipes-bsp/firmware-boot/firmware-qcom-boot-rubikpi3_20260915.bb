@@ -18,6 +18,12 @@ QCOM_BOOT_IMG_SUBDIR = "rubikpi3"
 
 COMPATIBLE_MACHINE = "(rubikpi3)"
 
+# @description Deploy the board's boot binaries and CDT where the qcomflash image type collects them.
+# @noargs
+# @exitcode 0 The .elf, .mbn, .fv, and .img files and RubikPi3_CDT.bin are installed under ${DEPLOYDIR}/${QCOM_BOOT_IMG_SUBDIR}.
+# @exitcode 1 An install fails, for example when RubikPi3_CDT.bin is missing, and BitBake fails the task.
+# @example
+#   bitbake -c deploy firmware-qcom-boot-rubikpi3
 do_deploy() {
     install -d ${DEPLOYDIR}/${QCOM_BOOT_IMG_SUBDIR}
 
