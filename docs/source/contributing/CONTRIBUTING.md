@@ -32,6 +32,8 @@ Our process mirrors the official Yocto Project contribution flow — see
 Please submit any patches against the `meta-qcom-3rdparty` layer by using
 the GitHub pull-request feature. Fork the repo, create a branch,
 do the work, rebase from upstream, and create the pull request.
+Open it with the
+[pull request template](https://github.com/qualcomm-linux/meta-qcom-3rdparty/compare?expand=1&template=pr_template.md).
 
 - **Fork and propose changes** via GitHub Pull Requests.
   Use **draft mode** for work-in-progress patches.
@@ -140,6 +142,15 @@ Preferred test distros:
 
 - Each contributor acts as the **maintainer** of their changes, upstream and downstream.
 - Vendors must appoint a **point-of-contact (PoC)** to review and triage vendor-specific PRs and issues promptly, which will be incorporated as part of the repository CODEOWNERS file.
+
+### 2.9  Release Branches
+
+Changes land on `main` first and are then backported to the `wrynose` release
+branch. Label the pull request `backport wrynose` and the backport pull request
+opens automatically once it merges; the
+[agent guide](AGENTS.md#8-backporting-to-a-release-branch) covers manual
+backports. A change that cannot go to `main` because it applies only to
+`wrynose` is submitted to `wrynose`, with the reason in the pull request.
 
 ---
 
