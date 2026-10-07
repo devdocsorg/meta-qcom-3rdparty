@@ -11,6 +11,20 @@ These files adapt the DevDocs QLI 2.0 repository skeleton at revision
 - .github/ISSUE_TEMPLATE/bug_report.md
 - .github/ISSUE_TEMPLATE/feature_request.md
 - .github/PULL_REQUEST_TEMPLATE/pr_template.md
+- .github/check_offline.py
+- .github/finalise_site.py
+- .github/test_reference_coverage.py
+- .github/workflows/documentation.yml
+- .gitignore
+- docs/README.md
+- docs/source/.templates/index.html
+- docs/source/Makefile
+- docs/source/conf.py
+- docs/source/contributing/DEVELOPMENT.md
+- docs/source/contributing/README.md
+- docs/source/requirements.lock
+- docs/source/requirements.txt
+- docs/source/user/README.md
 
 BSD 3-Clause License
 

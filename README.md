@@ -44,6 +44,20 @@ revision: HEAD
 
 See `conf/machine` for the complete list of supported devices.
 
+## Documentation
+
+Build an image for a board with the [build tutorial](docs/source/user/USAGE.md),
+which runs `kas-container build ci/rubikpi3.yml`. The
+[configuration reference](docs/source/user/CONFIGURATION.md) explains the layer's
+settings, and the [function reference](docs/source/contributing/README.md#function-reference)
+is generated from the comments in its scripts and recipes.
+
+Build the documentation site with `make -f docs/source/Makefile setup html` from
+the repository root, then open `docs/site/index.html` directly in a browser. The
+[documentation guide](docs/README.md) links the prerequisites, and the
+[development guide](docs/source/contributing/DEVELOPMENT.md) covers checking a
+change.
+
 ## Contributing
 
 Please read [docs/source/contributing/CONTRIBUTING.md](docs/source/contributing/CONTRIBUTING.md) for the contribution

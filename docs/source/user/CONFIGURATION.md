@@ -130,6 +130,7 @@ only in the `qualcomm-linux` organisation.
 - [backport.yml](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/upgrade-test-1007a/.github/workflows/backport.yml): a pull request merged into `main`; opens a backport pull request for each `backport wrynose` label.
 - [bitbake-lint.yml](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/upgrade-test-1007a/.github/workflows/bitbake-lint.yml): a pull request that changes BitBake files outside `.github/` and `ci/`; lints the changed lines with [bitbake-lint-action](https://github.com/qualcomm-linux/bitbake-lint-action) without failing the pull request.
 - [build-yocto.yml](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/upgrade-test-1007a/.github/workflows/build-yocto.yml): called by the build workflows; runs `yocto-patchreview` and `yocto-check-layer`, and builds both machines with `nodistro` and `qcom-distro` through meta-qcom's compile workflow.
+- [documentation.yml](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/upgrade-test-1007a/.github/workflows/documentation.yml): a pull request or a push to `main`; installs the documentation tools and runs `make -f docs/source/Makefile check`, which builds the site, checks the function reference, and checks the site offline.
 - [markdownlint.yml](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/upgrade-test-1007a/.github/workflows/markdownlint.yml): a push to `main` or a pull request that changes Markdown; lints it with the rules in `.github/.markdownlint.yaml`.
 - [nightly-build-wrynose.yml](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/upgrade-test-1007a/.github/workflows/nightly-build-wrynose.yml): nightly; starts the nightly build on `wrynose`.
 - [nightly-build.yml](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/upgrade-test-1007a/.github/workflows/nightly-build.yml): nightly or manual; runs the build unless the same inputs already built successfully.
@@ -145,8 +146,8 @@ only in the `qualcomm-linux` organisation.
 ## Repository settings
 
 [CODEOWNERS](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/upgrade-test-1007a/.github/CODEOWNERS),
-and [.gitignore](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/upgrade-test-1007a/.gitignore)
-explain their settings in comments beside them.
+[.gitignore](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/upgrade-test-1007a/.gitignore), and the documentation build's
+[conf.py](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/upgrade-test-1007a/docs/source/conf.py) explain their settings in comments beside them.
 [.github/.markdownlint.yaml](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/upgrade-test-1007a/.github/.markdownlint.yaml)
 configures the Markdown lint workflow; the
 [markdownlint rules](https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md)
