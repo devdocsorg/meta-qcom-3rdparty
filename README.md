@@ -102,3 +102,45 @@ for more details.
 - [NOTICE](NOTICE) — Keeps the notices for reused documentation tools and templates.
 - [README.md](README.md) — Introduces the layer, its branches, documentation, and contents.
 - [SECURITY.md](SECURITY.md) — Explains how to report vulnerabilities.
+
+<!-- repository-map:start -->
+
+## Repository map
+
+```mermaid
+flowchart LR
+    r0["meta-qcom-3rdparty (you are here)"]
+    click r0 href "https://github.com/qualcomm-linux/meta-qcom-3rdparty" _blank
+    r1["kernel"]
+    click r1 href "https://github.com/qualcomm-linux/kernel" _blank
+    r2["meta-ai"]
+    click r2 href "https://github.com/qualcomm-linux/meta-ai" _blank
+    r3["meta-qcom"]
+    click r3 href "https://github.com/qualcomm-linux/meta-qcom" _blank
+    r4["meta-qcom-distro"]
+    click r4 href "https://github.com/qualcomm-linux/meta-qcom-distro" _blank
+    r5["meta-qcom-hwe"]
+    click r5 href "https://github.com/qualcomm-linux/meta-qcom-hwe" _blank
+    r6["qcom-manifest"]
+    click r6 href "https://github.com/qualcomm-linux/qcom-manifest" _blank
+    r7["qcom-ptool"]
+    click r7 href "https://github.com/qualcomm-linux/qcom-ptool" _blank
+    r8["fastrpc"]
+    click r8 href "https://github.com/qualcomm/fastrpc" _blank
+    r0 -->|"builds on"| r3
+    r0 -->|"extends images from"| r4
+    r3 -->|"selects for qcom-distro builds"| r4
+    r3 -->|"selects for qcom-distro builds"| r2
+    r3 -->|"fetches sources from"| r1
+    r3 -->|"fetches sources from"| r7
+    r3 -->|"fetches sources from"| r8
+    r0 -->|"builds on (scarthgap, kirkstone)"| r5
+    r0 -->|"builds with manifests from (scarthgap, kirkstone)"| r6
+    style r0 fill:#e6f3ff,stroke:#0969da,stroke-width:3px,color:#182c43
+```
+
+[Full Qualcomm repository map](https://github.com/devdocsorg/docsgen-map-creation-test).
+
+<!-- Generated from https://github.com/devdocsorg/docsgen-map-creation-test at 5c77294d20e7bcb80411384084c2ec3ec4ac0310; dataset SHA-256: 47356637e054031374da885bc144dc09e9afe61ebd925d9789bb92d6aee8de34. -->
+
+<!-- repository-map:end -->
