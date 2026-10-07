@@ -13,7 +13,7 @@ platforms.
 
 This layer provides additional recipes and machine configuration files for
 Third-Party Maintained Qualcomm platforms. Reference boards that are officially
-supported by Qualcomm are available via `meta-qcom` instead.
+supported by Qualcomm are available via [`meta-qcom`](https://github.com/qualcomm-linux/meta-qcom) instead.
 
 This layer depends on:
 
@@ -43,11 +43,7 @@ See `conf/machine` for the complete list of supported devices.
 
 ## Contributing
 
-Please submit any patches against the `meta-qcom-3rdparty` layer by using
-the GitHub pull-request feature. Fork the repo, create a branch,
-do the work, rebase from upstream, and create the pull request.
-
-Please read [docs/contributing.md](docs/contributing.md) for the contribution
+Please read [docs/source/contributing/CONTRIBUTING.md](docs/source/contributing/CONTRIBUTING.md) for the contribution
 workflow, the layer scope rules and the commit subject and message
 requirements before opening a pull request.
 
