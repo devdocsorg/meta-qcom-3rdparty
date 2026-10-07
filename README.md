@@ -42,7 +42,7 @@ revision: HEAD
 
 ## Machine Support
 
-See `conf/machine` for the complete list of supported devices.
+See [`conf/machine`](conf/machine/README.md) for the complete list of supported devices.
 
 ## Documentation
 
@@ -78,3 +78,27 @@ requirements before opening a pull request.
 
 This layer is licensed under the MIT license. Check out [LICENSE](LICENSE)
 for more details.
+
+## Folders
+
+- [.github/](.github/) — Holds the [CODEOWNERS](.github/CODEOWNERS), the [issue templates](.github/ISSUE_TEMPLATE/) and [pull request template](.github/PULL_REQUEST_TEMPLATE/pr_template.md), the [CI workflows](.github/workflows/), the Markdown lint rules, and the documentation build's scripts.
+- [ci/](ci/README.md) — Holds the kas files and helper scripts for builds and checks.
+- [conf/](conf/README.md) — Holds the layer and machine configuration.
+- [docs/](docs/README.md) — Holds the documentation source and explains how to build the site.
+- [dynamic-layers/](dynamic-layers/README.md) — Holds files applied only when another layer is in the build.
+- [recipes-bsp/](recipes-bsp/README.md) — Holds the board firmware recipes and packagegroups.
+- [recipes-kernel/](recipes-kernel/README.md) — Holds the kernel recipe appends and configuration.
+
+## Files
+
+- [.env.example](.env.example) — Documents the optional kas-container environment settings and how to load them.
+- [.gitignore](.gitignore) — Keeps local environment files and documentation build output out of Git.
+- [AGENTS.md](AGENTS.md) — Points automation agents to the agent guide.
+- [BRANCHES.md](BRANCHES.md) — Describes how the branches relate to `main`.
+- [CLAUDE.md](CLAUDE.md) — Links to `AGENTS.md` for agents that read this name.
+- [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) — States the expected behaviour and how to report conduct concerns.
+- [CONTRIBUTING.md](CONTRIBUTING.md) — Points to the contribution guide and development setup.
+- [LICENSE](LICENSE) — Contains the layer's MIT licence.
+- [NOTICE](NOTICE) — Keeps the notices for reused documentation tools and templates.
+- [README.md](README.md) — Introduces the layer, its branches, documentation, and contents.
+- [SECURITY.md](SECURITY.md) — Explains how to report vulnerabilities.
