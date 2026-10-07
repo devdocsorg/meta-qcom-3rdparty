@@ -20,9 +20,18 @@ The `meta-qcom-3rdparty` layer provides:
 ## Documentation Index
 
 - [Contribution Guidelines](contributing/CONTRIBUTING.md) — how to contribute patches, follow Yocto conventions, and structure vendor-specific code.
-- [Usage Guide](usage.md) — how to include and build the layer, add it to your workspace, and validate target builds (TODO).
-- [Supported Machines](supported-machines.md) — list of currently supported platforms, vendors, and hardware status (TODO).
-- [Developer Notes](developer.md) — additional details for maintainers, CI integration, and testing recommendations (TODO).
+- [Usage Guide](user/USAGE.md) — how to include and build the layer, add it to your workspace, and validate target builds.
+- [Supported Machines](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/upgrade-test-1007a/conf/machine/README.md) — list of currently supported platforms and vendors.
+- [Developer Notes](contributing/DEVELOPMENT.md) — additional details for maintainers, CI integration, and testing recommendations.
+- [Configuration Reference](user/CONFIGURATION.md) — the layer, machine, kas, kernel, and CI settings.
+- [Agent Guide](contributing/AGENTS.md) — how automation agents run CI-style builds and checks.
+
+```{toctree}
+:hidden:
+
+user/README
+contributing/README
+```
 
 ---
 
@@ -50,6 +59,20 @@ bitbake-layers add-layer ../meta-qcom-3rdparty
 - [meta-qcom-distro](https://github.com/qualcomm-linux/meta-qcom-distro)
 - [OpenEmbedded Layer Index](https://layers.openembedded.org/layerindex/)
 - [Yocto Project Documentation](https://docs.yoctoproject.org/)
+
+## Folders
+
+- [user/](user/README.md) — Holds the build tutorial and the configuration reference.
+- [contributing/](contributing/README.md) — Holds the contribution, development, and agent guides and the function reference.
+- [.templates/](https://github.com/devdocsorg/meta-qcom-3rdparty/tree/docs/upgrade-test-1007a/docs/source/.templates) — Supplies the generated site's entry-point redirect.
+
+## Files
+
+- [Makefile](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/upgrade-test-1007a/docs/source/Makefile) — Provides the shared local and CI setup, build, and check commands.
+- [README.md](README.md) — Introduces the documentation and supplies the site's homepage.
+- [conf.py](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/upgrade-test-1007a/docs/source/conf.py) — Configures Markdown rendering, the function reference, local navigation, and search.
+- [requirements.txt](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/upgrade-test-1007a/docs/source/requirements.txt) — Declares the documentation packages.
+- [requirements.lock](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/upgrade-test-1007a/docs/source/requirements.lock) — Locks the documentation packages and their dependencies for reproducible builds.
 
 ---
 
