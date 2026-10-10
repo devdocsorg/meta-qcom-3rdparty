@@ -13,7 +13,7 @@ The `meta-qcom-3rdparty` layer provides a **common OpenEmbedded / Yocto BSP** fo
 
 - **Common layer for non-Qualcomm EVKs:** consolidate enablement for boards not officially maintained by Qualcomm.
 - **Clean BSP implementation:** a shared source of truth that vendors can reuse without divergence.
-- **Extend the Qualcomm Linux ecosystem:** encourage community participation and long-term maintainability aligned with `meta-qcom`.
+- **Extend the Qualcomm Linux ecosystem:** encourage community participation and long-term maintainability aligned with [`meta-qcom`](https://github.com/qualcomm-linux/meta-qcom).
 
 References:
 
@@ -29,12 +29,19 @@ Our process mirrors the official Yocto Project contribution flow — see
 
 ### 2.1  Pull-Request Workflow
 
+Please submit any patches against the `meta-qcom-3rdparty` layer by using
+the GitHub pull-request feature. Fork the repo, create a branch,
+do the work, rebase from upstream, and create the pull request.
+[Open a pull request with the template](https://github.com/qualcomm-linux/meta-qcom-3rdparty/compare?expand=1&template=pr_template.md)
+and choose the target branch described in sections 3 and 4.
+
 - **Fork and propose changes** via GitHub Pull Requests.
   Use **draft mode** for work-in-progress patches.
 - **Create clean commits:** one logical change per commit, with the subject
   and message described in section 2.2.
 - **Sign off every commit** and add the trailers described in section 2.3.
 - **Validate locally** before submission: build with `bitbake`, flash, and verify runtime.
+  [Set up your development environment](DEVELOPMENT.md) covers the checks to run.
 - **Address review feedback** and re-push to update your PR.
   Use `git rebase -i` to squash or reorder commits as needed.
 
@@ -116,7 +123,7 @@ All vendor boards live together in a single layer:
 
 ### 2.6  No Recipe Forks
 
-- Forks of recipes from `meta-qcom`, `meta-qcom-hwe`, or base OE / Yocto layers are **not accepted**.
+- Forks of recipes from `meta-qcom`, [`meta-qcom-hwe`](https://github.com/qualcomm-linux/meta-qcom-hwe), or base OE / Yocto layers are **not accepted**.
 - Use `.bbappend` files for vendor-specific patching.
 - Keep upstream recipes authoritative.
 
@@ -135,7 +142,31 @@ Preferred test distros:
 ### 2.8  Maintainer Expectations
 
 - Each contributor acts as the **maintainer** of their changes, upstream and downstream.
-- Vendors must appoint a **point-of-contact (PoC)** to review and triage vendor-specific PRs and issues promptly, which will be incorporated as part of the repository CODEOWNERS file.
+- Vendors must appoint a **point-of-contact (PoC)** to review and triage vendor-specific PRs and issues promptly, which will be incorporated as part of the repository [CODEOWNERS](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/upgrade-test-1010a/.github/CODEOWNERS) file.
+
+### 2.9  Backporting to a Release Branch
+
+Fixes land on `main` first and are then backported to the release branch
+(currently `wrynose`). Merged pull requests labelled `backport wrynose` are
+backported automatically by [`.github/workflows/backport.yml`](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/upgrade-test-1010a/.github/workflows/backport.yml); when a manual
+backport is needed (conflicts, or a change that only applies to the release
+branch), follow the same conventions the automation uses:
+
+1. Create a topic branch from the latest release branch, for example
+   `backport/<pr-number>-to-wrynose`.
+2. Cherry-pick the original commits with `git cherry-pick -x <sha>`, which
+   appends the `(cherry picked from commit <sha>)` line for you. Keep the
+   original subject, body, and trailers unchanged, and add your own
+   `Signed-off-by` after the cherry-pick line if it is not already present.
+3. Open the pull request against the release branch with the subject
+   prefixed by the target branch, for example
+   `[Backport wrynose] recipe-name: summary of the changes`, and link the
+   original pull request in the description.
+
+The `[Backport <branch>]` prefix belongs to the pull request subject only.
+The commits themselves are normal patches whose only backport marker is the
+`(cherry picked from commit ...)` line; never add the prefix to a commit
+subject.
 
 ---
 
@@ -156,7 +187,7 @@ Preferred test distros:
 - **Partition definitions:**
   Use [`qcom-ptool`](https://github.com/qualcomm-linux/qcom-ptool) to manage partition layouts.
 - **Kernel enablement:**
-  - Align with `linux-yocto-dev` and `linux-qcom-next`.
+  - Align with [`linux-yocto-dev`](https://git.yoctoproject.org/linux-yocto-dev/) and `linux-qcom-next`.
   - Patches should be **submitted upstream to the Linux kernel** first.
   - Temporary backports or in-flight patches are acceptable if tracked.
   References:
@@ -165,7 +196,7 @@ Preferred test distros:
 - **Firmware:**
   Custom firmware must be contributed to [`linux-firmware`](https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/) whenever possible.
 - **External layer recipes:**
-  Changes targeting `oe-core` or `meta-openembedded` should be sent directly upstream.
+  Changes targeting [`oe-core`](https://github.com/openembedded/openembedded-core) or [`meta-openembedded`](https://github.com/openembedded/meta-openembedded) should be sent directly upstream.
 
 ---
 
@@ -211,7 +242,7 @@ The following subsections walk through each required component.
 
 ### 6.1  Machine Configuration
 
-File: `conf/machine/rubikpi3.conf`
+File: [`conf/machine/rubikpi3.conf`](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/upgrade-test-1010a/conf/machine/rubikpi3.conf)
 
 Every machine must have a configuration file under `conf/machine/`.
 Key elements to include:
@@ -268,7 +299,7 @@ Key elements to include:
 
 ### 6.2  Packagegroup
 
-File: `recipes-bsp/packagegroups/packagegroup-rubikpi3.bb`
+File: [`recipes-bsp/packagegroups/packagegroup-rubikpi3.bb`](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/upgrade-test-1010a/recipes-bsp/packagegroups/packagegroup-rubikpi3.bb)
 
 Create a machine-specific packagegroup for the board firmware.
 Conditional inclusion based on `DISTRO_FEATURES` avoids pulling in unnecessary
@@ -316,10 +347,10 @@ Reuse the SoC boot firmware recipe from `meta-qcom` whenever the board is
 covered by it. Only add a recipe here when the board needs binaries `meta-qcom`
 does not provide, such as a vendor-signed firmware set or the board-specific CDT.
 
-File: `recipes-bsp/firmware-boot/firmware-qcom-boot-rubikpi3_20260915.bb`
+File: [`recipes-bsp/firmware-boot/firmware-qcom-boot-rubikpi3_20260915.bb`](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/upgrade-test-1010a/recipes-bsp/firmware-boot/firmware-qcom-boot-rubikpi3_20260915.bb)
 
 Closed-source boot binaries must be hosted on a **public, no-login mirror**
-managed by the vendor (the `rubikpi-ai/boot-assets` git repository in this
+managed by the vendor (the [`rubikpi-ai/boot-assets`](https://github.com/rubikpi-ai/boot-assets) git repository in this
 case) and fetched via `SRC_URI`. Never commit binaries to the repository:
 
 ```bitbake
@@ -351,7 +382,7 @@ INCOMPATIBLE_LICENSE_EXCEPTIONS:append:rubikpi3 = " firmware-qcom-boot-rubikpi3:
 
 ### 6.5  CI Integration
 
-File: `ci/rubikpi3.yml`
+File: [`ci/rubikpi3.yml`](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/upgrade-test-1010a/ci/rubikpi3.yml)
 
 Add a [kas](https://kas.readthedocs.io/en/latest/userguide.html) machine
 fragment that extends `ci/base.yml`:
