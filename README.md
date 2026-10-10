@@ -84,3 +84,26 @@ requirements before opening a pull request. Automation agents follow
 
 This layer is licensed under the MIT license. Check out [LICENSE](LICENSE)
 for more details. [NOTICE](NOTICE) lists the files that carry other licences.
+
+## Folders
+
+- [.github/](.github/) — Holds the [CI workflows](.github/workflows/), [CODEOWNERS](.github/CODEOWNERS), the [issue templates](.github/ISSUE_TEMPLATE/), the [pull request template](.github/PULL_REQUEST_TEMPLATE/pr_template.md), the [Markdown lint settings](.github/.markdownlint.yaml), and the documentation build scripts.
+- [ci/](ci/README.md) — Holds the kas build fragments and the layer check scripts.
+- [conf/](conf/README.md) — Holds the layer configuration and the machine configurations.
+- [docs/](docs/README.md) — Holds the documentation source and explains how to build the site.
+- [dynamic-layers/](dynamic-layers/README.md) — Holds appends that apply only when another layer is in the build.
+- [recipes-bsp/](recipes-bsp/README.md) — Holds the board firmware recipe and the machine packagegroups.
+- [recipes-kernel/](recipes-kernel/README.md) — Holds the kernel append and its configuration fragment.
+
+## Files
+
+- [README.md](README.md) — Introduces the layer, its branches, and its contents.
+- [AGENTS.md](AGENTS.md) — Points automation agents to the agent guide.
+- [CLAUDE.md](CLAUDE.md) — Links to `AGENTS.md` for agents that read this file name.
+- [CONTRIBUTING.md](CONTRIBUTING.md) — Points to the contribution guide and development setup.
+- [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) — States the expected behaviour and how to report conduct concerns.
+- [SECURITY.md](SECURITY.md) — Explains how to report vulnerabilities and which branches accept security fixes.
+- [LICENSE](LICENSE) — Contains the MIT licence.
+- [NOTICE](NOTICE) — Lists the files under other licences, with their notices.
+- [.env.example](.env.example) — Documents the optional environment settings for local builds.
+- [.gitignore](.gitignore) — Keeps local environment files, documentation tools, and the generated site out of Git.
