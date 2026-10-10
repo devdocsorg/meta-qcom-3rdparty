@@ -41,6 +41,7 @@ and choose the target branch described in sections 3 and 4.
   and message described in section 2.2.
 - **Sign off every commit** and add the trailers described in section 2.3.
 - **Validate locally** before submission: build with `bitbake`, flash, and verify runtime.
+  [Set up your development environment](DEVELOPMENT.md) covers the checks to run.
 - **Address review feedback** and re-push to update your PR.
   Use `git rebase -i` to squash or reorder commits as needed.
 

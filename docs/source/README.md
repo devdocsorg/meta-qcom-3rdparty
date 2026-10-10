@@ -20,9 +20,19 @@ The `meta-qcom-3rdparty` layer provides:
 ## Documentation Index
 
 - [Contribution Guidelines](contributing/CONTRIBUTING.md) — how to contribute patches, follow Yocto conventions, and structure vendor-specific code.
-- [Usage Guide](usage.md) — how to include and build the layer, add it to your workspace, and validate target builds (TODO).
-- [Supported Machines](supported-machines.md) — list of currently supported platforms, vendors, and hardware status (TODO).
-- [Developer Notes](developer.md) — additional details for maintainers, CI integration, and testing recommendations (TODO).
+- [Usage Guide](user/USAGE.md) — how to build an image for a supported board with kas-container and find the result.
+- [Configuration Reference](user/CONFIGURATION.md) — the layer, machine, kas, kernel, and CI settings this repository maintains.
+- [Supported Machines](https://github.com/devdocsorg/meta-qcom-3rdparty/tree/docs/upgrade-test-1010a/conf/machine) — list of currently supported platforms.
+- [Developer Notes](contributing/DEVELOPMENT.md) — development environment, documentation build, and the checks to run before a pull request.
+- [Agent Guide](contributing/AGENTS.md) — how automation agents run builds and checks the same way CI does.
+- [Function reference](contributing/README.md#function-reference) — generated from the documentation comments in the repository's scripts and recipes.
+
+```{toctree}
+:hidden:
+
+user/README
+contributing/README
+```
 
 ---
 
@@ -33,6 +43,9 @@ To build a reference image using [kas](https://kas.readthedocs.io/):
 ```bash
 kas build meta-qcom-3rdparty/ci/<machine.yml>
 ```
+
+The [Usage Guide](user/USAGE.md) gives the prerequisites, the containerised
+build, and the expected output.
 
 Otherwise add this layer to your existing Yocto environment:
 
@@ -54,3 +67,17 @@ bitbake-layers add-layer ../meta-qcom-3rdparty
 ---
 
 **SPDX-License-Identifier:** MIT
+
+## Folders
+
+- [user/](user/README.md) — Holds the build tutorial and the configuration reference.
+- [contributing/](contributing/README.md) — Holds the contribution, development, and agent guides and the function reference.
+- [.templates/](https://github.com/devdocsorg/meta-qcom-3rdparty/tree/docs/upgrade-test-1010a/docs/source/.templates) — Supplies the generated site's entry-point redirect.
+
+## Files
+
+- [Makefile](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/upgrade-test-1010a/docs/source/Makefile) — Provides the shared local and CI setup, build, and check commands.
+- [README.md](README.md) — Introduces the documentation and supplies the site's homepage.
+- [conf.py](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/upgrade-test-1010a/docs/source/conf.py) — Configures Markdown rendering, the function reference, local navigation, and search.
+- [requirements.txt](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/upgrade-test-1010a/docs/source/requirements.txt) — Pins the documentation packages.
+- [requirements.lock](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/upgrade-test-1010a/docs/source/requirements.lock) — Locks direct and transitive documentation dependencies for reproducible builds.
