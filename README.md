@@ -61,4 +61,4 @@ requirements before opening a pull request. Automation agents follow
 ## License
 
 This layer is licensed under the MIT license. Check out [LICENSE](LICENSE)
-for more details.
+for more details. [NOTICE](NOTICE) lists the files that carry other licences.
