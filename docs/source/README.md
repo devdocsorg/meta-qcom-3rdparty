@@ -11,7 +11,7 @@ This documentation is intended for developers, vendors, and contributors working
 The `meta-qcom-3rdparty` layer provides:
 
 - Common BSP enablement for **third-party and community boards**
-- **Upstream-aligned** machine support based on `meta-qcom`
+- **Upstream-aligned** machine support based on [`meta-qcom`](https://github.com/qualcomm-linux/meta-qcom)
 - Clean, maintainable structure to avoid fragmentation across vendors
 - Integration hooks for both **Qualcomm Linux 1.x** (downstream) and future **Qualcomm Linux 2.x** (upstream) releases
 
@@ -19,7 +19,7 @@ The `meta-qcom-3rdparty` layer provides:
 
 ## Documentation Index
 
-- [Contribution Guidelines](contributing.md) — how to contribute patches, follow Yocto conventions, and structure vendor-specific code.
+- [Contribution Guidelines](contributing/CONTRIBUTING.md) — how to contribute patches, follow Yocto conventions, and structure vendor-specific code.
 - [Usage Guide](usage.md) — how to include and build the layer, add it to your workspace, and validate target builds (TODO).
 - [Supported Machines](supported-machines.md) — list of currently supported platforms, vendors, and hardware status (TODO).
 - [Developer Notes](developer.md) — additional details for maintainers, CI integration, and testing recommendations (TODO).
