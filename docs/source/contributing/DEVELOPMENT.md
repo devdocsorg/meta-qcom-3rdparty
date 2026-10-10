@@ -111,3 +111,17 @@ After changing `docs/source/requirements.txt`, regenerate the lock with
 run setup, and rebuild before committing both files. The
 [Makefile](https://github.com/devdocsorg/meta-qcom-3rdparty/blob/docs/upgrade-test-1010a/docs/source/Makefile)
 pins shdoc and BitBake.
+
+## Update the repository map
+
+The README's repository map is exported from the
+[Qualcomm repository map](https://github.com/devdocsorg/qualcomm-repository-map)
+dataset; its source comment records the map revision and dataset digest.
+Updating it needs access to that repository. Record new connections there as its
+[maintenance guide](https://github.com/devdocsorg/qualcomm-repository-map/blob/main/data/README.md)
+describes, then export from a map checkout beside this one:
+
+```sh
+python3 tools/map_build.py --export qualcomm-linux/meta-qcom-3rdparty \
+  --readme ../meta-qcom-3rdparty/README.md --revision "$(git rev-parse HEAD)"
+```
